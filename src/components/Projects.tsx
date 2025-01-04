@@ -6,6 +6,7 @@ const projects = [
     title: "GitHub SaaS Platform",
     description: "A comprehensive SaaS platform built for GitHub, featuring repository indexing, interactive chat, and analytics dashboard.",
     tech: "React • Node.js • MongoDB • GitHub API",
+    link: "https://github.com/KaranMali2001/RepoLens",
     highlights: [
       "Led full-stack development and cloud service integration",
       "Implemented repository indexing for interactive chat",
@@ -18,6 +19,7 @@ const projects = [
     title: "Elevare - AI Email Management",
     description: "An AI-powered email management application enabling smart summarization and analytics.",
     tech: "Next.js • Prisma • MongoDB • Python • Docker",
+    link: "https://elevareapp.com/",
     highlights: [
       "Developed AI-driven email summarization system",
       "Engineered robust backend with Prisma ORM",
@@ -85,11 +87,13 @@ export const Projects = () => {
                     <p className="text-accent">{project.tech}</p>
                   </div>
                   <motion.a
-                    href="#"
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.02 }}
                     className="group flex items-center gap-2 text-accent hover:text-accent/80 transition-colors"
                   >
-                    View Project Details
+                    View Project
                     <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </motion.a>
                 </div>

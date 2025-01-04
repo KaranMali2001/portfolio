@@ -1,12 +1,30 @@
 import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 
 export const Hero = () => {
   return (
     <section className="min-h-screen relative overflow-hidden bg-gradient-to-br from-background via-background to-accent/10">
-      {/* Animated background elements */}
+      {/* Enhanced animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute w-[500px] h-[500px] bg-accent/20 rounded-full blur-3xl -top-48 -right-48 animate-pulse" />
-        <div className="absolute w-[300px] h-[300px] bg-accent/10 rounded-full blur-2xl -bottom-24 -left-24" />
+        <div className="absolute w-[300px] h-[300px] bg-accent/10 rounded-full blur-2xl -bottom-24 -left-24 animate-pulse" />
+        <div className="absolute w-[200px] h-[200px] bg-accent/15 rounded-full blur-xl top-1/2 left-1/4 animate-pulse" />
+        
+        {/* Decorative elements */}
+        <div className="absolute inset-0">
+          <div className="grid grid-cols-8 gap-4 h-full opacity-10">
+            {Array.from({ length: 64 }).map((_, i) => (
+              <div
+                key={i}
+                className="border-[0.5px] border-accent/20"
+                style={{
+                  animationDelay: `${Math.random() * 2}s`,
+                  animationDuration: `${Math.random() * 2 + 2}s`,
+                }}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Main content */}
@@ -17,6 +35,17 @@ export const Hero = () => {
           transition={{ duration: 0.8 }}
           className="text-center space-y-6"
         >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="mb-8"
+          >
+            <div className="inline-block p-2 px-4 rounded-full bg-accent/10 text-accent mb-6">
+              Full Stack Developer & AI Enthusiast
+            </div>
+          </motion.div>
+
           <motion.h1 
             className="text-6xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-accent/90"
             initial={{ opacity: 0, y: 20 }}
@@ -32,7 +61,7 @@ export const Hero = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            Building digital experiences that inspire and innovate through code and creativity
+            Building digital experiences that inspire and innovate through code and AI
           </motion.p>
 
           <motion.div
@@ -58,16 +87,21 @@ export const Hero = () => {
             </a>
           </motion.div>
 
-          {/* Scroll indicator */}
+          {/* Enhanced scroll indicator */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
             className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
           >
-            <div className="w-6 h-10 border-2 border-muted rounded-full p-1">
-              <div className="w-1.5 h-3 bg-muted rounded-full animate-bounce mx-auto" />
-            </div>
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="flex flex-col items-center gap-2"
+            >
+              <span className="text-sm text-muted">Scroll to explore</span>
+              <ChevronDown className="w-6 h-6 text-accent" />
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>

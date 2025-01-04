@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const skills = [
   { name: "Frontend Development", icon: "🎨" },
   { name: "Backend Architecture", icon: "⚙️" },
-  { name: "UI/UX Design", icon: "✨" },
+  { name: "AI Insights", icon: "🤖" },
   { name: "Cloud Solutions", icon: "☁️" },
 ];
 
@@ -26,7 +26,7 @@ export const About = () => {
           className="text-xl text-muted mb-16 text-center"
         >
           Passionate about creating innovative digital solutions that combine
-          beautiful design with powerful functionality.
+          cutting-edge AI with powerful functionality.
         </motion.p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {skills.map((skill, index) => (

@@ -25,7 +25,7 @@ export default function Home() {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <MinimalistPortfolio colorScheme={currentScheme} />
+        <MinimalistPortfolio colorScheme={"blue"} />
       </motion.div>
     </div>
   );

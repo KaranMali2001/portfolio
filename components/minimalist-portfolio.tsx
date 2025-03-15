@@ -5,7 +5,7 @@ import type React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Code, Github, Mail, MapPin, Phone } from "lucide-react";
+import { Code2Icon, GithubIcon } from "lucide-react";
 import { useRef } from "react";
 
 type ColorScheme = "default" | "blue" | "green";
@@ -64,7 +64,7 @@ const projects = [
     description:
       "A SaaS platform that summarizes GitHub commits using AI and enables feature-based repository search via vector embeddings.",
     points: [
-      "Developed a comprehensive platform for managing GitHub repositories, summarizing commits, and enabling advanced feature-based searches across repository.",
+      "Developed a comprehensive platform for managing GitHub repositories, summarizing commits, and enabling advanced feature-based searches across  repository.",
       "Integrated Clerk authentication with Next.js to ensure secure user management",
       "Implemented React Query for efficient client-side caching and state management, reducing redundant API calls by 70% and improving page load times by 40%.",
       "Engineered a Python FastAPI backend with asynchronous SQLAlchemy for scalable database operations, achieving 1,000+ requests per second throughput.",
@@ -90,7 +90,7 @@ const projects = [
       "Implemented Go routines to support high concurrency, enabling the platform to handle multiple simultaneous tournaments",
       "Developed an efficient scheduling algorithm that automatically generates optimal match fixtures for tournaments with up to 64 participants.",
       "Designed and implemented role-based authentication for organizers and players, ensuring secure access to features for 1,000+ registered users.",
-      "Containerized the application using Docker, reducing deployment time and improving environment consistency across development and production.",
+      "Containerized the application using Docker, reducing deployment time  and improving environment consistency across development and production.",
     ],
     tech: ["Go", "PostgreSQL", "Docker", "REST APIs"],
   },
@@ -104,6 +104,7 @@ const technologies = {
     "AWS ECR",
     "AWS ECS",
     "MongoDB",
+
     "Express",
     "Next.js",
     "Supabase",
@@ -120,7 +121,7 @@ const technologies = {
 };
 
 const achievements = [
-  "Consistently solved complex Data Structures and Algorithms problems on platforms like LeetCode and GeeksforGeeks.",
+  "Consistently solved  complex Data Structures and Algorithms problems on platforms like LeetCode and GeeksforGeeks.",
   "Semi-finalist in the Vultr Hackathon, where my team built and showcased an innovative AI-powered platform for managing Emails.",
 ];
 
@@ -151,51 +152,21 @@ function AnimatedSection({
     </motion.div>
   );
 }
-
 const socialLinks = [
-  { icon: Github, href: "https://github.com/KaranMali2001", label: "GitHub" },
   {
-    icon: Code,
+    icon: GithubIcon,
+    href: "https://github.com/KaranMali2001",
+    label: "GitHub",
+  },
+  {
+    icon: Code2Icon,
     href: "https://leetcode.com/u/karanmali122001/",
     label: "Leetcode",
   },
 ];
-
-// Helper function to get color based on scheme
-const getColor = (colorScheme: ColorScheme) => {
-  switch (colorScheme) {
-    case "blue":
-      return {
-        primary: "rgb(59, 130, 246)",
-        light: "rgba(59, 130, 246, 0.1)",
-        medium: "rgba(59, 130, 246, 0.5)",
-        gradient:
-          "linear-gradient(135deg, rgba(59,130,246,0.2) 0%, rgba(37,99,235,0.1) 100%)",
-      };
-    case "green":
-      return {
-        primary: "rgb(34, 197, 94)",
-        light: "rgba(34, 197, 94, 0.1)",
-        medium: "rgba(34, 197, 94, 0.5)",
-        gradient:
-          "linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(22,163,74,0.1) 100%)",
-      };
-    default:
-      return {
-        primary: "rgb(147, 51, 234)",
-        light: "rgba(147, 51, 234, 0.1)",
-        medium: "rgba(147, 51, 234, 0.5)",
-        gradient:
-          "linear-gradient(135deg, rgba(147,51,234,0.2) 0%, rgba(126,34,206,0.1) 100%)",
-      };
-  }
-};
-
 export default function MinimalistPortfolio({
   colorScheme,
 }: MinimalistPortfolioProps) {
-  const colors = getColor(colorScheme);
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -220,6 +191,18 @@ export default function MinimalistPortfolio({
     },
   };
 
+  // Style for underlined section headers
+  const underlinedHeaderStyle = {
+    borderBottom:
+      colorScheme === "blue"
+        ? "2px solid rgb(59, 130, 246)"
+        : colorScheme === "green"
+        ? "2px solid rgb(34, 197, 94)"
+        : "2px solid rgb(147, 51, 234)",
+    paddingBottom: "0.5rem",
+    display: "inline-block",
+  };
+
   return (
     <motion.div
       className="container mx-auto px-6 py-12"
@@ -227,75 +210,68 @@ export default function MinimalistPortfolio({
       initial="hidden"
       animate="visible"
     >
-      {/* Header Section with enhanced styling */}
-      <header className="mb-16">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end">
-          <div>
-            <h1
-              className="text-5xl font-bold mb-4 bg-clip-text text-transparent"
-              style={{
-                backgroundImage: `linear-gradient(to right, ${colors.primary}, currentColor)`,
-              }}
-            >
-              Karan Mali
-            </h1>
-            <p className="text-xl text-muted-foreground mb-6 max-w-2xl">
-              Software Engineer specializing in full-stack development
-            </p>
-          </div>
-
-          <div className="flex gap-4 mt-4 md:mt-0">
-            {socialLinks.map(({ icon: Icon, href, label }) => (
-              <motion.a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors p-2 rounded-full hover:bg-muted"
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <Icon className="h-5 w-5" />
-                <span className="sr-only">{label}</span>
-              </motion.a>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mt-4 items-center">
-          <div className="flex items-center">
-            <MapPin className="h-4 w-4 mr-1 inline-block" />
+      {/* Modified header to align name and social links on the same line */}
+      <header className="container mx-auto mb-16 flex justify-between items-center">
+        <motion.div variants={itemVariants} className="relative">
+          <motion.div
+            className="absolute -z-10 w-64 h-64 rounded-full blur-3xl opacity-20"
+            style={{
+              background:
+                colorScheme === "blue"
+                  ? "radial-gradient(circle, rgba(59,130,246,0.8) 0%, rgba(37,99,235,0) 70%)"
+                  : colorScheme === "green"
+                  ? "radial-gradient(circle, rgba(34,197,94,0.8) 0%, rgba(22,163,74,0) 70%)"
+                  : "radial-gradient(circle, rgba(147,51,234,0.8) 0%, rgba(126,34,206,0) 70%)",
+            }}
+            animate={{
+              x: [0, 30, 0],
+              y: [0, 15, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatType: "reverse",
+            }}
+          />
+          <h1 className="text-4xl font-bold">Karan Mali</h1>
+          <p className="text-xl text-muted-foreground mb-2">
+            Software Engineer specializing in full-stack development
+          </p>
+          <div className="flex flex-wrap gap-2 text-sm text-muted-foreground">
             <span>Maharashtra, India</span>
-          </div>
-          <div className="flex items-center">
-            <Mail className="h-4 w-4 mr-1 inline-block" />
+            <span>•</span>
             <span>karanmali122001@gmail.com</span>
-          </div>
-          <div className="flex items-center">
-            <Phone className="h-4 w-4 mr-1 inline-block" />
+            <span>•</span>
             <span>7507005599</span>
           </div>
+        </motion.div>
+
+        <div className="flex gap-4">
+          {socialLinks.map(({ icon: Icon, href, label }) => (
+            <motion.a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted-foreground hover:text-primary transition-colors"
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <Icon className="h-5 w-5" />
+              <span className="sr-only">{label}</span>
+            </motion.a>
+          ))}
         </div>
       </header>
 
-      {/* Experience Section */}
       <AnimatedSection>
-        <div className="relative mb-8">
-          <div
-            className="absolute -z-10 inset-0 rounded-lg opacity-10"
-            style={{ background: colors.gradient }}
-          />
-          <h2
-            className="text-3xl font-bold mb-8 relative inline-block"
-            style={{
-              paddingBottom: "0.5rem",
-              borderBottom: `3px solid ${colors.primary}`,
-            }}
-          >
-            Experience
-          </h2>
-        </div>
-
+        <motion.h2
+          className="text-2xl font-semibold mb-6"
+          variants={itemVariants}
+          style={underlinedHeaderStyle}
+        >
+          Experience
+        </motion.h2>
         <div className="space-y-8">
           {experience.map((job, index) => (
             <motion.div
@@ -307,15 +283,19 @@ export default function MinimalistPortfolio({
               <Card
                 className="p-6 transition-all duration-300 hover:shadow-lg border-l-4"
                 style={{
-                  borderLeftColor: colors.primary,
-                  background: index % 2 === 0 ? colors.light : "transparent",
+                  borderLeftColor:
+                    colorScheme === "blue"
+                      ? "rgb(59, 130, 246)"
+                      : colorScheme === "green"
+                      ? "rgb(34, 197, 94)"
+                      : "rgb(147, 51, 234)",
                 }}
               >
-                <h3 className="text-2xl font-semibold">{job.title}</h3>
-                <p className="text-muted-foreground mb-4 font-medium">
+                <h3 className="text-xl font-semibold">{job.title}</h3>
+                <p className="text-muted-foreground mb-4">
                   {job.company} • {job.period}
                 </p>
-                <ul className="list-disc list-outside ml-6 space-y-3">
+                <ul className="list-disc list-inside space-y-2">
                   {job.points.map((point, i) => (
                     <li key={i} className="text-muted-foreground">
                       {point}
@@ -328,24 +308,14 @@ export default function MinimalistPortfolio({
         </div>
       </AnimatedSection>
 
-      {/* Projects Section */}
       <AnimatedSection delay={0.2}>
-        <div className="relative mb-8">
-          <div
-            className="absolute -z-10 inset-0 rounded-lg opacity-10"
-            style={{ background: colors.gradient }}
-          />
-          <h2
-            className="text-3xl font-bold mb-8 relative inline-block"
-            style={{
-              paddingBottom: "0.5rem",
-              borderBottom: `3px solid ${colors.primary}`,
-            }}
-          >
-            Projects
-          </h2>
-        </div>
-
+        <motion.h2
+          className="text-2xl font-semibold mb-6"
+          variants={itemVariants}
+          style={underlinedHeaderStyle}
+        >
+          Projects
+        </motion.h2>
         <div className="space-y-8">
           {projects.map((project, index) => (
             <motion.div
@@ -357,48 +327,63 @@ export default function MinimalistPortfolio({
               <Card
                 className="p-6 transition-all duration-300 hover:shadow-lg border-l-4"
                 style={{
-                  borderLeftColor: colors.primary,
-                  background: index % 2 === 0 ? colors.light : "transparent",
+                  borderLeftColor:
+                    colorScheme === "blue"
+                      ? "rgb(59, 130, 246)"
+                      : colorScheme === "green"
+                      ? "rgb(34, 197, 94)"
+                      : "rgb(147, 51, 234)",
                 }}
               >
-                <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                  <h3 className="text-2xl font-semibold">{project.title}</h3>
+                <h3 className="text-xl font-semibold mb-2">
+                  {project.title}
                   <motion.a
                     href={`https://${project.url}`}
-                    className="text-sm transition-colors md:ml-2 inline-flex items-center gap-1"
+                    className="text-sm ml-2 transition-colors"
                     style={{
-                      color: colors.primary,
+                      color:
+                        colorScheme === "blue"
+                          ? "rgb(59, 130, 246)"
+                          : colorScheme === "green"
+                          ? "rgb(34, 197, 94)"
+                          : "rgb(147, 51, 234)",
                     }}
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }}
                   >
-                    <Github className="h-4 w-4" />
                     {project.url}
                   </motion.a>
-                </div>
-
-                <p className="text-muted-foreground mb-4 font-medium">
+                </h3>
+                <p className="text-muted-foreground mb-4">
                   {project.description}
                 </p>
-
-                <ul className="list-disc list-outside ml-6 space-y-3 mb-6">
+                <ul className="list-disc list-inside space-y-2 mb-4">
                   {project.points.map((point, i) => (
                     <li key={i} className="text-muted-foreground">
                       {point}
                     </li>
                   ))}
                 </ul>
-
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((tech, i) => (
                     <Badge
                       key={i}
                       variant="secondary"
-                      className="transition-all duration-300 hover:scale-105 py-1.5"
+                      className="transition-all duration-300 hover:scale-105"
                       style={{
-                        backgroundColor: colors.light,
-                        borderColor: colors.medium,
+                        backgroundColor:
+                          colorScheme === "blue"
+                            ? "rgba(59, 130, 246, 0.1)"
+                            : colorScheme === "green"
+                            ? "rgba(34, 197, 94, 0.1)"
+                            : "rgba(147, 51, 234, 0.1)",
+                        borderColor:
+                          colorScheme === "blue"
+                            ? "rgba(59, 130, 246, 0.2)"
+                            : colorScheme === "green"
+                            ? "rgba(34, 197, 94, 0.2)"
+                            : "rgba(147, 51, 234, 0.2)",
                       }}
                     >
                       {tech}
@@ -411,47 +396,36 @@ export default function MinimalistPortfolio({
         </div>
       </AnimatedSection>
 
-      {/* Technologies Section */}
       <AnimatedSection delay={0.4}>
-        <div className="relative mb-8">
-          <div
-            className="absolute -z-10 inset-0 rounded-lg opacity-10"
-            style={{ background: colors.gradient }}
-          />
-          <h2
-            className="text-3xl font-bold mb-8 relative inline-block"
-            style={{
-              paddingBottom: "0.5rem",
-              borderBottom: `3px solid ${colors.primary}`,
-            }}
-          >
-            Technologies
-          </h2>
-        </div>
-
+        <motion.h2
+          className="text-2xl font-semibold mb-6"
+          variants={itemVariants}
+          style={underlinedHeaderStyle}
+        >
+          Technologies
+        </motion.h2>
         <motion.div
           variants={itemVariants}
           whileHover={{ scale: 1.02 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
-          <Card
-            className="p-6 transition-all duration-300 hover:shadow-lg"
-            style={{ background: colors.light }}
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <Card className="p-6 transition-all duration-300 hover:shadow-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h3 className="text-xl font-semibold mb-4 pb-2 border-b border-muted">
-                  Languages
-                </h3>
+                <h3 className="text-lg font-medium mb-3">Languages</h3>
                 <div className="flex flex-wrap gap-2">
                   {technologies.languages.map((lang, i) => (
                     <Badge
                       key={i}
                       variant="outline"
-                      className="transition-all duration-300 hover:scale-110 py-1.5 px-3"
+                      className="transition-all duration-300 hover:scale-110"
                       style={{
-                        borderColor: colors.medium,
-                        background: i % 2 === 0 ? colors.light : "transparent",
+                        borderColor:
+                          colorScheme === "blue"
+                            ? "rgba(59, 130, 246, 0.5)"
+                            : colorScheme === "green"
+                            ? "rgba(34, 197, 94, 0.5)"
+                            : "rgba(147, 51, 234, 0.5)",
                       }}
                     >
                       {lang}
@@ -460,18 +434,20 @@ export default function MinimalistPortfolio({
                 </div>
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-4 pb-2 border-b border-muted">
-                  Technologies
-                </h3>
+                <h3 className="text-lg font-medium mb-3">Technologies</h3>
                 <div className="flex flex-wrap gap-2">
                   {technologies.technologies.map((tech, i) => (
                     <Badge
                       key={i}
                       variant="outline"
-                      className="transition-all duration-300 hover:scale-110 py-1.5 px-3"
+                      className="transition-all duration-300 hover:scale-110"
                       style={{
-                        borderColor: colors.medium,
-                        background: i % 2 === 0 ? colors.light : "transparent",
+                        borderColor:
+                          colorScheme === "blue"
+                            ? "rgba(59, 130, 246, 0.5)"
+                            : colorScheme === "green"
+                            ? "rgba(34, 197, 94, 0.5)"
+                            : "rgba(147, 51, 234, 0.5)",
                       }}
                     >
                       {tech}
@@ -484,24 +460,14 @@ export default function MinimalistPortfolio({
         </motion.div>
       </AnimatedSection>
 
-      {/* Achievements Section */}
       <AnimatedSection delay={0.6}>
-        <div className="relative mb-8">
-          <div
-            className="absolute -z-10 inset-0 rounded-lg opacity-10"
-            style={{ background: colors.gradient }}
-          />
-          <h2
-            className="text-3xl font-bold mb-8 relative inline-block"
-            style={{
-              paddingBottom: "0.5rem",
-              borderBottom: `3px solid ${colors.primary}`,
-            }}
-          >
-            Achievements
-          </h2>
-        </div>
-
+        <motion.h2
+          className="text-2xl font-semibold mb-6"
+          variants={itemVariants}
+          style={underlinedHeaderStyle}
+        >
+          Achievements
+        </motion.h2>
         <motion.div
           variants={itemVariants}
           whileHover={{ scale: 1.02 }}
@@ -510,13 +476,17 @@ export default function MinimalistPortfolio({
           <Card
             className="p-6 transition-all duration-300 hover:shadow-lg border-l-4"
             style={{
-              borderLeftColor: colors.primary,
-              background: colors.light,
+              borderLeftColor:
+                colorScheme === "blue"
+                  ? "rgb(59, 130, 246)"
+                  : colorScheme === "green"
+                  ? "rgb(34, 197, 94)"
+                  : "rgb(147, 51, 234)",
             }}
           >
-            <ul className="list-disc list-outside ml-6 space-y-3">
+            <ul className="list-disc list-inside space-y-2">
               {achievements.map((achievement, i) => (
-                <li key={i} className="text-muted-foreground text-lg">
+                <li key={i} className="text-muted-foreground">
                   {achievement}
                 </li>
               ))}
@@ -524,14 +494,6 @@ export default function MinimalistPortfolio({
           </Card>
         </motion.div>
       </AnimatedSection>
-
-      {/* Footer */}
-      <motion.footer
-        className="mt-20 pt-8 border-t border-muted text-center text-muted-foreground"
-        variants={itemVariants}
-      >
-        <p>© {new Date().getFullYear()} Karan Mali. All rights reserved.</p>
-      </motion.footer>
     </motion.div>
   );
 }

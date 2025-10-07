@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import {
   BookOpen,
   Brain,
@@ -25,9 +25,10 @@ import {
   Trophy,
   User,
   X,
-} from 'lucide-react';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export function StoryLayout() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -41,7 +42,7 @@ export function StoryLayout() {
       setScrollProgress(progress);
 
       // Update active chapter based on scroll position
-      const chapters = ['intro', 'philosophy', 'journey', 'experience', 'projects', 'blog', 'skills', 'contact'];
+      const chapters = ["intro", "philosophy", "journey", "experience", "projects", "blog", "skills", "contact"];
       const currentChapter = chapters.findIndex((chapter) => {
         const element = document.getElementById(chapter);
         if (element) {
@@ -56,24 +57,24 @@ export function StoryLayout() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToChapter = (chapterId: string) => {
-    document.getElementById(chapterId)?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(chapterId)?.scrollIntoView({ behavior: "smooth" });
     setIsMobileNavOpen(false);
   };
 
   const chapters = [
-    { id: 'intro', title: 'Introduction', icon: User },
-    { id: 'philosophy', title: 'Philosophy', icon: Brain },
-    { id: 'journey', title: 'Journey', icon: GraduationCap },
-    { id: 'experience', title: 'Experience', icon: Building },
-    { id: 'projects', title: 'Projects', icon: Briefcase },
-    { id: 'blog', title: 'Blog', icon: BookOpen },
-    { id: 'skills', title: 'Skills', icon: Code },
-    { id: 'contact', title: 'Contact', icon: Mail },
+    { id: "intro", title: "Introduction", icon: User },
+    { id: "philosophy", title: "Philosophy", icon: Brain },
+    { id: "journey", title: "Journey", icon: GraduationCap },
+    { id: "experience", title: "Experience", icon: Building },
+    { id: "projects", title: "Projects", icon: Briefcase },
+    { id: "blog", title: "Blog", icon: BookOpen },
+    { id: "skills", title: "Skills", icon: Code },
+    { id: "contact", title: "Contact", icon: Mail },
   ];
 
   return (
@@ -105,7 +106,7 @@ export function StoryLayout() {
                     key={chapter.id}
                     onClick={() => scrollToChapter(chapter.id)}
                     className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
-                      activeChapter === index ? 'theme-accent theme-text-primary' : 'theme-bg-secondary theme-text-muted hover:theme-text-accent'
+                      activeChapter === index ? "theme-accent theme-text-primary" : "theme-bg-secondary theme-text-muted hover:theme-text-accent"
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -128,7 +129,7 @@ export function StoryLayout() {
                 key={chapter.id}
                 onClick={() => scrollToChapter(chapter.id)}
                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                  activeChapter === index ? 'theme-accent' : 'theme-bg-card theme-text-muted hover:theme-text-accent'
+                  activeChapter === index ? "theme-accent" : "theme-bg-card theme-text-muted hover:theme-text-accent"
                 }`}
                 title={chapter.title}
               >
@@ -156,28 +157,28 @@ export function StoryLayout() {
 
 function IntroChapter() {
   const scrollToNext = () => {
-    document.getElementById('philosophy')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById("philosophy")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section id="intro" className="min-h-screen flex items-center justify-center px-4 py-20">
       <div className="max-w-4xl mx-auto text-center animate-slide-in-bottom">
         <div className="mb-8">
-          <div className="w-24 h-24 rounded-full theme-bg-card mx-auto mb-6 flex items-center justify-center">
-            <span className="text-2xl font-bold theme-text-primary font-mono">KM</span>
+          <div className="w-32 h-32 mx-auto mb-6 relative">
+            <Image src="/avatar.jpg" alt="Karan Mali - Backend Developer Profile Picture" className="w-full h-full rounded-full object-cover border-4 border-orange-500/20 shadow-xl" />
           </div>
 
           <Badge variant="outline" className="theme-text-muted border-gray-600 mb-4">
-            <MapPin className="w-3 h-3 mr-1" />
+            <MapPin className="w-3 h-3 mr-1" aria-hidden="true" />
             Remote Ready • India
           </Badge>
 
-          <h1 className="text-4xl md:text-6xl font-bold theme-text-primary mb-4">Karan Mali</h1>
+          <h1 className="text-4xl md:text-6xl font-bold theme-text-primary mb-4">Karan Mali - Backend & Full-Stack Developer</h1>
 
-          <h2 className="text-xl md:text-2xl theme-text-secondary mb-6">Backend Systems Engineer</h2>
+          <h2 className="text-xl md:text-2xl theme-text-secondary mb-6">Backend Systems Engineer | Node.js, Go, AWS Expert</h2>
 
           <p className="text-lg theme-text-muted mb-8 max-w-2xl mx-auto leading-relaxed">
-            Building powerful, scalable backend systems with multi-tenant architectures, RBAC implementations, and high-performance APIs.
+            Building powerful, scalable backend systems with multi-tenant architectures, RBAC implementations, and high-performance APIs using Node.js, Golang, PostgreSQL, and AWS.
           </p>
         </div>
 
@@ -199,20 +200,20 @@ function IntroChapter() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <Button variant="outline" className="theme-accent theme-text-secondary bg-transparent" asChild>
-            <Link href="https://github.com/KaranMali2001" target="_blank">
-              <Github className="w-4 h-4 mr-2" />
+            <Link href="https://github.com/KaranMali2001" target="_blank" rel="noopener noreferrer">
+              <Github className="w-4 h-4 mr-2" aria-hidden="true" />
               View GitHub
             </Link>
           </Button>
           <Button variant="outline" className="theme-border theme-text-secondary bg-transparent">
-            <Link href={'https://drive.google.com/file/d/1e--IHnIG5xLTQxUPzc9zN7kh_iJuzUbG/view?usp=sharing'} target="_blank">
+            <Link href={"https://drive.google.com/file/d/1e--IHnIG5xLTQxUPzc9zN7kh_iJuzUbG/view?usp=sharing"} target="_blank" rel="noopener noreferrer">
               Resume
             </Link>
           </Button>
         </div>
 
-        <button onClick={scrollToNext} className="theme-text-muted hover:theme-text-accent transition-colors">
-          <ChevronDown className="w-6 h-6 animate-bounce mx-auto" />
+        <button onClick={scrollToNext} className="theme-text-muted hover:theme-text-accent transition-colors" aria-label="Scroll to next section">
+          <ChevronDown className="w-6 h-6 animate-bounce mx-auto" aria-hidden="true" />
           <p className="text-sm mt-2">Discover my story</p>
         </button>
       </div>
@@ -222,11 +223,13 @@ function IntroChapter() {
 
 function PhilosophyChapter() {
   return (
-    <section id="philosophy" className="py-20 px-4">
+    <section id="philosophy" className="py-20 px-4" aria-labelledby="philosophy-heading">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-stagger">
-          <h2 className="text-3xl font-bold theme-text-primary mb-4">Chapter 1: The Philosophy</h2>
-          <p className="text-lg theme-text-muted">How I approach complex problems</p>
+          <h2 id="philosophy-heading" className="text-3xl font-bold theme-text-primary mb-4">
+            Backend Development Philosophy: First Principles Thinking
+          </h2>
+          <p className="text-lg theme-text-muted">How I approach complex backend engineering problems</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -235,12 +238,9 @@ function PhilosophyChapter() {
               <Brain className="w-10 h-10 theme-text-accent mb-6" />
               <h3 className="text-xl font-bold theme-text-primary mb-4">80% Thinking, 20% Coding</h3>
               <p className="theme-text-secondary leading-relaxed mb-4">
-                I believe backend development is fundamentally about problem-solving. Before writing a single line of code, I spend time understanding
-                the problem from first principles.
+                I believe backend development is fundamentally about problem-solving. Before writing a single line of code, I spend time understanding the problem from first principles.
               </p>
-              <p className="theme-text-muted leading-relaxed">
-                This approach has helped me build systems that not only work but scale efficiently and remain maintainable as requirements evolve.
-              </p>
+              <p className="theme-text-muted leading-relaxed">This approach has helped me build systems that not only work but scale efficiently and remain maintainable as requirements evolve.</p>
             </Card>
           </div>
 
@@ -284,37 +284,39 @@ function PhilosophyChapter() {
 function JourneyChapter() {
   const milestones = [
     {
-      year: '2020',
-      title: 'Started Engineering',
-      description: 'Began Bachelor of Engineering at DY Patil College, Kolhapur',
+      year: "2020",
+      title: "Started Engineering",
+      description: "Began Bachelor of Engineering at DY Patil College, Kolhapur",
       icon: <GraduationCap className="w-5 h-5" />,
     },
     {
-      year: '2024',
-      title: 'First Professional Role',
-      description: 'Joined PixelSaffron as Backend Developer, built scalable e-commerce systems',
+      year: "2024",
+      title: "First Professional Role",
+      description: "Joined PixelSaffron as Backend Developer, built scalable e-commerce systems",
       icon: <Building className="w-5 h-5" />,
     },
     {
-      year: 'Late 2024',
-      title: 'Software Engineer',
-      description: 'Joined Autonomis, focused on Problem-Solving and User Experience',
+      year: "Late 2024",
+      title: "Software Engineer",
+      description: "Joined Autonomis, focused on Problem-Solving and User Experience",
       icon: <Code className="w-5 h-5" />,
     },
     {
-      year: 'Now',
-      title: 'Seeking Backend Engineer Roles',
-      description: 'Ready for Backend Engineer positions at innovative startups',
+      year: "Now",
+      title: "Seeking Backend Engineer Roles",
+      description: "Ready for Backend Engineer positions at innovative startups",
       icon: <Target className="w-5 h-5" />,
     },
   ];
 
   return (
-    <section id="journey" className="py-20 px-4">
+    <section id="journey" className="py-20 px-4" aria-labelledby="journey-heading">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-stagger">
-          <h2 className="text-3xl font-bold theme-text-primary mb-4">Chapter 2: The Journey</h2>
-          <p className="text-lg theme-text-muted">From student to Software Engineer</p>
+          <h2 id="journey-heading" className="text-3xl font-bold theme-text-primary mb-4">
+            My Software Engineering Journey: From Student to Backend Developer
+          </h2>
+          <p className="text-lg theme-text-muted">Career progression in backend development and full-stack engineering</p>
         </div>
 
         <div className="space-y-12">
@@ -345,41 +347,43 @@ function JourneyChapter() {
 function ExperienceChapter() {
   const experiences = [
     {
-      title: 'Software Developer',
-      company: 'Autonomis',
-      period: 'Dec 2024 – Present',
-      location: 'Remote',
+      title: "Software Developer",
+      company: "Autonomis",
+      period: "Dec 2024 – Present",
+      location: "Remote",
       highlights: [
-        'Built RBAC sharing system with fine-grained view/edit permissions',
-        'Designed multi-tenant architecture with invite system and role management',
-        'Established MIS report dashboards with customizable views automating report delivery through Airflow',
-        'Reduced bug-related downtime by 50% by troubleshooting and resolving issues in AI-generated backend code',
+        "Built RBAC sharing system with fine-grained view/edit permissions",
+        "Designed multi-tenant architecture with invite system and role management",
+        "Established MIS report dashboards with customizable views automating report delivery through Airflow",
+        "Reduced bug-related downtime by 50% by troubleshooting and resolving issues in AI-generated backend code",
       ],
-      skills: ['RBAC', 'Multi-tenancy', 'Airflow', 'React Query', 'Zustand'],
-      impact: '50% less downtime',
+      skills: ["RBAC", "Multi-tenancy", "Airflow", "React Query", "Zustand"],
+      impact: "50% less downtime",
     },
     {
-      title: 'Backend Developer',
-      company: 'PixelSaffron',
-      period: ' Oct 2024 – Dec 2024',
-      location: 'Remote',
+      title: "Backend Developer",
+      company: "PixelSaffron",
+      period: " Oct 2024 – Dec 2024",
+      location: "Remote",
       highlights: [
-        'Built backend for clothing brand with MongoDB, Express, Node.js',
-        'Integrated PhonePe with webhook-based real-time order updates',
-        'Created wallet + coupon system with RazorPay + PhonePe payment flows',
-        'Optimized analytics via indexing + database views',
+        "Built backend for clothing brand with MongoDB, Express, Node.js",
+        "Integrated PhonePe with webhook-based real-time order updates",
+        "Created wallet + coupon system with RazorPay + PhonePe payment flows",
+        "Optimized analytics via indexing + database views",
       ],
-      skills: ['Node.js', 'MongoDB', 'PhonePe', 'RazorPay', 'JWT'],
-      impact: 'Real-time payments',
+      skills: ["Node.js", "MongoDB", "PhonePe", "RazorPay", "JWT"],
+      impact: "Real-time payments",
     },
   ];
 
   return (
-    <section id="experience" className="py-20 px-4">
+    <section id="experience" className="py-20 px-4" aria-labelledby="experience-heading">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-stagger">
-          <h2 className="text-3xl font-bold theme-text-primary mb-4">Chapter 3: The Experience</h2>
-          <p className="text-lg theme-text-muted">Professional growth and impact</p>
+          <h2 id="experience-heading" className="text-3xl font-bold theme-text-primary mb-4">
+            Professional Experience: Backend & Full-Stack Development
+          </h2>
+          <p className="text-lg theme-text-muted">Building scalable systems and delivering measurable impact</p>
         </div>
 
         <div className="space-y-12">
@@ -442,68 +446,69 @@ function ExperienceChapter() {
 function ProjectsChapter() {
   const projects = [
     {
-      title: 'Elevare - AI Email Management',
-      description: 'Full-stack AI-powered email manager with custom queue management',
-      impact: '40% faster processing',
+      title: "Elevare - AI Email Management",
+      description: "Full-stack AI-powered email manager with custom queue management",
+      impact: "40% faster processing",
       icon: <Brain className="w-6 h-6" />,
-      problem:
-        'Email management was inefficient with existing tools, requiring a custom solution that could handle high volumes with AI-powered insights.',
-      solution: 'Built a complete email management system with custom queue implementation, AI summarization, and real-time analytics.',
-      tech: ['Next.js', 'TypeScript', 'Prisma', 'Groq', 'RazorPay'],
-      liveUrl: 'https://elevareapp.com',
-      githubUrl: 'https://github.com/KaranMali2001', // replace with specific repo if available
+      problem: "Email management was inefficient with existing tools, requiring a custom solution that could handle high volumes with AI-powered insights.",
+      solution: "Built a complete email management system with custom queue implementation, AI summarization, and real-time analytics.",
+      tech: ["Next.js", "TypeScript", "Prisma", "Groq", "RazorPay"],
+      liveUrl: "https://elevareapp.com",
+      githubUrl: "https://github.com/KaranMali2001", // replace with specific repo if available
     },
 
     {
-      title: 'Enhanced Dimaag - AI Content Sharing',
-      description: 'AI-powered YouTube summarization & content sharing app',
-      impact: 'Improved content digestion using Gemini + LangChain',
+      title: "Enhanced Dimaag - AI Content Sharing",
+      description: "AI-powered YouTube summarization & content sharing app",
+      impact: "Improved content digestion using Gemini + LangChain",
       icon: <BookOpen className="w-6 h-6" />,
-      problem: 'Users needed a way to summarize and share long videos efficiently.',
-      solution: 'Used LangChain and Gemini to summarize YouTube videos and implemented permission-based sharing with Clerk.',
-      tech: ['React', 'PostgreSQL', 'Drizzle ORM', 'LangChain', 'Clerk'],
-      liveUrl: 'https://enhanced-dimaag.vercel.app/',
-      githubUrl: 'https://github.com/KaranMali2001/enhancedDimaag',
+      problem: "Users needed a way to summarize and share long videos efficiently.",
+      solution: "Used LangChain and Gemini to summarize YouTube videos and implemented permission-based sharing with Clerk.",
+      tech: ["React", "PostgreSQL", "Drizzle ORM", "LangChain", "Clerk"],
+      liveUrl: "https://enhanced-dimaag.vercel.app/",
+      githubUrl: "https://github.com/KaranMali2001/enhancedDimaag",
     },
     {
-      title: 'Microservices Platform (WIP)',
-      description: 'Distributed Go microservices with gRPC and GraphQL',
-      impact: 'Scalable architecture for modular backend services',
+      title: "Microservices Platform (WIP)",
+      description: "Distributed Go microservices with gRPC and GraphQL",
+      impact: "Scalable architecture for modular backend services",
       icon: <Server className="w-6 h-6" />,
-      problem: 'Monolithic backends lacked modularity and scalability.',
-      solution: 'Building a distributed backend with microservices using gRPC & GraphQL, orchestrated via Docker Compose.',
-      tech: ['Go', 'gRPC', 'GraphQL', 'PostgreSQL', 'Docker', 'sqlc'],
-      githubUrl: 'https://github.com/KaranMali2001/Golang-micro-services',
+      problem: "Monolithic backends lacked modularity and scalability.",
+      solution: "Building a distributed backend with microservices using gRPC & GraphQL, orchestrated via Docker Compose.",
+      tech: ["Go", "gRPC", "GraphQL", "PostgreSQL", "Docker", "sqlc"],
+      githubUrl: "https://github.com/KaranMali2001/Golang-micro-services",
     },
     {
-      title: 'Bidding Management System',
-      description: 'Role-based bidding app with Cloudinary integration',
-      impact: 'Efficient file uploads and build optimization',
+      title: "Bidding Management System",
+      description: "Role-based bidding app with Cloudinary integration",
+      impact: "Efficient file uploads and build optimization",
       icon: <Gavel className="w-6 h-6" />,
-      problem: 'Needed a platform where sellers and bidders could interact seamlessly.',
-      solution: 'Created a role-based system for bid management with file uploads and optimized frontend using esbuild.',
-      tech: ['Express', 'Next.js', 'React Query', 'Cloudinary', 'Prisma'],
-      liveUrl: 'https://bidding-management-system.vercel.app/',
-      githubUrl: 'https://github.com/KaranMali2001/bidding-management-system',
+      problem: "Needed a platform where sellers and bidders could interact seamlessly.",
+      solution: "Created a role-based system for bid management with file uploads and optimized frontend using esbuild.",
+      tech: ["Express", "Next.js", "React Query", "Cloudinary", "Prisma"],
+      liveUrl: "https://bidding-management-system.vercel.app/",
+      githubUrl: "https://github.com/KaranMali2001/bidding-management-system",
     },
     {
-      title: 'Matchup - Tournament System',
-      description: 'High-concurrency tournament management with Go routines',
-      impact: '1000+ concurrent users',
+      title: "Matchup - Tournament System",
+      description: "High-concurrency tournament management with Go routines",
+      impact: "1000+ concurrent users",
       icon: <Trophy className="w-6 h-6" />,
-      problem: 'Tournament management systems often struggle with concurrent user loads and complex scheduling algorithms.',
+      problem: "Tournament management systems often struggle with concurrent user loads and complex scheduling algorithms.",
       solution: "Built a robust tournament platform leveraging Go's concurrency features for optimal performance.",
-      tech: ['Go', 'PostgreSQL', 'Docker', 'REST APIs'],
-      githubUrl: 'https://github.com/KaranMali2001/matchup',
+      tech: ["Go", "PostgreSQL", "Docker", "REST APIs"],
+      githubUrl: "https://github.com/KaranMali2001/matchup",
     },
   ];
 
   return (
-    <section id="projects" className="py-20 px-4">
+    <section id="projects" className="py-20 px-4" aria-labelledby="projects-heading">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-stagger">
-          <h2 className="text-3xl font-bold theme-text-primary mb-4">Chapter 4: The Projects</h2>
-          <p className="text-lg theme-text-muted">Real-world solutions that showcase problem-solving approach</p>
+          <h2 id="projects-heading" className="text-3xl font-bold theme-text-primary mb-4">
+            Backend & Full-Stack Projects Portfolio
+          </h2>
+          <p className="text-lg theme-text-muted">Production-ready applications showcasing Node.js, Go, and system design expertise</p>
         </div>
 
         <div className="space-y-16">
@@ -574,62 +579,59 @@ function ProjectsChapter() {
 function BlogChapter() {
   const blogPosts = [
     {
-      title: 'The ORM Trap That Cost Me a Backend Job',
-      description:
-        'I’ve been searching for backend-related jobs for almost a month, and I finally got one opportunity — but I messed it up. Here’s my story:',
-      publishedDate: 'July 2025',
-      readTime: '7 min read',
-      tags: ['Backend', 'ORM', 'Performance', 'Database'],
-      url: 'https://medium.com/@karanmali122001/the-orm-trap-that-cost-me-a-backend-job-042c710d5163',
+      title: "The ORM Trap That Cost Me a Backend Job",
+      description: "I’ve been searching for backend-related jobs for almost a month, and I finally got one opportunity — but I messed it up. Here’s my story:",
+      publishedDate: "July 2025",
+      readTime: "7 min read",
+      tags: ["Backend", "ORM", "Performance", "Database"],
+      url: "https://medium.com/@karanmali122001/the-orm-trap-that-cost-me-a-backend-job-042c710d5163",
       excerpt:
-        'I cleared the first round, which I didn’t expect because I was asked to write a CREATE TABLE syntax, and I wasn’t very confident with it. I thought that would get me rejected, but surprisingly, I was ....',
+        "I cleared the first round, which I didn’t expect because I was asked to write a CREATE TABLE syntax, and I wasn’t very confident with it. I thought that would get me rejected, but surprisingly, I was ....",
       featured: true,
-      category: 'Career Reflection',
-      difficulty: 'Beginner',
-      impactNote:
-        'This post gained significant traction in the backend development community, sparking discussions about ORM usage patterns and database optimization strategies.',
+      category: "Career Reflection",
+      difficulty: "Beginner",
+      impactNote: "This post gained significant traction in the backend development community, sparking discussions about ORM usage patterns and database optimization strategies.",
     },
     {
-      title: 'SQL Secrets for Backend Developers',
-      description: 'Lessons learned while scaling complex backend systems, focusing on real-world SQL challenges and performance pitfalls.',
-      publishedDate: 'Coming Soon',
-      readTime: '12 min read',
-      tags: ['SQL', 'Backend', 'Performance', 'Database'],
+      title: "SQL Secrets for Backend Developers",
+      description: "Lessons learned while scaling complex backend systems, focusing on real-world SQL challenges and performance pitfalls.",
+      publishedDate: "Coming Soon",
+      readTime: "12 min read",
+      tags: ["SQL", "Backend", "Performance", "Database"],
       excerpt:
-        'If you’re using SQL in your backend, you’re likely making subtle mistakes that affect performance or reliability. This post covers what I wish I knew earlier — from query planning to schema design.',
+        "If you’re using SQL in your backend, you’re likely making subtle mistakes that affect performance or reliability. This post covers what I wish I knew earlier — from query planning to schema design.",
       upcoming: true,
-      category: 'Technical Deep Dive',
-      difficulty: 'Intermediate',
+      category: "Technical Deep Dive",
+      difficulty: "Intermediate",
     },
     {
-      title: 'Concurrency Can Kill Your Performance',
+      title: "Concurrency Can Kill Your Performance",
       description:
-        'Sorting millions of records? I thought merge sort was fast enough — until I discovered how concurrency in Go could supercharge it — or sabotage it. Here’s how I implemented parallel merge sort and visualized the gains and tradeoffs.',
-      publishedDate: 'July 2025',
-      readTime: '8 min read',
-      tags: ['Go', 'Concurrency', 'Algorithms', 'Performance', 'Parallelism'],
+        "Sorting millions of records? I thought merge sort was fast enough — until I discovered how concurrency in Go could supercharge it — or sabotage it. Here’s how I implemented parallel merge sort and visualized the gains and tradeoffs.",
+      publishedDate: "July 2025",
+      readTime: "8 min read",
+      tags: ["Go", "Concurrency", "Algorithms", "Performance", "Parallelism"],
       excerpt:
-        'I always thought merge sort was efficient — until I ran it on 10 million items. Then I asked, “What if I let Go’s goroutines help?” This blog explores how I used concurrency to drastically cut sort times, complete with graphs, GC stats, and lessons.',
+        "I always thought merge sort was efficient — until I ran it on 10 million items. Then I asked, “What if I let Go’s goroutines help?” This blog explores how I used concurrency to drastically cut sort times, complete with graphs, GC stats, and lessons.",
       upcoming: true,
-      category: 'Technical Deep Dive',
-      difficulty: 'Intermediate',
+      category: "Technical Deep Dive",
+      difficulty: "Intermediate",
     },
   ];
 
   return (
-    <section id="blog" className="py-20 px-4">
+    <section id="blog" className="py-20 px-4" aria-labelledby="blog-heading">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-stagger">
-          <h2 className="text-3xl font-bold theme-text-primary mb-4">Chapter 5: The Blog</h2>
-          <p className="text-lg theme-text-muted">Sharing insights from the backend trenches</p>
+          <h2 id="blog-heading" className="text-3xl font-bold theme-text-primary mb-4">
+            Technical Blog: Backend Development Insights
+          </h2>
+          <p className="text-lg theme-text-muted">Deep dives into Node.js, Go, database optimization, and system design</p>
         </div>
 
         <div className="space-y-8">
           {blogPosts.map((post, index) => (
-            <Card
-              key={index}
-              className={`theme-bg-card p-8 animate-fade-in-stagger animate-fade-in-up ${post.featured ? 'ring-2 ring-orange-500/20' : ''}`}
-            >
+            <Card key={index} className={`theme-bg-card p-8 animate-fade-in-stagger animate-fade-in-up ${post.featured ? "ring-2 ring-orange-500/20" : ""}`}>
               <div className="grid lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-2">
                   <div className="flex items-start justify-between mb-4">
@@ -707,8 +709,7 @@ function BlogChapter() {
             <BookOpen className="w-12 h-12 theme-text-accent mx-auto mb-4" />
             <h3 className="text-xl font-bold theme-text-primary mb-4">More Content Coming Soon</h3>
             <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
-              I regularly share insights about backend development, system design, and engineering best practices. Follow me on Medium to stay updated
-              with my latest posts.
+              I regularly share insights about backend development, system design, and engineering best practices. Follow me on Medium to stay updated with my latest posts.
             </p>
             <Button variant="outline" className="theme-border theme-text-secondary bg-transparent" asChild>
               <Link href="https://medium.com/@karanmali122001" target="_blank">
@@ -726,43 +727,45 @@ function BlogChapter() {
 function SkillsChapter() {
   const skillCategories = [
     {
-      title: 'Programming Languages',
-      skills: ['Go', 'TypeScript', 'JavaScript', 'SQL'],
-      icon: '💻',
+      title: "Programming Languages",
+      skills: ["Go", "TypeScript", "JavaScript", "SQL"],
+      icon: "💻",
     },
     {
-      title: 'Backend Technologies',
-      skills: ['Node.js', 'Express', 'Prisma', 'Drizzle ORM'],
-      icon: '⚙️',
+      title: "Backend Technologies",
+      skills: ["Node.js", "Express", "Prisma", "Drizzle ORM"],
+      icon: "⚙️",
     },
     {
-      title: 'Databases',
-      skills: ['PostgreSQL', 'MongoDB', 'Redis'],
-      icon: '🗄️',
+      title: "Databases",
+      skills: ["PostgreSQL", "MongoDB", "Redis"],
+      icon: "🗄️",
     },
     {
-      title: 'System Design',
-      skills: ['Multi-tenancy', 'RBAC', 'Queue Systems', 'Microservices'],
-      icon: '🏗️',
+      title: "System Design",
+      skills: ["Multi-tenancy", "RBAC", "Queue Systems", "Microservices"],
+      icon: "🏗️",
     },
     {
-      title: 'Cloud & DevOps',
-      skills: ['AWS ECS/ECR', 'Docker', 'GitHub Actions', 'Airflow'],
-      icon: '☁️',
+      title: "Cloud & DevOps",
+      skills: ["AWS ECS/ECR", "Docker", "GitHub Actions", "Airflow"],
+      icon: "☁️",
     },
     {
-      title: 'Frontend & APIs',
-      skills: ['React', 'Next.js', 'React Query', 'REST APIs'],
-      icon: '🎨',
+      title: "Frontend & APIs",
+      skills: ["React", "Next.js", "React Query", "REST APIs"],
+      icon: "🎨",
     },
   ];
 
   return (
-    <section id="skills" className="py-20 px-4">
+    <section id="skills" className="py-20 px-4" aria-labelledby="skills-heading">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-stagger">
-          <h2 className="text-3xl font-bold theme-text-primary mb-4">Chapter 6: The Arsenal</h2>
-          <p className="text-lg theme-text-muted">Technical skills and specializations</p>
+          <h2 id="skills-heading" className="text-3xl font-bold theme-text-primary mb-4">
+            Technical Skills & Expertise: Backend Engineering Stack
+          </h2>
+          <p className="text-lg theme-text-muted">Proficient in Node.js, Go, TypeScript, PostgreSQL, MongoDB, AWS, and system design</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -823,11 +826,13 @@ function SkillsChapter() {
 
 function ContactChapter() {
   return (
-    <section id="contact" className="py-20 px-4">
+    <section id="contact" className="py-20 px-4" aria-labelledby="contact-heading">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-stagger">
-          <h2 className="text-3xl font-bold theme-text-primary mb-4">Chapter 7: Let's Connect</h2>
-          <p className="text-lg theme-text-muted">Ready to build something great together</p>
+          <h2 id="contact-heading" className="text-3xl font-bold theme-text-primary mb-4">
+            Hire Backend Developer: Contact Karan Mali
+          </h2>
+          <p className="text-lg theme-text-muted">Available for backend engineer roles and freelance projects</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">

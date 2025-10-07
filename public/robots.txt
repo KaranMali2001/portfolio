@@ -1,0 +1,11 @@
+# robots.txt for https://karan5599.tech
+
+User-agent: *
+Allow: /
+
+# Disallow admin or private pages (add if needed)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap location
+Sitemap: https://karan5599.tech/sitemap.xml

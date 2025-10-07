@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { motion } from "framer-motion";
 import {
   BookOpen,
   Brain,
@@ -29,6 +30,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { FAQChapter } from "./faq-section";
 
 export function StoryLayout() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -78,80 +80,83 @@ export function StoryLayout() {
   ];
 
   return (
-    <div className="min-h-screen theme-bg-primary">
-      {/* Clean Scroll Progress */}
-      <div className="scroll-progress">
-        <div className="scroll-progress-bar" style={{ width: `${scrollProgress}%` }} />
-      </div>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+      <div className="min-h-screen theme-bg-primary">
+        {/* Clean Scroll Progress */}
+        <div className="scroll-progress">
+          <div className="scroll-progress-bar" style={{ width: `${scrollProgress}%` }} />
+        </div>
 
-      {/* Mobile Navigation Toggle */}
-      <button
-        onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
-        className="fixed top-4 right-4 z-50 md:hidden w-12 h-12 rounded-full theme-bg-card flex items-center justify-center theme-text-accent"
-      >
-        {isMobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-      </button>
+        {/* Mobile Navigation Toggle */}
+        <button
+          onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
+          className="fixed top-4 right-4 z-50 md:hidden w-12 h-12 rounded-full theme-bg-card flex items-center justify-center theme-text-accent"
+        >
+          {isMobileNavOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
 
-      {/* Mobile Chapter Navigation Overlay */}
-      {isMobileNavOpen && (
-        <div className="fixed inset-0 z-40 md:hidden">
-          <div className="absolute inset-0 theme-bg-primary opacity-95" onClick={() => setIsMobileNavOpen(false)} />
-          <div className="absolute top-20 right-4 left-4 theme-bg-card rounded-lg p-6">
-            <h3 className="text-lg font-semibold theme-text-primary mb-4">Navigate to</h3>
-            <div className="grid grid-cols-2 gap-3">
-              {chapters.map((chapter, index) => {
-                const Icon = chapter.icon;
-                return (
-                  <button
-                    key={chapter.id}
-                    onClick={() => scrollToChapter(chapter.id)}
-                    className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
-                      activeChapter === index ? "theme-accent theme-text-primary" : "theme-bg-secondary theme-text-muted hover:theme-text-accent"
-                    }`}
-                  >
-                    <Icon className="w-4 h-4" />
-                    <span className="text-sm font-medium">{chapter.title}</span>
-                  </button>
-                );
-              })}
+        {/* Mobile Chapter Navigation Overlay */}
+        {isMobileNavOpen && (
+          <div className="fixed inset-0 z-40 md:hidden">
+            <div className="absolute inset-0 theme-bg-primary opacity-95" onClick={() => setIsMobileNavOpen(false)} />
+            <div className="absolute top-20 right-4 left-4 theme-bg-card rounded-lg p-6">
+              <h3 className="text-lg font-semibold theme-text-primary mb-4">Navigate to</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {chapters.map((chapter, index) => {
+                  const Icon = chapter.icon;
+                  return (
+                    <button
+                      key={chapter.id}
+                      onClick={() => scrollToChapter(chapter.id)}
+                      className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
+                        activeChapter === index ? "theme-accent theme-text-primary" : "theme-bg-secondary theme-text-muted hover:theme-text-accent"
+                      }`}
+                    >
+                      <Icon className="w-4 h-4" />
+                      <span className="text-sm font-medium">{chapter.title}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Desktop Chapter Navigation */}
-      <div className="chapter-nav hidden md:block">
-        <div className="space-y-3">
-          {chapters.map((chapter, index) => {
-            const Icon = chapter.icon;
-            return (
-              <button
-                key={chapter.id}
-                onClick={() => scrollToChapter(chapter.id)}
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                  activeChapter === index ? "theme-accent" : "theme-bg-card theme-text-muted hover:theme-text-accent"
-                }`}
-                title={chapter.title}
-              >
-                <Icon className="w-4 h-4" />
-              </button>
-            );
-          })}
+        {/* Desktop Chapter Navigation */}
+        <div className="chapter-nav hidden md:block">
+          <div className="space-y-3">
+            {chapters.map((chapter, index) => {
+              const Icon = chapter.icon;
+              return (
+                <button
+                  key={chapter.id}
+                  onClick={() => scrollToChapter(chapter.id)}
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+                    activeChapter === index ? "theme-accent" : "theme-bg-card theme-text-muted hover:theme-text-accent"
+                  }`}
+                  title={chapter.title}
+                >
+                  <Icon className="w-4 h-4" />
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Story Content */}
+        <div>
+          <IntroChapter />
+          <PhilosophyChapter />
+          <JourneyChapter />
+          <ExperienceChapter />
+          <ProjectsChapter />
+          <BlogChapter />
+          <SkillsChapter />
+          <FAQChapter />
+          <ContactChapter />
         </div>
       </div>
-
-      {/* Story Content */}
-      <div>
-        <IntroChapter />
-        <PhilosophyChapter />
-        <JourneyChapter />
-        <ExperienceChapter />
-        <ProjectsChapter />
-        <BlogChapter />
-        <SkillsChapter />
-        <ContactChapter />
-      </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -165,7 +170,13 @@ function IntroChapter() {
       <div className="max-w-4xl mx-auto text-center animate-slide-in-bottom">
         <div className="mb-8">
           <div className="w-32 h-32 mx-auto mb-6 relative">
-            <Image src="/avatar.jpg" alt="Karan Mali - Backend Developer Profile Picture" className="w-full h-full rounded-full object-cover border-4 border-orange-500/20 shadow-xl" />
+            <Image
+              src="/avatar.jpg"
+              width={128}
+              height={128}
+              alt="Karan Mali - Backend Developer Profile Picture"
+              className="w-full h-full rounded-full object-cover border-4 border-orange-500/20 shadow-xl"
+            />
           </div>
 
           <Badge variant="outline" className="theme-text-muted border-gray-600 mb-4">

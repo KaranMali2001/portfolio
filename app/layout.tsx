@@ -107,7 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               sameAs: [
                 "https://github.com/KaranMali2001",
                 "https://medium.com/@karanmali122001",
-                "https://www.linkedin.com/in/karan-mali", // Add if you have LinkedIn
+                "https://www.linkedin.com/in/karan5599", // Add if you have LinkedIn
               ],
               address: {
                 "@type": "PostalAddress",
@@ -130,6 +130,151 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 alternateName: "KM",
                 description: "Backend Systems Engineer with expertise in building scalable multi-tenant architectures",
               },
+            }),
+          }}
+        />
+
+        {/* Structured Data for Website */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Karan Mali - Backend Developer Portfolio",
+              "url": "https://karan5599.tech",
+              "description": "Portfolio showcasing backend development projects, technical articles, and software engineering expertise in Node.js, Go, and AWS.",
+              "author": {
+                "@type": "Person",
+                "name": "Karan Mali"
+              },
+              "inLanguage": "en-US"
+            }),
+          }}
+        />
+
+        {/* Structured Data for Main Projects */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "Elevare - AI Email Management",
+                "applicationCategory": "BusinessApplication",
+                "operatingSystem": "Web",
+                "description": "Full-stack AI-powered email manager with custom queue management, achieving 40% faster email processing. Built with Next.js, TypeScript, Prisma, and Groq AI.",
+                "url": "https://elevareapp.com",
+                "author": {
+                  "@type": "Person",
+                  "name": "Karan Mali",
+                  "url": "https://karan5599.tech"
+                },
+                "programmingLanguage": ["TypeScript", "JavaScript"],
+                "keywords": "AI email management, Next.js, Prisma, Groq, RazorPay, email automation"
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "Enhanced Dimaag - AI Content Sharing",
+                "applicationCategory": "WebApplication",
+                "operatingSystem": "Web",
+                "description": "AI-powered YouTube video summarization and content sharing platform using LangChain and Google Gemini. Features permission-based sharing with Clerk authentication.",
+                "url": "https://enhanced-dimaag.vercel.app/",
+                "author": {
+                  "@type": "Person",
+                  "name": "Karan Mali"
+                },
+                "codeRepository": "https://github.com/KaranMali2001/enhancedDimaag",
+                "programmingLanguage": ["TypeScript", "JavaScript"],
+                "keywords": "AI summarization, LangChain, Gemini, YouTube, React, PostgreSQL"
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SoftwareSourceCode",
+                "name": "Microservices Platform - Go, gRPC, GraphQL",
+                "description": "Distributed Go microservices architecture using gRPC for inter-service communication and GraphQL for API gateway. Orchestrated with Docker Compose and PostgreSQL.",
+                "author": {
+                  "@type": "Person",
+                  "name": "Karan Mali"
+                },
+                "codeRepository": "https://github.com/KaranMali2001/Golang-micro-services",
+                "programmingLanguage": "Go",
+                "keywords": "Go, gRPC, GraphQL, microservices, Docker, PostgreSQL, distributed systems"
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SoftwareSourceCode",
+                "name": "Matchup - Tournament Management System",
+                "description": "High-concurrency tournament management platform built with Go, supporting 1000+ concurrent users using Go routines for optimal performance.",
+                "author": {
+                  "@type": "Person",
+                  "name": "Karan Mali"
+                },
+                "codeRepository": "https://github.com/KaranMali2001/matchup",
+                "programmingLanguage": "Go",
+                "keywords": "Go, concurrency, tournament management, PostgreSQL, REST API"
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "Bidding Management System",
+                "applicationCategory": "BusinessApplication",
+                "operatingSystem": "Web",
+                "description": "Role-based bidding platform with Cloudinary integration for file uploads and optimized builds using esbuild. Features seller and bidder role management.",
+                "url": "https://bidding-management-system.vercel.app/",
+                "author": {
+                  "@type": "Person",
+                  "name": "Karan Mali"
+                },
+                "codeRepository": "https://github.com/KaranMali2001/bidding-management-system",
+                "programmingLanguage": ["TypeScript", "JavaScript"],
+                "keywords": "RBAC, bidding system, Cloudinary, React Query, Prisma, Next.js"
+              }
+            ]),
+          }}
+        />
+
+        {/* Breadcrumb Navigation */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://karan5599.tech"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Experience",
+                  "item": "https://karan5599.tech/#experience"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Projects",
+                  "item": "https://karan5599.tech/#projects"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 4,
+                  "name": "Blog",
+                  "item": "https://karan5599.tech/#blog"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 5,
+                  "name": "Contact",
+                  "item": "https://karan5599.tech/#contact"
+                }
+              ]
             }),
           }}
         />

@@ -1,10 +1,10 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import type { Metadata } from "next";
+
 import type React from "react";
 //@ts-ignore
 import "./globals.css";
 
-export const metadata: Metadata = {
+export const metadata = {
   metadataBase: new URL("https://karan5599.tech"),
   title: {
     default: "Karan Mali - Backend & Full-Stack Developer | Node.js, Go, AWS Expert",
@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   },
   description:
     "Backend & Full-Stack Developer specializing in Node.js, Golang, Next.js, and AWS. Building scalable multi-tenant systems, RBAC implementations, and high-performance APIs. Available for backend engineer roles.",
+  icons: {
+    icon: "/karan.svg",
+    shortcut: "/karan.svg",
+    apple: "/karan.svg",
+  },
   keywords: [
     "Backend Developer",
     "Full Stack Developer",
@@ -141,14 +146,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebSite",
-              "name": "Karan Mali - Backend Developer Portfolio",
-              "url": "https://karan5599.tech",
-              "description": "Portfolio showcasing backend development projects, technical articles, and software engineering expertise in Node.js, Go, and AWS.",
-              "author": {
+              name: "Karan Mali - Backend Developer Portfolio",
+              url: "https://karan5599.tech",
+              description: "Portfolio showcasing backend development projects, technical articles, and software engineering expertise in Node.js, Go, and AWS.",
+              author: {
                 "@type": "Person",
-                "name": "Karan Mali"
+                name: "Karan Mali",
               },
-              "inLanguage": "en-US"
+              inLanguage: "en-US",
             }),
           }}
         />
@@ -161,77 +166,77 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {
                 "@context": "https://schema.org",
                 "@type": "SoftwareApplication",
-                "name": "Elevare - AI Email Management",
-                "applicationCategory": "BusinessApplication",
-                "operatingSystem": "Web",
-                "description": "Full-stack AI-powered email manager with custom queue management, achieving 40% faster email processing. Built with Next.js, TypeScript, Prisma, and Groq AI.",
-                "url": "https://elevareapp.com",
-                "author": {
+                name: "Elevare - AI Email Management",
+                applicationCategory: "BusinessApplication",
+                operatingSystem: "Web",
+                description: "Full-stack AI-powered email manager with custom queue management, achieving 40% faster email processing. Built with Next.js, TypeScript, Prisma, and Groq AI.",
+                url: "https://elevareapp.com",
+                author: {
                   "@type": "Person",
-                  "name": "Karan Mali",
-                  "url": "https://karan5599.tech"
+                  name: "Karan Mali",
+                  url: "https://karan5599.tech",
                 },
-                "programmingLanguage": ["TypeScript", "JavaScript"],
-                "keywords": "AI email management, Next.js, Prisma, Groq, RazorPay, email automation"
+                programmingLanguage: ["TypeScript", "JavaScript"],
+                keywords: "AI email management, Next.js, Prisma, Groq, RazorPay, email automation",
               },
               {
                 "@context": "https://schema.org",
                 "@type": "SoftwareApplication",
-                "name": "Enhanced Dimaag - AI Content Sharing",
-                "applicationCategory": "WebApplication",
-                "operatingSystem": "Web",
-                "description": "AI-powered YouTube video summarization and content sharing platform using LangChain and Google Gemini. Features permission-based sharing with Clerk authentication.",
-                "url": "https://enhanced-dimaag.vercel.app/",
-                "author": {
+                name: "Enhanced Dimaag - AI Content Sharing",
+                applicationCategory: "WebApplication",
+                operatingSystem: "Web",
+                description: "AI-powered YouTube video summarization and content sharing platform using LangChain and Google Gemini. Features permission-based sharing with Clerk authentication.",
+                url: "https://enhanced-dimaag.vercel.app/",
+                author: {
                   "@type": "Person",
-                  "name": "Karan Mali"
+                  name: "Karan Mali",
                 },
-                "codeRepository": "https://github.com/KaranMali2001/enhancedDimaag",
-                "programmingLanguage": ["TypeScript", "JavaScript"],
-                "keywords": "AI summarization, LangChain, Gemini, YouTube, React, PostgreSQL"
+                codeRepository: "https://github.com/KaranMali2001/enhancedDimaag",
+                programmingLanguage: ["TypeScript", "JavaScript"],
+                keywords: "AI summarization, LangChain, Gemini, YouTube, React, PostgreSQL",
               },
               {
                 "@context": "https://schema.org",
                 "@type": "SoftwareSourceCode",
-                "name": "Microservices Platform - Go, gRPC, GraphQL",
-                "description": "Distributed Go microservices architecture using gRPC for inter-service communication and GraphQL for API gateway. Orchestrated with Docker Compose and PostgreSQL.",
-                "author": {
+                name: "Microservices Platform - Go, gRPC, GraphQL",
+                description: "Distributed Go microservices architecture using gRPC for inter-service communication and GraphQL for API gateway. Orchestrated with Docker Compose and PostgreSQL.",
+                author: {
                   "@type": "Person",
-                  "name": "Karan Mali"
+                  name: "Karan Mali",
                 },
-                "codeRepository": "https://github.com/KaranMali2001/Golang-micro-services",
-                "programmingLanguage": "Go",
-                "keywords": "Go, gRPC, GraphQL, microservices, Docker, PostgreSQL, distributed systems"
+                codeRepository: "https://github.com/KaranMali2001/Golang-micro-services",
+                programmingLanguage: "Go",
+                keywords: "Go, gRPC, GraphQL, microservices, Docker, PostgreSQL, distributed systems",
               },
               {
                 "@context": "https://schema.org",
                 "@type": "SoftwareSourceCode",
-                "name": "Matchup - Tournament Management System",
-                "description": "High-concurrency tournament management platform built with Go, supporting 1000+ concurrent users using Go routines for optimal performance.",
-                "author": {
+                name: "Matchup - Tournament Management System",
+                description: "High-concurrency tournament management platform built with Go, supporting 1000+ concurrent users using Go routines for optimal performance.",
+                author: {
                   "@type": "Person",
-                  "name": "Karan Mali"
+                  name: "Karan Mali",
                 },
-                "codeRepository": "https://github.com/KaranMali2001/matchup",
-                "programmingLanguage": "Go",
-                "keywords": "Go, concurrency, tournament management, PostgreSQL, REST API"
+                codeRepository: "https://github.com/KaranMali2001/matchup",
+                programmingLanguage: "Go",
+                keywords: "Go, concurrency, tournament management, PostgreSQL, REST API",
               },
               {
                 "@context": "https://schema.org",
                 "@type": "SoftwareApplication",
-                "name": "Bidding Management System",
-                "applicationCategory": "BusinessApplication",
-                "operatingSystem": "Web",
-                "description": "Role-based bidding platform with Cloudinary integration for file uploads and optimized builds using esbuild. Features seller and bidder role management.",
-                "url": "https://bidding-management-system.vercel.app/",
-                "author": {
+                name: "Bidding Management System",
+                applicationCategory: "BusinessApplication",
+                operatingSystem: "Web",
+                description: "Role-based bidding platform with Cloudinary integration for file uploads and optimized builds using esbuild. Features seller and bidder role management.",
+                url: "https://bidding-management-system.vercel.app/",
+                author: {
                   "@type": "Person",
-                  "name": "Karan Mali"
+                  name: "Karan Mali",
                 },
-                "codeRepository": "https://github.com/KaranMali2001/bidding-management-system",
-                "programmingLanguage": ["TypeScript", "JavaScript"],
-                "keywords": "RBAC, bidding system, Cloudinary, React Query, Prisma, Next.js"
-              }
+                codeRepository: "https://github.com/KaranMali2001/bidding-management-system",
+                programmingLanguage: ["TypeScript", "JavaScript"],
+                keywords: "RBAC, bidding system, Cloudinary, React Query, Prisma, Next.js",
+              },
             ]),
           }}
         />
@@ -243,38 +248,38 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "BreadcrumbList",
-              "itemListElement": [
+              itemListElement: [
                 {
                   "@type": "ListItem",
-                  "position": 1,
-                  "name": "Home",
-                  "item": "https://karan5599.tech"
+                  position: 1,
+                  name: "Home",
+                  item: "https://karan5599.tech",
                 },
                 {
                   "@type": "ListItem",
-                  "position": 2,
-                  "name": "Experience",
-                  "item": "https://karan5599.tech/#experience"
+                  position: 2,
+                  name: "Experience",
+                  item: "https://karan5599.tech/#experience",
                 },
                 {
                   "@type": "ListItem",
-                  "position": 3,
-                  "name": "Projects",
-                  "item": "https://karan5599.tech/#projects"
+                  position: 3,
+                  name: "Projects",
+                  item: "https://karan5599.tech/#projects",
                 },
                 {
                   "@type": "ListItem",
-                  "position": 4,
-                  "name": "Blog",
-                  "item": "https://karan5599.tech/#blog"
+                  position: 4,
+                  name: "Blog",
+                  item: "https://karan5599.tech/#blog",
                 },
                 {
                   "@type": "ListItem",
-                  "position": 5,
-                  "name": "Contact",
-                  "item": "https://karan5599.tech/#contact"
-                }
-              ]
+                  position: 5,
+                  name: "Contact",
+                  item: "https://karan5599.tech/#contact",
+                },
+              ],
             }),
           }}
         />

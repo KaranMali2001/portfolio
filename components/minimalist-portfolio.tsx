@@ -358,9 +358,23 @@ function JourneyChapter() {
 function ExperienceChapter() {
   const experiences = [
     {
+      title: "Backend Developer",
+      company: "Ajar",
+      period: "Nov 2025 – Present",
+      location: "Remote",
+      highlights: [
+        "Building scalable backend services for Ajar's core platform",
+        "Implementing high-performance APIs and microservices",
+        "Optimizing database queries and system architecture for better performance",
+        "Collaborating with cross-functional teams to deliver robust backend solutions"
+      ],
+      skills: ["Node.js", "TypeScript", "PostgreSQL", "AWS", "Microservices"],
+      impact: "Building scalable infrastructure",
+    },
+    {
       title: "Software Developer",
       company: "Autonomis",
-      period: "Dec 2024 – Present",
+      period: "Dec 2024 – Oct 2025",
       location: "Remote",
       highlights: [
         "Built RBAC sharing system with fine-grained view/edit permissions",
@@ -457,6 +471,37 @@ function ExperienceChapter() {
 function ProjectsChapter() {
   const projects = [
     {
+      title: "Auto-Blog - AI-Powered Content Creation",
+      description: "Automated blog generation using AI to create and publish content",
+      impact: "Streamlined content creation process",
+      icon: <BookOpen className="w-6 h-6" />,
+      problem: "Content creators needed an efficient way to generate high-quality blog posts quickly without sacrificing quality.",
+      solution: "Developed an AI-powered platform that generates, formats, and publishes blog content automatically, with customizable templates and SEO optimization.",
+      tech: ["Next.js", "TypeScript", "OpenAI API", "MongoDB", "Tailwind CSS"],
+      liveUrl: "https://auto-blog-opal.vercel.app/",
+      githubUrl: "https://github.com/KaranMali2001/auto-blog",
+    },
+    {
+      title: "Finance Tracker - Personal Finance Management",
+      description: "Comprehensive finance tracking app with analytics and insights",
+      impact: "Smart financial management with real-time analytics",
+      icon: <TrendingUp className="w-6 h-6" />,
+      problem: "Users needed a simple yet powerful way to track expenses, income, and analyze spending patterns.",
+      solution: "Built a full-featured finance tracker with SMS parsing, category-based analytics, real-time dashboards, and automated transaction categorization.",
+      tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Recharts", "Tailwind CSS"],
+      githubUrl: "https://github.com/KaranMali2001",
+    },
+    {
+      title: "Mini Ride Booking",
+      description: "A lightweight ride-hailing service with real-time tracking",
+      impact: "Efficient ride matching and tracking",
+      icon: <MapPin className="w-6 h-6" />,
+      problem: "Existing ride-hailing solutions were too complex for small-scale operations and local businesses.",
+      solution: "Created a simplified ride-booking platform with real-time location tracking, fare calculation, and driver-passenger matching algorithms.",
+      tech: ["React Native", "Node.js", "MongoDB", "Socket.io", "Google Maps API"],
+      githubUrl: "https://github.com/KaranMali2001/Mini-Ride-Booking",
+    },
+    {
       title: "Elevare - AI Email Management",
       description: "Full-stack AI-powered email manager with custom queue management",
       impact: "40% faster processing",
@@ -465,7 +510,7 @@ function ProjectsChapter() {
       solution: "Built a complete email management system with custom queue implementation, AI summarization, and real-time analytics.",
       tech: ["Next.js", "TypeScript", "Prisma", "Groq", "RazorPay"],
       liveUrl: "https://elevareapp.com",
-      githubUrl: "https://github.com/KaranMali2001", // replace with specific repo if available
+      githubUrl: "https://github.com/KaranMali2001",
     },
 
     {

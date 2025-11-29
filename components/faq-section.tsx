@@ -14,7 +14,7 @@ export function FAQChapter() {
     },
     {
       question: "What are Karan Mali's major projects?",
-      answer: "Karan's notable projects include: (1) Elevare - An AI-powered email management SaaS with 40% faster processing using Next.js and Groq AI, (2) Enhanced Dimaag - YouTube video summarization platform using LangChain and Gemini, (3) Go Microservices Platform - Distributed architecture with gRPC and GraphQL, (4) Matchup - Tournament management system handling 1000+ concurrent users, and (5) Bidding Management System - RBAC-based platform with Cloudinary integration."
+      answer: "Karan's notable projects include: (1) Elevare - An AI-powered email management SaaS with 40% faster processing using Next.js and Groq AI, (2) Enhanced Dimaag - YouTube video summarization platform using LangChain and Gemini, (3) Matchup - Tournament management system handling 1000+ concurrent users, (4) Bidding Management System - RBAC-based platform with Cloudinary integration, and (5) Finance Tracker - Personal finance management with SMS parsing and real-time analytics."
     },
     {
       question: "What is Karan Mali's professional experience?",

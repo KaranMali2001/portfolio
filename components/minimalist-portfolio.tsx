@@ -468,16 +468,6 @@ function ProjectsChapter() {
       githubUrl: "https://github.com/KaranMali2001/auto-blog",
     },
     {
-      title: "Finance Tracker - Personal Finance Management",
-      description: "Comprehensive finance tracking app with analytics and insights",
-      impact: "Smart financial management with real-time analytics",
-      icon: <TrendingUp className="w-6 h-6" />,
-      problem: "Users needed a simple yet powerful way to track expenses, income, and analyze spending patterns.",
-      solution: "Built a full-featured finance tracker with SMS parsing, category-based analytics, real-time dashboards, and automated transaction categorization.",
-      tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Recharts", "Tailwind CSS"],
-      githubUrl: "https://github.com/KaranMali2001",
-    },
-    {
       title: "Mini Ride Booking",
       description: "A lightweight ride-hailing service with real-time tracking",
       impact: "Efficient ride matching and tracking",
@@ -511,16 +501,6 @@ function ProjectsChapter() {
       githubUrl: "https://github.com/KaranMali2001/enhancedDimaag",
     },
     {
-      title: "Microservices Platform",
-      description: "Distributed Go microservices with gRPC and GraphQL",
-      impact: "Scalable architecture for modular backend services",
-      icon: <Server className="w-6 h-6" />,
-      problem: "Monolithic backends lacked modularity and scalability.",
-      solution: "Building a distributed backend with microservices using gRPC & GraphQL, orchestrated via Docker Compose.",
-      tech: ["Go", "gRPC", "GraphQL", "PostgreSQL", "Docker", "sqlc"],
-      githubUrl: "https://github.com/KaranMali2001/Golang-micro-services",
-    },
-    {
       title: "Bidding Management System",
       description: "Role-based bidding app with Cloudinary integration",
       impact: "Efficient file uploads and build optimization",
@@ -540,6 +520,15 @@ function ProjectsChapter() {
       solution: "Built a robust tournament platform leveraging Go's concurrency features for optimal performance.",
       tech: ["Go", "PostgreSQL", "Docker", "REST APIs"],
       githubUrl: "https://github.com/KaranMali2001/matchup",
+    },
+    {
+      title: "Finance Tracker - Personal Finance Management",
+      description: "Comprehensive finance tracking app with analytics and insights",
+      impact: "Smart financial management with real-time analytics",
+      icon: <TrendingUp className="w-6 h-6" />,
+      problem: "Users needed a simple yet powerful way to track expenses, income, and analyze spending patterns.",
+      solution: "Built a full-featured finance tracker with SMS parsing, category-based analytics, real-time dashboards, and automated transaction categorization.",
+      tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Recharts", "Tailwind CSS"],
     },
   ];
 

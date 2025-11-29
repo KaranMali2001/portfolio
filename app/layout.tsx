@@ -198,19 +198,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {
                 "@context": "https://schema.org",
                 "@type": "SoftwareSourceCode",
-                name: "Microservices Platform - Go, gRPC, GraphQL",
-                description: "Distributed Go microservices architecture using gRPC for inter-service communication and GraphQL for API gateway. Orchestrated with Docker Compose and PostgreSQL.",
-                author: {
-                  "@type": "Person",
-                  name: "Karan Mali",
-                },
-                codeRepository: "https://github.com/KaranMali2001/Golang-micro-services",
-                programmingLanguage: "Go",
-                keywords: "Go, gRPC, GraphQL, microservices, Docker, PostgreSQL, distributed systems",
-              },
-              {
-                "@context": "https://schema.org",
-                "@type": "SoftwareSourceCode",
                 name: "Matchup - Tournament Management System",
                 description: "High-concurrency tournament management platform built with Go, supporting 1000+ concurrent users using Go routines for optimal performance.",
                 author: {

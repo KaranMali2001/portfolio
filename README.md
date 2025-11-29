@@ -64,19 +64,7 @@ I'm a passionate Backend Developer with expertise in building scalable, high-per
 
 ---
 
-### 2. Finance Tracker - Personal Finance Management
-**Comprehensive finance tracking app with analytics and insights**
-
-- **Problem:** Users needed a simple yet powerful way to track expenses, income, and analyze spending patterns
-- **Solution:** Built a full-featured finance tracker with SMS parsing, category-based analytics, real-time dashboards, and automated transaction categorization
-- **Tech Stack:** Next.js, TypeScript, PostgreSQL, Prisma, Recharts, Tailwind CSS
-- **Impact:** Smart financial management with real-time analytics
-- **Live:** Building
-- **GitHub:** [KaranMali2001](https://github.com/KaranMali2001)
-
----
-
-### 3. Mini Ride Booking
+### 2. Mini Ride Booking
 **A lightweight ride-hailing service with real-time tracking**
 
 - **Problem:** Existing ride-hailing solutions were too complex for small-scale operations and local businesses
@@ -86,7 +74,7 @@ I'm a passionate Backend Developer with expertise in building scalable, high-per
 
 ---
 
-### 4. Elevare - AI Email Management
+### 2. Elevare - AI Email Management
 **Full-stack AI-powered email manager with custom queue management**
 
 - **Problem:** Email management was inefficient with existing tools, requiring a custom solution that could handle high volumes with AI-powered insights
@@ -98,7 +86,7 @@ I'm a passionate Backend Developer with expertise in building scalable, high-per
 
 ---
 
-### 5. Enhanced Dimaag - AI Content Sharing
+### 3. Enhanced Dimaag - AI Content Sharing
 **AI-powered YouTube summarization & content sharing app**
 
 - **Problem:** Users needed a way to summarize and share long videos efficiently
@@ -110,18 +98,7 @@ I'm a passionate Backend Developer with expertise in building scalable, high-per
 
 ---
 
-### 6. Microservices Platform
-**Distributed Go microservices with gRPC and GraphQL**
-
-- **Problem:** Monolithic backends lacked modularity and scalability
-- **Solution:** Building a distributed backend with microservices using gRPC & GraphQL, orchestrated via Docker Compose
-- **Tech Stack:** Go, gRPC, GraphQL, PostgreSQL, Docker, sqlc
-- **Impact:** Scalable architecture for modular backend services
-- **GitHub:** [Golang-micro-services](https://github.com/KaranMali2001/Golang-micro-services)
-
----
-
-### 7. Bidding Management System
+### 4. Bidding Management System
 **Role-based bidding app with Cloudinary integration**
 
 - **Problem:** Needed a platform where sellers and bidders could interact seamlessly
@@ -133,7 +110,7 @@ I'm a passionate Backend Developer with expertise in building scalable, high-per
 
 ---
 
-### 8. Matchup - Tournament System
+### 5. Matchup - Tournament System
 **High-concurrency tournament management with Go routines**
 
 - **Problem:** Tournament management systems often struggle with concurrent user loads and complex scheduling algorithms
@@ -141,6 +118,17 @@ I'm a passionate Backend Developer with expertise in building scalable, high-per
 - **Tech Stack:** Go, PostgreSQL, Docker, REST APIs
 - **Impact:** 1000+ concurrent users
 - **GitHub:** [matchup](https://github.com/KaranMali2001/matchup)
+
+---
+
+### 6. Finance Tracker - Personal Finance Management
+**Comprehensive finance tracking app with analytics and insights**
+
+- **Problem:** Users needed a simple yet powerful way to track expenses, income, and analyze spending patterns
+- **Solution:** Built a full-featured finance tracker with SMS parsing, category-based analytics, real-time dashboards, and automated transaction categorization
+- **Tech Stack:** Next.js, TypeScript, PostgreSQL, Prisma, Recharts, Tailwind CSS
+- **Impact:** Smart financial management with real-time analytics
+- **Live:** Building
 
 ## 🛠️ Technical Skills
 

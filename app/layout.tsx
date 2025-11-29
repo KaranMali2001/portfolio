@@ -170,7 +170,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 applicationCategory: "BusinessApplication",
                 operatingSystem: "Web",
                 description: "Full-stack AI-powered email manager with custom queue management, achieving 40% faster email processing. Built with Next.js, TypeScript, Prisma, and Groq AI.",
-                url: "https://elevareapp.com",
+                url: "https://elevare-karanmali2001s-projects.vercel.app/",
                 author: {
                   "@type": "Person",
                   name: "Karan Mali",

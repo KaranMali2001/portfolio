@@ -71,6 +71,7 @@ I'm a passionate Backend Developer with expertise in building scalable, high-per
 - **Solution:** Built a full-featured finance tracker with SMS parsing, category-based analytics, real-time dashboards, and automated transaction categorization
 - **Tech Stack:** Next.js, TypeScript, PostgreSQL, Prisma, Recharts, Tailwind CSS
 - **Impact:** Smart financial management with real-time analytics
+- **Live:** Building
 - **GitHub:** [KaranMali2001](https://github.com/KaranMali2001)
 
 ---
@@ -92,7 +93,7 @@ I'm a passionate Backend Developer with expertise in building scalable, high-per
 - **Solution:** Built a complete email management system with custom queue implementation, AI summarization, and real-time analytics
 - **Tech Stack:** Next.js, TypeScript, Prisma, Groq, RazorPay
 - **Impact:** 40% faster processing
-- **Live:** [elevareapp.com](https://elevareapp.com)
+- **Live:** [elevare-karanmali2001s-projects.vercel.app](https://elevare-karanmali2001s-projects.vercel.app/)
 - **GitHub:** [KaranMali2001](https://github.com/KaranMali2001)
 
 ---
@@ -109,7 +110,7 @@ I'm a passionate Backend Developer with expertise in building scalable, high-per
 
 ---
 
-### 6. Microservices Platform (WIP)
+### 6. Microservices Platform
 **Distributed Go microservices with gRPC and GraphQL**
 
 - **Problem:** Monolithic backends lacked modularity and scalability

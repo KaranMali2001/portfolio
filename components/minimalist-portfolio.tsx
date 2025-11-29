@@ -495,7 +495,7 @@ function ProjectsChapter() {
       problem: "Email management was inefficient with existing tools, requiring a custom solution that could handle high volumes with AI-powered insights.",
       solution: "Built a complete email management system with custom queue implementation, AI summarization, and real-time analytics.",
       tech: ["Next.js", "TypeScript", "Prisma", "Groq", "RazorPay"],
-      liveUrl: "https://elevareapp.com",
+      liveUrl: "https://elevare-karanmali2001s-projects.vercel.app/",
       githubUrl: "https://github.com/KaranMali2001",
     },
 
@@ -511,7 +511,7 @@ function ProjectsChapter() {
       githubUrl: "https://github.com/KaranMali2001/enhancedDimaag",
     },
     {
-      title: "Microservices Platform (WIP)",
+      title: "Microservices Platform",
       description: "Distributed Go microservices with gRPC and GraphQL",
       impact: "Scalable architecture for modular backend services",
       icon: <Server className="w-6 h-6" />,

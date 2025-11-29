@@ -129,6 +129,7 @@ I'm a passionate Backend Developer with expertise in building scalable, high-per
 - **Tech Stack:** Next.js, TypeScript, PostgreSQL, Prisma, Recharts, Tailwind CSS
 - **Impact:** Smart financial management with real-time analytics
 - **Live:** Building
+- **GitHub:** [finance-tracker-v2](https://github.com/KaranMali2001/finance-tracker-v2)
 
 ## 🛠️ Technical Skills
 

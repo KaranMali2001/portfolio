@@ -529,6 +529,7 @@ function ProjectsChapter() {
       problem: "Users needed a simple yet powerful way to track expenses, income, and analyze spending patterns.",
       solution: "Built a full-featured finance tracker with SMS parsing, category-based analytics, real-time dashboards, and automated transaction categorization.",
       tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Recharts", "Tailwind CSS"],
+      githubUrl: "https://github.com/KaranMali2001/finance-tracker-v2",
     },
   ];
 

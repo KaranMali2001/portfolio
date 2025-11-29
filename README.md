@@ -8,10 +8,9 @@
 
 ## 👨‍💻 About Me
 
-I'm a passionate Backend Developer with expertise in building scalable, high-performance systems. Currently working at **Ajar** as a Backend Developer, I specialize in Node.js, Go, TypeScript, PostgreSQL, and AWS. My approach to development is rooted in **first principles thinking** - spending 80% of my time understanding the problem and 20% implementing elegant solutions.
+I'm a passionate Backend Developer with expertise in building scalable, high-performance systems. I specialize in Node.js, Go, TypeScript, PostgreSQL, and AWS. My approach to development is rooted in **first principles thinking** - spending 80% of my time understanding the problem and 20% implementing elegant solutions.
 
 - 🌍 **Location:** India (Remote Ready)
-- 💼 **Current Role:** Backend Developer at Ajar
 - 🎓 **Education:** Bachelor of Engineering, DY Patil College, Kolhapur
 - 📧 **Email:** karanmali122001@gmail.com
 - 📝 **Blog:** [Medium](https://medium.com/@karanmali122001)
@@ -22,21 +21,9 @@ I'm a passionate Backend Developer with expertise in building scalable, high-per
 - ✅ **1+ Years** of Professional Experience
 - 🐛 **50% Reduction** in Bug-Related Downtime
 - 🎯 **8+ Major Projects** Delivered
-- 🏢 **3 Companies** - Ajar, Autonomis, PixelSaffron
+- 🏢 **2 Companies** - Autonomis, PixelSaffron
 
 ## 💼 Professional Experience
-
-### Backend Developer @ Ajar
-**Nov 2025 - Present** | Remote
-
-- Building scalable backend services for Ajar's core platform
-- Implementing high-performance APIs and microservices
-- Optimizing database queries and system architecture for better performance
-- Collaborating with cross-functional teams to deliver robust backend solutions
-
-**Tech Stack:** Node.js, TypeScript, PostgreSQL, AWS, Microservices
-
----
 
 ### Software Developer @ Autonomis
 **Dec 2024 - Oct 2025** | Remote
@@ -239,7 +226,6 @@ I'm always open to discussing new opportunities, collaborations, or just chattin
 
 ## 💡 Currently
 
-- 🔭 Working on scalable backend services at **Ajar**
 - 🌱 Learning advanced system design patterns and distributed systems
 - 👯 Open to collaborating on interesting backend projects
 - 💬 Ask me about Node.js, Go, PostgreSQL, AWS, or system design

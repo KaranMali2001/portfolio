@@ -358,20 +358,6 @@ function JourneyChapter() {
 function ExperienceChapter() {
   const experiences = [
     {
-      title: "Backend Developer",
-      company: "Ajar",
-      period: "Nov 2025 – Present",
-      location: "Remote",
-      highlights: [
-        "Building scalable backend services for Ajar's core platform",
-        "Implementing high-performance APIs and microservices",
-        "Optimizing database queries and system architecture for better performance",
-        "Collaborating with cross-functional teams to deliver robust backend solutions"
-      ],
-      skills: ["Node.js", "TypeScript", "PostgreSQL", "AWS", "Microservices"],
-      impact: "Building scalable infrastructure",
-    },
-    {
       title: "Software Developer",
       company: "Autonomis",
       period: "Dec 2024 – Oct 2025",

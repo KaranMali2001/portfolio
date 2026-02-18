@@ -196,7 +196,7 @@ function IntroChapter() {
         {/* Clean Stats */}
         <div className="grid grid-cols-3 gap-8 mb-12">
           <div className="text-center">
-            <div className="text-2xl font-bold theme-text-accent mb-2">1+</div>
+            <div className="text-2xl font-bold theme-text-accent mb-2">2+</div>
             <div className="text-sm theme-text-muted">Years Experience</div>
           </div>
           <div className="text-center">
@@ -313,9 +313,15 @@ function JourneyChapter() {
       icon: <Code className="w-5 h-5" />,
     },
     {
+      year: "Nov 2025",
+      title: "Full Stack Engineer at Ajar Online",
+      description: "Shipping full features end-to-end on a property management SaaS — notification systems, contracts, reporting, and more",
+      icon: <Building className="w-5 h-5" />,
+    },
+    {
       year: "Now",
-      title: "Seeking Backend Engineer Roles",
-      description: "Ready for Backend Engineer positions at innovative startups",
+      title: "Building & Growing",
+      description: "Continuously shipping features at Ajar while exploring new backend technologies",
       icon: <Target className="w-5 h-5" />,
     },
   ];
@@ -357,6 +363,20 @@ function JourneyChapter() {
 
 function ExperienceChapter() {
   const experiences = [
+    {
+      title: "Full Stack Engineer",
+      company: "Ajar Online",
+      period: "Nov 2025 – Present",
+      location: "Remote",
+      highlights: [
+        "Designed a centralized Notification Hub (Node.js/TypeScript) integrating Courier API with RBAC-aware fan-out, per-user preference management, and async dispatch via BullMQ job queues",
+        "Built the Contracts module end-to-end: PostgreSQL DAO layer, bilingual PDF generation (English + Arabic RTL) using pdfmake-RTL, role-based module locking, and plan limit enforcement",
+        "Fixed a data integrity bug in the payment capture flow by wrapping a multi-step DB operation in a PostgreSQL transaction with proper rollback on error",
+        "Extended the Advanced Reporting module with payment status/method filters, optimized a slow production SQL query, and fixed Arabic RTL rendering in exported PDFs",
+      ],
+      skills: ["Node.js", "TypeScript", "Angular", "PostgreSQL", "BullMQ", "Google Cloud", "Firebase", "pdfmake-RTL"],
+      impact: "3 full features shipped",
+    },
     {
       title: "Software Developer",
       company: "Autonomis",

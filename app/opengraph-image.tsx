@@ -36,14 +36,16 @@ export default function OgImage() {
         <div
           style={{
             position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "radial-gradient(circle at 80% 20%, rgba(251,146,60,0.07) 0%, transparent 55%), radial-gradient(circle at 15% 80%, rgba(251,146,60,0.04) 0%, transparent 50%)",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "radial-gradient(circle at 80% 20%, rgba(251,146,60,0.07) 0%, transparent 55%)",
           }}
         />
 
         {/* Top section */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px", zIndex: 1 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           {/* Badge + URL row */}
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <div
@@ -102,25 +104,15 @@ export default function OgImage() {
         </div>
 
         {/* Bottom section */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px", zIndex: 1 }}>
-          {/* Skill badges */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          {/* Skill badges — hardcoded to avoid Satori .map() issues */}
           <div style={{ display: "flex", gap: "10px" }}>
-            {["Node.js", "Golang", "Next.js", "PostgreSQL", "AWS", "TypeScript"].map((skill) => (
-              <div
-                key={skill}
-                style={{
-                  background: "rgba(251,146,60,0.08)",
-                  border: "1px solid rgba(251,146,60,0.25)",
-                  color: "#fb923c",
-                  padding: "7px 16px",
-                  borderRadius: "999px",
-                  fontSize: "15px",
-                  fontWeight: "500",
-                }}
-              >
-                {skill}
-              </div>
-            ))}
+            <div style={{ background: "rgba(251,146,60,0.08)", border: "1px solid rgba(251,146,60,0.25)", color: "#fb923c", padding: "7px 16px", borderRadius: "999px", fontSize: "15px", fontWeight: "500" }}>Node.js</div>
+            <div style={{ background: "rgba(251,146,60,0.08)", border: "1px solid rgba(251,146,60,0.25)", color: "#fb923c", padding: "7px 16px", borderRadius: "999px", fontSize: "15px", fontWeight: "500" }}>Golang</div>
+            <div style={{ background: "rgba(251,146,60,0.08)", border: "1px solid rgba(251,146,60,0.25)", color: "#fb923c", padding: "7px 16px", borderRadius: "999px", fontSize: "15px", fontWeight: "500" }}>Next.js</div>
+            <div style={{ background: "rgba(251,146,60,0.08)", border: "1px solid rgba(251,146,60,0.25)", color: "#fb923c", padding: "7px 16px", borderRadius: "999px", fontSize: "15px", fontWeight: "500" }}>PostgreSQL</div>
+            <div style={{ background: "rgba(251,146,60,0.08)", border: "1px solid rgba(251,146,60,0.25)", color: "#fb923c", padding: "7px 16px", borderRadius: "999px", fontSize: "15px", fontWeight: "500" }}>AWS</div>
+            <div style={{ background: "rgba(251,146,60,0.08)", border: "1px solid rgba(251,146,60,0.25)", color: "#fb923c", padding: "7px 16px", borderRadius: "999px", fontSize: "15px", fontWeight: "500" }}>TypeScript</div>
           </div>
 
           {/* Divider + tagline */}

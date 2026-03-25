@@ -1,0 +1,33 @@
+# Karan Mali
+
+> Backend & Full-Stack Developer specializing in Node.js, Golang, PostgreSQL, and AWS. Building scalable multi-tenant systems and high-performance APIs. Based in India, open to remote roles.
+
+## About
+
+- [Portfolio](https://karan5599.tech): Main portfolio with experience, projects, skills, and contact information
+
+## Projects
+
+- [Elevare — AI Email Manager](https://elevare-karanmali2001s-projects.vercel.app/): Full-stack AI-powered email manager with custom queue management system achieving 40% faster email processing. Stack: Next.js, TypeScript, Prisma, Groq AI, RazorPay
+- [Matchup — Tournament Management](https://github.com/KaranMali2001/matchup): High-concurrency tournament platform supporting 1000+ concurrent users using Go routines. Stack: Go, PostgreSQL, REST API
+- [Enhanced Dimaag — AI Content Sharing](https://enhanced-dimaag.vercel.app/): YouTube video summarization with RAG, vector embeddings, LangChain, and Google Gemini. Stack: TypeScript, Next.js, PostgreSQL, Clerk
+- [Bidding Management System](https://bidding-management-system.vercel.app/): RBAC-based bidding platform with Cloudinary integration and esbuild-optimized builds. Stack: Next.js, TypeScript, Prisma, React Query
+- [Auto-Blog — AI Content Creation](https://auto-blog-opal.vercel.app/): AI-powered blog generation and publishing platform. Stack: Next.js, TypeScript, OpenAI API, MongoDB
+
+## Writing
+
+- [Medium Blog](https://medium.com/@karanmali122001): Technical articles on backend development, system design, Go, Node.js, and database optimization
+- [The ORM Trap That Cost Me a Backend Job](https://medium.com/@karanmali122001/the-orm-trap-that-cost-me-a-backend-job-042c710d5163): Article on ORM performance pitfalls and database query optimization
+
+## Experience
+
+- Currently working at Autonomis as a Backend & Full-Stack Developer
+- Expertise in multi-tenant SaaS architecture, RBAC systems, and database query optimization
+- Production experience with Node.js, Golang, PostgreSQL, MongoDB, Redis, AWS, Docker
+
+## Contact
+
+- Email: karanmali122001@gmail.com
+- GitHub: https://github.com/KaranMali2001
+- LinkedIn: https://www.linkedin.com/in/karan5599
+- Medium: https://medium.com/@karanmali122001

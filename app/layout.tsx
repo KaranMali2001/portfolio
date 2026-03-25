@@ -54,21 +54,12 @@ export const metadata = {
     title: "Karan Mali - Backend & Full-Stack Developer | Node.js, Go, AWS",
     description: "Backend Engineer specializing in scalable systems, multi-tenant architecture, and high-performance APIs. Expert in Node.js, Golang, PostgreSQL, and AWS.",
     siteName: "Karan Mali Portfolio",
-    images: [
-      {
-        url: "/og-image.png", // Create this image (1200x630px)
-        width: 1200,
-        height: 630,
-        alt: "Karan Mali - Backend Developer Portfolio",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Karan Mali - Backend & Full-Stack Developer",
     description: "Backend Engineer building scalable systems with Node.js, Go, PostgreSQL, and AWS. Available for backend engineer roles.",
-    images: ["/og-image.png"], // Create this image
-    creator: "@karanmali", // Replace with your Twitter handle if you have one
+    creator: "@karanmali",
   },
   robots: {
     index: true,
@@ -99,20 +90,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Person",
+              "@id": "https://karan5599.tech/#person",
               name: "Karan Mali",
               url: "https://karan5599.tech",
               email: "karanmali122001@gmail.com",
               jobTitle: "Backend & Full-Stack Developer",
               worksFor: {
                 "@type": "Organization",
+                "@id": "https://karan5599.tech/#organization",
                 name: "Autonomis",
               },
               description: "Backend & Full-Stack Developer specializing in Node.js, Golang, Next.js, and AWS. Building scalable multi-tenant systems and high-performance APIs.",
-              knowsAbout: ["Backend Development", "Node.js", "Golang", "TypeScript", "AWS", "PostgreSQL", "MongoDB", "System Design", "Multi-tenant Architecture", "RBAC", "Microservices"],
+              knowsAbout: ["Backend Development", "Node.js", "Golang", "TypeScript", "AWS", "PostgreSQL", "MongoDB", "Redis", "Docker", "System Design", "Multi-tenant Architecture", "RBAC", "Microservices", "REST APIs", "GraphQL", "LangChain", "AI Integration"],
               sameAs: [
                 "https://github.com/KaranMali2001",
                 "https://medium.com/@karanmali122001",
-                "https://www.linkedin.com/in/karan5599", // Add if you have LinkedIn
+                "https://www.linkedin.com/in/karan5599",
               ],
               address: {
                 "@type": "PostalAddress",
@@ -158,13 +151,44 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
+        {/* Article Schema for Blog Posts */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              headline: "The ORM Trap That Cost Me a Backend Job",
+              url: "https://medium.com/@karanmali122001/the-orm-trap-that-cost-me-a-backend-job-042c710d5163",
+              author: {
+                "@type": "Person",
+                "@id": "https://karan5599.tech/#person",
+                name: "Karan Mali",
+                url: "https://karan5599.tech",
+              },
+              publisher: {
+                "@type": "Organization",
+                name: "Medium",
+                url: "https://medium.com",
+              },
+              description: "A deep dive into ORM performance pitfalls and how relying on abstractions cost a backend engineering interview opportunity. Covers query optimization and database best practices.",
+              keywords: ["Backend", "ORM", "Performance", "Database", "Node.js", "Query Optimization"],
+              inLanguage: "en-US",
+            }),
+          }}
+        />
+
         {/* Structured Data for Main Projects */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              name: "Karan Mali's Projects",
+              description: "Software projects built by Karan Mali showcasing backend, full-stack, and AI integration expertise",
+              itemListElement: [
               {
-                "@context": "https://schema.org",
                 "@type": "SoftwareApplication",
                 name: "Elevare - AI Email Management",
                 applicationCategory: "BusinessApplication",
@@ -224,7 +248,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 programmingLanguage: ["TypeScript", "JavaScript"],
                 keywords: "RBAC, bidding system, Cloudinary, React Query, Prisma, Next.js",
               },
-            ]),
+              ],
+            }),
           }}
         />
 

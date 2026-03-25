@@ -54,12 +54,21 @@ export const metadata = {
     title: "Karan Mali - Backend & Full-Stack Developer | Node.js, Go, AWS",
     description: "Backend Engineer specializing in scalable systems, multi-tenant architecture, and high-performance APIs. Expert in Node.js, Golang, PostgreSQL, and AWS.",
     siteName: "Karan Mali Portfolio",
+    images: [
+      {
+        url: "/image.png",
+        width: 1674,
+        height: 944,
+        alt: "Karan Mali - Backend & Full-Stack Developer Portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Karan Mali - Backend & Full-Stack Developer",
     description: "Backend Engineer building scalable systems with Node.js, Go, PostgreSQL, and AWS. Available for backend engineer roles.",
     creator: "@karanmali",
+    images: ["/image.png"],
   },
   robots: {
     index: true,

@@ -1,13 +1,22 @@
-export default function sitemap() {
-  const baseUrl = "https://karan5599.tech";
-  const lastModified = new Date();
+import type { MetadataRoute } from "next";
+
+const BASE = "https://karan5599.in";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
 
   return [
     {
-      url: baseUrl,
-      lastModified,
+      url: BASE,
+      lastModified: now,
       changeFrequency: "weekly",
       priority: 1,
+    },
+    {
+      url: `${BASE}/now`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
     },
   ];
 }

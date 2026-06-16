@@ -19,7 +19,8 @@ const nextConfig = {
 
   // Build optimizations
   experimental: {
-    optimizePackageImports: ["lucide-react", "framer-motion"],
+    optimizePackageImports: ["framer-motion"],
+    viewTransition: true,
   },
 
   // Output optimization

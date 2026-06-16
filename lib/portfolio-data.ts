@@ -1,260 +1,255 @@
-// Shared portfolio data for all design variants
+// Single source of truth for all portfolio design variants.
+// Positioning: Backend & systems engineer who builds AI tooling to ship faster.
+// Target: backend & systems roles. Light, clean, text-rich.
 
 export const personalInfo = {
   name: "Karan Mali",
-  title: "Backend & Full-Stack Developer",
+  title: "Backend + Product Engineer",
+  positioningLine: "Backend & systems engineer who builds AI tooling to ship faster.",
+  subline: "I work on data integrity, multi-tenant architecture, and the automation that lets a small team move like a large one. Currently at Ajar, a property-management & rent-payments SaaS.",
+  location: "India · Remote",
+  availability: "Open to backend & systems roles · Remote",
   email: "karanmali122001@gmail.com",
   github: "https://github.com/KaranMali2001",
   githubUsername: "KaranMali2001",
+  devto: "https://dev.to/karan5599",
   medium: "https://medium.com/@karanmali122001",
-  location: "India",
-  remote: true,
-  tagline: "Backend Engineer crafting scalable systems with Node.js, Go, and AWS",
-  philosophy: "80% Thinking, 20% Coding",
-  yearsSince: 2020,
-  experience: "2+ Years",
-  resumeUrl: "https://drive.google.com/file/d/1wMiTKP6tQb0Ds1YcLRYKRWlnhz0rg2UQ/view?usp=sharing",
+  x: "https://x.com/karanM5599",
+  website: "https://karan5599.in",
+  resumeUrl: "https://drive.google.com/file/d/11Vk2bbOHiZ6hUFiy8aAABJr5PLzXk5O6/view",
 };
 
-export const stats = {
-  experience: "2+ Years",
-  bugReduction: "50%",
-  projects: "8+",
-  concurrentUsers: "1000+",
-};
+// Hero "pillars" — what Karan consists of, NOT vanity metrics (no commit/PR counts).
+// Each is a capability he can defend in an interview.
+export const heroStats = [
+  { value: "Systems", label: "Multi-tenant data integrity & zero-downtime migrations" },
+  { value: "AI tooling", label: "A production agent the whole team now ships with" },
+  { value: "Payments", label: "Tokenization, job queues, transactional capture" },
+  { value: "Backend", label: "Node, Go, PostgreSQL & BullMQ in production" },
+];
 
+// THE differentiator section. Each item = outcome headline + what it is + proof + tech.
+// This is the only place the React Native mobile work appears (as an AI-leveraged delivery story).
+export const engineeringWithAI = [
+  {
+    id: "ai-plan-pipeline",
+    headline: "Cut feature kickoff from hours to minutes — adopted team-wide",
+    what: "Built a Jira → GitHub Actions → Claude pipeline. When a ticket is assigned, an agent reads the codebase, drafts an implementation plan and test scenarios, and commits them to a fresh branch.",
+    proof: "12+ plans generated in the first month; the whole team now starts work from it.",
+    tech: ["Claude", "GitHub Actions", "Jira webhooks", "Node.js"],
+  },
+  {
+    id: "arabic-agent",
+    headline: "Automated Arabic localization behind a human-review gate",
+    what: "A translator agent runs in CI before deploy, translating the app into Arabic (full RTL); a human reviewer only approves the diff instead of translating from scratch.",
+    proof: "Localization ships continuously instead of blocking releases.",
+    tech: ["LLM agent", "CI/CD", "i18n", "RTL"],
+  },
+  {
+    id: "mobile-8-weeks",
+    headline: "Shipped a production mobile app in 8 weeks",
+    what: "Led delivery of the landlord mobile app end-to-end — leaning on AI tooling for scaffolding, native plugin work, and the Android release pipeline (Fastlane → signed AAB → Firebase).",
+    proof: "iOS + Android, 15+ screens, Arabic RTL, push notifications — zero to store in ~8 weeks.",
+    tech: ["React Native", "Expo", "Fastlane", "Firebase", "Courier"],
+  },
+];
+
+// Experience — Ajar framed PURELY backend/systems (mobile lives in engineeringWithAI).
 export const experiences = [
   {
-    title: "Full Stack Engineer",
+    title: "Software Engineer",
     company: "Ajar Online",
+    companyNote: "Property-management & rent-payments SaaS",
     period: "Nov 2025 – Present",
     location: "Remote",
     highlights: [
-      "Designed a centralized Notification Hub (Node.js/TypeScript) integrating Courier API with RBAC-aware fan-out, per-user preference management, and async dispatch via BullMQ job queues",
-      "Built the Contracts module end-to-end: PostgreSQL DAO layer, bilingual PDF generation (English + Arabic RTL) using pdfmake-RTL, role-based module locking, and plan limit enforcement",
-      "Fixed a data integrity bug in the payment capture flow by wrapping a multi-step DB operation in a PostgreSQL transaction with proper rollback on error",
-      "Extended the Advanced Reporting module with payment status/method filters, optimized a slow production SQL query, and fixed Arabic RTL rendering in exported PDFs",
+      "Diagnosed and fixed a silent multi-tenant data-corruption bug — web and mobile sessions collided on a single global account context, so one device could quietly operate on another's portfolio. Re-architected to request-scoped resolution with AsyncLocalStorage; mapped **44 service call sites**, shipped the fix in 3 files.",
+      "Led a zero-downtime, six-phase migration deprecating a global account-id field across four codebases, with a metric-gated cutover held below **0.5% error rate for 7 days** ending in a schema column drop.",
+      "Ran a server-side authorization audit that found RBAC was enforced only on the client; catalogued **IDOR vulnerabilities** and built server-side RBAC middleware backed by integration tests.",
+      "Built a **centralized notification hub**: queue-based multi-channel delivery (in-app, email, SMS) with per-user preferences and event triggers across lease and payment workflows.",
+      "Integrated MyFatoorah payments — **saved-card tokenization** and a capture flow hardened with proper transactional rollback.",
+      "Build & infra: cut the server build **6.6s → 119ms** with esbuild, shrank the Docker image 65%, sped Angular CI 75%, and flagged a recurring CI-plan cost saving.",
     ],
-    skills: ["Node.js", "TypeScript", "Angular", "PostgreSQL", "BullMQ", "Google Cloud", "Firebase", "pdfmake-RTL"],
-    impact: "3 full features shipped",
+    skills: ["Node.js", "TypeScript", "PostgreSQL", "BullMQ", "Redis", "Go", "Google Cloud", "Docker", "GitHub Actions"],
+    impact: "Platform-wide systems work",
   },
   {
     title: "Software Developer",
     company: "Autonomis",
+    companyNote: "Data / reporting platform",
     period: "Dec 2024 – Oct 2025",
     location: "Remote",
     highlights: [
-      "Built RBAC sharing system with fine-grained view/edit permissions",
-      "Designed multi-tenant architecture with invite system and role management",
-      "Established MIS report dashboards with customizable views automating report delivery through Airflow",
-      "Reduced bug-related downtime by 50% by troubleshooting and resolving issues in AI-generated backend code",
+      "Built an **RBAC sharing system** with fine-grained view/edit permissions and multi-tenant architecture with invites and role management.",
+      "Established MIS reporting dashboards with customizable views, automating delivery through Airflow.",
+      "Reduced bug-related downtime by **~50%** by troubleshooting and hardening AI-generated backend code.",
     ],
     skills: ["RBAC", "Multi-tenancy", "Airflow", "React Query", "Zustand"],
-    impact: "50% less downtime",
+    impact: "~50% less downtime",
   },
   {
     title: "Backend Developer",
     company: "PixelSaffron",
+    companyNote: "E-commerce",
     period: "Oct 2024 – Dec 2024",
     location: "Remote",
     highlights: [
-      "Built backend for clothing brand with MongoDB, Express, Node.js",
-      "Integrated PhonePe with webhook-based real-time order updates",
-      "Created wallet + coupon system with RazorPay + PhonePe payment flows",
-      "Optimized analytics via indexing + database views",
+      "Built the backend for a clothing brand on MongoDB, Express, and Node.js.",
+      "Integrated PhonePe and RazorPay with webhook-based real-time order updates, plus a wallet and coupon system.",
+      "Optimized analytics through indexing and database views.",
     ],
     skills: ["Node.js", "MongoDB", "PhonePe", "RazorPay", "JWT"],
     impact: "Real-time payments",
   },
 ];
 
+// Projects — finance-tracker-v2 is the centerpiece. No DispatchX.
 export const projects = [
   {
-    title: "Auto-Blog - AI-Powered Content Creation",
-    description: "Automated blog generation using AI to create and publish content",
-    impact: "Streamlined content creation process",
-    problem: "Content creators needed an efficient way to generate high-quality blog posts quickly without sacrificing quality.",
-    solution: "Developed an AI-powered platform that generates, formats, and publishes blog content automatically, with customizable templates and SEO optimization.",
-    tech: ["Next.js", "TypeScript", "OpenAI API", "MongoDB", "Tailwind CSS"],
-    liveUrl: "https://auto-blog-opal.vercel.app/",
+    title: "Wealth Reserve",
+    subtitle: "Finance Tracker v2",
+    featured: true,
+    description:
+      "Go/Lambda backend that passively captures Indian bank SMS, reconciles against Excel statements with fuzzy-match confidence scoring, and auto-links transactions to SIP goals — web + React Native.",
+    problem: "Indian users juggle expense tracking, scattered SIPs, and manual statement reconciliation across four or five tools.",
+    solution:
+      "Go/Echo (SQLC + PostgreSQL) on AWS Lambda with Asynq job queue. Gemini parses raw bank SMS; an Excel-statement reconciler fuzzy-matches rows with confidence scoring; SIP rules auto-link transactions to goals in the background.",
+    impact: "Live in production · 50+ documented endpoints · Go backend on AWS Lambda",
+    tech: ["Go", "Echo", "SQLC", "PostgreSQL", "AWS Lambda", "Asynq", "Gemini", "React Native", "Clerk", "Cloudflare R2"],
+    liveUrl: "https://finance-tracker-v2-ten.vercel.app/",
+    githubUrl: "https://github.com/KaranMali2001/finance-tracker-v2",
+  },
+  {
+    title: "Auto-Blog",
+    featured: true,
+    description:
+      "GitHub App → LLM pipeline that turns commit diffs into drafted blog posts, tweets, and LinkedIn updates — automatically, on every push.",
+    problem: "Engineers ship constantly but rarely turn that work into writing.",
+    solution:
+      "Next.js + Convex (real-time) + Clerk. The GitHub App validates webhooks, filters noise (lockfiles, binaries, large diffs), streams cleaned diffs to an LLM, and generates multi-platform content with scheduled aggregation.",
+    impact: "Webhooks · real-time sync · LLM orchestration · open source",
+    tech: ["Next.js", "Convex", "Clerk", "GitHub App", "OpenRouter / Gemini"],
     githubUrl: "https://github.com/KaranMali2001/auto-blog",
   },
   {
-    title: "Mini Ride Booking",
-    description: "A lightweight ride-hailing service with real-time tracking",
-    impact: "Efficient ride matching and tracking",
-    problem: "Existing ride-hailing solutions were too complex for small-scale operations and local businesses.",
-    solution: "Created a simplified ride-booking platform with real-time location tracking, fare calculation, and driver-passenger matching algorithms.",
-    tech: ["React Native", "Node.js", "MongoDB", "Socket.io", "Google Maps API"],
-    githubUrl: "https://github.com/KaranMali2001/Mini-Ride-Booking",
+    title: "MatchUp",
+    description: "Tournament-management platform that handles concurrent registrations and scheduling without collisions — built around Go goroutines.",
+    problem: "Tournament tools struggle with concurrent users updating the same bracket.",
+    solution: "Go concurrency model (goroutines + channels) for high-throughput registration, scheduling, and result tracking with no race conditions.",
+    impact: "Concurrent-safe · Go + PostgreSQL · Dockerized",
+    tech: ["Go", "PostgreSQL", "Docker", "REST"],
+    githubUrl: "https://github.com/KaranMali2001/MatchUp",
   },
   {
-    title: "Elevare - AI Email Management",
-    description: "Full-stack AI-powered email manager with custom queue management",
-    impact: "40% faster processing",
-    problem: "Email management was inefficient with existing tools, requiring a custom solution that could handle high volumes with AI-powered insights.",
-    solution: "Built a complete email management system with custom queue implementation, AI summarization, and real-time analytics.",
-    tech: ["Next.js", "TypeScript", "Prisma", "Groq", "RazorPay"],
-    liveUrl: "https://elevare-karanmali2001s-projects.vercel.app/",
-    githubUrl: "https://github.com/KaranMali2001",
-  },
-  {
-    title: "Enhanced Dimaag - AI Content Sharing",
-    description: "AI-powered YouTube summarization & content sharing app",
-    impact: "Improved content digestion using Gemini + LangChain",
-    problem: "Users needed a way to summarize and share long videos efficiently.",
-    solution: "Used LangChain and Gemini to summarize YouTube videos and implemented permission-based sharing with Clerk.",
-    tech: ["React", "PostgreSQL", "Drizzle ORM", "LangChain", "Clerk"],
+    title: "Enhanced Dimaag",
+    description: "Drop a YouTube URL, get a structured summary with permission-based sharing — built to handle hour-long videos without truncation.",
+    problem: "Long videos are slow to digest and hard to share with context.",
+    solution: "LangChain + Gemini chunked summarization pipeline; Clerk handles fine-grained permission-based sharing between users.",
+    impact: "Live · Gemini + LangChain · shareable summaries",
+    tech: ["React", "PostgreSQL", "Drizzle", "LangChain", "Clerk"],
     liveUrl: "https://enhanced-dimaag.vercel.app/",
     githubUrl: "https://github.com/KaranMali2001/enhancedDimaag",
   },
   {
-    title: "Bidding Management System",
-    description: "Role-based bidding app with Cloudinary integration",
-    impact: "Efficient file uploads and build optimization",
-    problem: "Needed a platform where sellers and bidders could interact seamlessly.",
-    solution: "Created a role-based system for bid management with file uploads and optimized frontend using esbuild.",
-    tech: ["Express", "Next.js", "React Query", "Cloudinary", "Prisma"],
-    liveUrl: "https://bidding-management-system.vercel.app/",
-    githubUrl: "https://github.com/KaranMali2001/bidding-management-system",
-  },
-  {
-    title: "Matchup - Tournament System",
-    description: "High-concurrency tournament management with Go routines",
-    impact: "1000+ concurrent users",
-    problem: "Tournament management systems often struggle with concurrent user loads and complex scheduling algorithms.",
-    solution: "Built a robust tournament platform leveraging Go's concurrency features for optimal performance.",
-    tech: ["Go", "PostgreSQL", "Docker", "REST APIs"],
-    githubUrl: "https://github.com/KaranMali2001/matchup",
-  },
-  {
-    title: "Finance Tracker - Personal Finance Management",
-    description: "Comprehensive finance tracking app with analytics and insights",
-    impact: "Smart financial management with real-time analytics",
-    problem: "Users needed a simple yet powerful way to track expenses, income, and analyze spending patterns.",
-    solution: "Built a full-featured finance tracker with SMS parsing, category-based analytics, real-time dashboards, and automated transaction categorization.",
-    tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Recharts", "Tailwind CSS"],
-    githubUrl: "https://github.com/KaranMali2001/finance-tracker-v2",
+    title: "Elevare",
+    description: "AI email manager with a custom job queue — summarizes high-volume inboxes and surfaces what actually needs a reply.",
+    problem: "Existing email tools couldn't handle volume with useful AI insight.",
+    solution: "Custom queue implementation for controlled concurrency, Groq-powered summarization, and real-time processing analytics.",
+    impact: "40% faster processing · custom queue · Groq inference",
+    tech: ["Next.js", "TypeScript", "Prisma", "Groq"],
+    liveUrl: "https://elevare-karanmali2001s-projects.vercel.app/",
+    githubUrl: "https://github.com/KaranMali2001",
   },
 ];
 
+// Writing — real, published posts first, then upcoming.
 export const blogPosts = [
   {
-    title: "The ORM Trap That Cost Me a Backend Job",
-    description: "I've been searching for backend-related jobs for almost a month, and I finally got one opportunity — but I messed it up. Here's my story:",
-    publishedDate: "July 2025",
-    readTime: "7 min read",
-    tags: ["Backend", "ORM", "Performance", "Database"],
-    url: "https://medium.com/@karanmali122001/the-orm-trap-that-cost-me-a-backend-job-042c710d5163",
-    excerpt:
-      "I cleared the first round, which I didn't expect because I was asked to write a CREATE TABLE syntax, and I wasn't very confident with it. I thought that would get me rejected, but surprisingly, I was ....",
+    title: "From custom polling architecture to one API call: rethinking notification delivery",
+    platform: "dev.to",
+    publishedDate: "May 2026",
+    readTime: "7 min",
+    reactions: 16,
+    tags: ["System Design", "Backend", "Full-stack"],
+    url: "https://dev.to/karan5599/notification-system-design-the-question-i-almost-missed-a1f",
+    excerpt: "I set out to build a polling-based notification system, then realized the scope was wrong — mobile and email were coming. The story of pressure-testing scope before you build.",
     featured: true,
-    category: "Career Reflection",
-    difficulty: "Beginner",
   },
   {
-    title: "SQL Secrets for Backend Developers",
-    description: "Lessons learned while scaling complex backend systems, focusing on real-world SQL challenges and performance pitfalls.",
-    publishedDate: "Coming Soon",
-    readTime: "12 min read",
-    tags: ["SQL", "Backend", "Performance", "Database"],
-    excerpt:
-      "If you're using SQL in your backend, you're likely making subtle mistakes that affect performance or reliability. This post covers what I wish I knew earlier — from query planning to schema design.",
-    upcoming: true,
-    category: "Technical Deep Dive",
-    difficulty: "Intermediate",
+    title: "The const enum that took down our payments",
+    platform: "dev.to",
+    publishedDate: "May 2026",
+    readTime: "7 min",
+    tags: ["TypeScript", "Performance", "Incident"],
+    url: "https://dev.to/karan5599/the-const-enum-that-took-down-our-payments-pi8",
+    excerpt: "How a difference between tsc and esbuild — const enum inlining — corrupted payment data in production, and how I responded.",
+  },
+  {
+    title: "The ORM Trap That Cost Me a Backend Job",
+    platform: "Medium",
+    publishedDate: "2025",
+    readTime: "7 min",
+    tags: ["Backend", "ORM", "Database"],
+    url: "https://medium.com/@karanmali122001/the-orm-trap-that-cost-me-a-backend-job-042c710d5163",
+    excerpt: "A candid story about leaning on an ORM, missing the SQL underneath, and what it cost me.",
   },
   {
     title: "Concurrency Can Kill Your Performance",
-    description:
-      "Sorting millions of records? I thought merge sort was fast enough — until I discovered how concurrency in Go could supercharge it — or sabotage it.",
-    publishedDate: "July 2025",
-    readTime: "8 min read",
-    tags: ["Go", "Concurrency", "Algorithms", "Performance", "Parallelism"],
-    excerpt:
-      'I always thought merge sort was efficient — until I ran it on 10 million items. Then I asked, "What if I let Go\'s goroutines help?" This blog explores how I used concurrency to drastically cut sort times.',
+    platform: "Medium",
+    publishedDate: "2025",
+    readTime: "8 min",
+    tags: ["Go", "Concurrency", "Performance"],
+    url: "https://medium.com/@karanmali122001",
+    excerpt: "I thought merge sort was fast enough — until 10 million items. What Go's goroutines did to it, for better and worse.",
+  },
+  {
+    title: "Two Processes on the Same Port",
+    platform: "dev.to",
+    publishedDate: "In progress",
+    readTime: "—",
+    tags: ["Networking", "SO_REUSEPORT", "Linux"],
     upcoming: true,
-    category: "Technical Deep Dive",
-    difficulty: "Intermediate",
+    excerpt: "SO_REUSEPORT, TCP 4-tuple hashing, and how the kernel actually load-balances across processes.",
   },
 ];
 
+// Skills — no emojis (icons handled per-design).
 export const skillCategories = [
-  {
-    title: "Programming Languages",
-    skills: ["Go", "TypeScript", "JavaScript", "SQL"],
-    icon: "💻",
-  },
-  {
-    title: "Backend Technologies",
-    skills: ["Node.js", "Express", "BullMQ", "Prisma", "Drizzle ORM"],
-    icon: "⚙️",
-  },
-  {
-    title: "Databases",
-    skills: ["PostgreSQL", "MongoDB", "Redis"],
-    icon: "🗄️",
-  },
-  {
-    title: "System Design",
-    skills: ["Multi-tenancy", "RBAC", "Queue Systems", "Microservices"],
-    icon: "🏗️",
-  },
-  {
-    title: "Cloud & DevOps",
-    skills: ["Google Cloud", "AWS ECS/ECR", "Firebase", "Docker", "GitHub Actions", "Airflow"],
-    icon: "☁️",
-  },
-  {
-    title: "Frontend & APIs",
-    skills: ["Angular", "React", "Next.js", "React Query", "REST APIs"],
-    icon: "🎨",
-  },
+  { title: "Languages", skills: ["Go", "TypeScript", "JavaScript", "SQL"] },
+  { title: "Backend", skills: ["Node.js", "Express", "NestJS", "Echo (Go)", "REST", "gRPC"] },
+  { title: "Data & Queues", skills: ["PostgreSQL", "MongoDB", "Redis", "BullMQ", "Asynq", "SQLC"] },
+  { title: "Systems & Architecture", skills: ["Multi-tenancy", "RBAC", "Request-scoped context", "Zero-downtime migrations", "Async jobs"] },
+  { title: "Cloud & DevOps", skills: ["AWS (Lambda/ECS)", "Google Cloud", "Docker", "GitHub Actions", "Fastlane"] },
+  { title: "Applied AI", skills: ["Claude / Gemini in prod", "Agentic dev tooling", "LLM orchestration"] },
 ];
 
-export const coreSpecializations = [
-  {
-    title: "First Principles",
-    description: "Breaking down complex problems",
+// What he's into / how he learns — for the "How I learn" strip.
+export const learning = {
+  method: {
+    name: "Rabbit-holing",
+    description: "My own way of learning: pick something that nags at me, dig until the mental model clicks, then write it up. Most of my posts start as a rabbit hole.",
   },
-  {
-    title: "System Architecture",
-    description: "Designing scalable systems",
-  },
-  {
-    title: "Performance",
-    description: "Optimization and efficiency",
-  },
-  {
-    title: "Concurrency",
-    description: "Parallel processing patterns",
-  },
-];
+  interests: [
+    {
+      title: "Distributed systems",
+      detail: "Kafka, Redis, transactions, and the system limits that bite at scale.",
+    },
+    {
+      title: "Low-level networking",
+      detail: "SO_REUSEPORT, TCP internals, and eBPF — how packets actually get routed.",
+    },
+    {
+      title: "Go performance",
+      detail: "Where the time and allocations really go, and how to get them back.",
+    },
+  ],
+};
 
-export const journey = [
-  {
-    year: "2020",
-    title: "Started Engineering",
-    description: "Began Bachelor of Engineering at DY Patil College, Kolhapur",
-  },
-  {
-    year: "2024",
-    title: "First Professional Role",
-    description: "Joined PixelSaffron as Backend Developer",
-  },
-  {
-    year: "Late 2024",
-    title: "Scaled to Full-Stack",
-    description: "Joined Autonomis as Software Developer working on multi-tenant systems",
-  },
-  {
-    year: "Nov 2025",
-    title: "Full Stack Engineer at Ajar Online",
-    description: "Shipping full features end-to-end on a property management SaaS platform — notification systems, contracts, reporting, and more",
-  },
-  {
-    year: "Now",
-    title: "Building & Growing",
-    description: "Continuously shipping features at Ajar while exploring new backend technologies",
-  },
+export const navSections = [
+  { id: "engineering-with-ai", label: "Engineering with AI" },
+  { id: "experience", label: "Experience" },
+  { id: "projects", label: "Projects" },
+  { id: "writing", label: "Writing" },
+  { id: "learn", label: "How I learn" },
+  { id: "contact", label: "Contact" },
 ];

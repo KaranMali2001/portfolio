@@ -1,7 +1,8 @@
 "use client";
 
 import { Command } from "cmdk";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
+import { useLenis } from "lenis/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { personalInfo } from "@/lib/portfolio-data";
@@ -25,6 +26,7 @@ export default function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const router = useRouter();
+  const lenis = useLenis();
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -32,6 +34,12 @@ export default function CommandPalette() {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         setOpen((p) => !p);
+      } else if (e.key === "Escape") {
+        // Bare <Command> (not Command.Dialog) has no built-in escape handling,
+        // so close it ourselves — works even while the input is focused since
+        // keydown bubbles to document.
+        setOpen(false);
+        setQuery("");
       }
     }
     function onOpen() { setOpen(true); }
@@ -54,7 +62,14 @@ export default function CommandPalette() {
 
   function scrollTo(id: string) {
     close();
-    setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      // Route through Lenis for buttery, nav-clearing scrolls; fall back to
+      // native when Lenis is absent (e.g. prefers-reduced-motion).
+      if (lenis) lenis.scrollTo(el, { offset: -64 });
+      else el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 80);
   }
 
   const commands: CommandItem[] = [

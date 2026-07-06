@@ -1,14 +1,15 @@
+import path from "node:path";
+import bundleAnalyzer from "@next/bundle-analyzer";
+
+// Run `ANALYZE=true pnpm build` to open the client/edge/nodejs bundle reports.
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
 const nextConfig = {
-  // Image optimization
-  images: {
-    formats: ["image/avif", "image/webp"],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 60,
-    dangerouslyAllowSVG: true,
-    contentDispositionType: "attachment",
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-  },
+  // Pin the workspace root so build traces don't pick up a stray lockfile in the
+  // home directory (silences the "inferred workspace root" warning).
+  outputFileTracingRoot: path.join(__dirname),
 
   // Compression
   compress: true,
@@ -19,12 +20,9 @@ const nextConfig = {
 
   // Build optimizations
   experimental: {
-    optimizePackageImports: ["framer-motion"],
+    optimizePackageImports: ["motion"],
     viewTransition: true,
   },
-
-  // Output optimization
-  output: "standalone",
 
   // Headers for security and performance
   async headers() {
@@ -45,8 +43,14 @@ const nextConfig = {
             value: "SAMEORIGIN",
           },
           {
-            key: "X-XSS-Protection",
-            value: "1; mode=block",
+            // Two years, subdomains included, eligible for the HSTS preload list.
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          {
+            // Lock down powerful APIs the site never uses.
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
           },
           {
             key: "Referrer-Policy",
@@ -54,17 +58,8 @@ const nextConfig = {
           },
         ],
       },
-      {
-        source: "/karan.svg",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
     ];
   },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

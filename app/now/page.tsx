@@ -9,37 +9,37 @@ export const metadata: Metadata = {
 const now = {
   building: [
     {
-      title: "Wealth Reserve — SMS reconciler",
+      title: "gRPC pipeline runner (Go + TypeScript)",
       detail:
-        "The Go/Lambda backend that parses Indian bank SMS into transactions. Currently hardening the fuzzy-match confidence scoring and building the SIP auto-link pass.",
+        "A CI/CD pipeline runner where every job is a real shell execution — Go gRPC server, TypeScript client. Working through all four RPC types, plus interceptors, deadlines, and cancellation that actually kills the process.",
     },
     {
       title: "This portfolio",
-      detail: "Rebuilding from scratch — text-first, no gimmicks, written to hold up to an engineering interview not just look good on a screenshot.",
+      detail: "Rebuilding from scratch: text-first, no gimmicks, written to hold up in an interview, not just look good in a screenshot.",
     },
   ],
   diggingInto: [
     {
+      title: "Go map concurrency",
+      detail: "Why concurrent writes to a Go map panic instead of corrupting silently, and the fixes in order: the crash, a naive mutex, then the tuned version. Plus reference-vs-value semantics.",
+    },
+    {
       title: "SO_REUSEPORT & TCP internals",
-      detail: "Writing the post that explains how the kernel load-balances across processes on the same port — the 4-tuple hash, the reuseport_sock_index, and where it breaks.",
+      detail: "How several processes bind the same port at once. Linux spreads connections with a 4-tuple hash; macOS hands them all to whoever bound last. Built from scratch with setsockopt.",
     },
     {
-      title: "eBPF",
-      detail: "Not production-ready yet. Just building the mental model: how the verifier works, what XDP actually does at the driver level, and why everyone is excited.",
-    },
-    {
-      title: "Kafka internals",
-      detail: "Log segmentation, ISR, and why partition reassignment is scarier than it looks. Reading the source when the docs stop being specific enough.",
+      title: "Protobuf & gRPC on the wire",
+      detail: "From raw protoc to buf codegen and protovalidate — where the generated code comes from, and what the wire format actually looks like.",
     },
   ],
   writing: [
     {
       title: "Two Processes on the Same Port",
       status: "In progress",
-      detail: "SO_REUSEPORT, TCP 4-tuple hashing, and how the kernel actually load-balances. The post I wish had existed when I first hit this.",
+      detail: "SO_REUSEPORT, TCP 4-tuple hashing, and how the kernel actually load-balances across processes. The post I wish had existed when I first hit this.",
     },
   ],
-  lastUpdated: "June 2026",
+  lastUpdated: "July 2026",
 };
 
 export default function NowPage() {

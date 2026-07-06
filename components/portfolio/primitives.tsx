@@ -1,7 +1,7 @@
 "use client";
 
 import { ACCENT, EASE } from "@/lib/constants";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "motion/react";
 
 // ── Scroll reveal wrapper ────────────────────────────────────────────────────
 export function Reveal({ children, delay = 0, className }: { children: React.ReactNode; delay?: number; className?: string }) {

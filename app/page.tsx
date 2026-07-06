@@ -1,4 +1,4 @@
-import CommandPalette from "@/components/portfolio/CommandPalette";
+import CommandPaletteLoader from "@/components/portfolio/CommandPaletteLoader";
 import DevHero from "@/components/portfolio/dev/DevHero";
 import DevNav from "@/components/portfolio/dev/DevNav";
 import { DevContact, DevEngineeringAI, DevExperience, DevLearn, DevProjects, DevWriting } from "@/components/portfolio/dev/DevSections";
@@ -42,7 +42,7 @@ export default function Page() {
           <DevContact />
         </div>
       </main>
-      <CommandPalette />
+      <CommandPaletteLoader />
     </>
   );
 }

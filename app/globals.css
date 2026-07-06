@@ -4,7 +4,10 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    /* Smooth scrolling is handled by Lenis (see SmoothScroll.tsx). Native
+       `scroll-behavior: smooth` is intentionally omitted — it conflicts with
+       Lenis's programmatic scrollTo. `scroll-padding-top` still applies to the
+       reduced-motion / no-JS fallback so anchored sections clear the nav. */
     scroll-padding-top: 52px;
     /* height of sticky nav so sections aren't hidden behind it */
   }

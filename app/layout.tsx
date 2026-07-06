@@ -1,3 +1,4 @@
+import SmoothScroll from "@/components/portfolio/SmoothScroll";
 import type { Metadata } from "next";
 import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
@@ -6,7 +7,7 @@ import "./globals.css";
 // requested once for the whole app.
 const sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--font-sans",
 });
@@ -21,23 +22,23 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://karan5599.in"),
   title: "Karan Mali — Backend + Product Engineer",
-  description: "Backend & systems engineer working on data integrity, multi-tenant architecture, and AI tooling. Currently at Ajar. Open to backend & systems roles.",
+  description: "Backend & product engineer working on data integrity, multi-tenant architecture, and AI tooling. Currently at Ajar. Open to backend & product roles.",
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     apple: [{ url: "/icon.svg", sizes: "180x180" }],
   },
   openGraph: {
     title: "Karan Mali — Backend + Product Engineer",
-    description: "Backend & systems engineer working on data integrity, multi-tenant architecture, and AI tooling.",
+    description: "Backend & product engineer working on data integrity, multi-tenant architecture, and AI tooling.",
     url: "https://karan5599.in",
     siteName: "Karan Mali",
     locale: "en_US",
     type: "website",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Karan Mali — Backend + Product Engineer",
-    description: "Backend & systems engineer working on data integrity, multi-tenant architecture, and AI tooling.",
+    description: "Backend & product engineer working on data integrity, multi-tenant architecture, and AI tooling.",
     creator: "@karanM5599",
   },
 };
@@ -45,7 +46,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${sans.variable} ${mono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <SmoothScroll>{children}</SmoothScroll>
+      </body>
     </html>
   );
 }

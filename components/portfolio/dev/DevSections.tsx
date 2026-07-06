@@ -32,7 +32,7 @@ export function DevEngineeringAI() {
                 >
                   ›
                 </span>
-                {item.headline}
+                {item.url ? <ULink href={item.url}>{item.headline}</ULink> : item.headline}
               </h3>
               <p className="mt-2 text-[17px] leading-relaxed text-zinc-600">{item.what}</p>
               <p className="mt-2 text-[16px] leading-relaxed text-zinc-500">{item.proof}</p>
@@ -157,15 +157,20 @@ export function DevWriting() {
           <Reveal key={post.title} delay={i * 0.03}>
             <div className="flex items-baseline justify-between gap-4">
               <h3 className="text-[17px] font-semibold leading-snug text-zinc-900">
-                {post.url ? <ULink href={post.url}>{post.title}</ULink> : post.title}
+                {post.url ? <ULink href={post.url}>{post.title}</ULink> : <span>{post.title}</span>}
+                {post.upcoming && (
+                  <span className="ml-2 inline-block rounded-full bg-zinc-100 px-2 py-0.5 align-middle font-mono text-[10px] uppercase tracking-wider text-zinc-500">
+                    Coming soon
+                  </span>
+                )}
               </h3>
-              <Meta>{post.publishedDate}</Meta>
+              {!post.upcoming && <Meta>{post.publishedDate}</Meta>}
             </div>
             <p className="mt-2 text-[18px] leading-relaxed text-zinc-500">{post.excerpt}</p>
             <div className="mt-2 flex flex-wrap items-center gap-1.5">
               <span className="font-mono text-[13px] text-zinc-500">
-                {post.platform} · {post.readTime}
-                {post.upcoming ? " · in progress" : ""}
+                {post.platform}
+                {post.readTime && post.readTime !== "—" ? ` · ${post.readTime}` : ""}
               </span>
               {post.tags.map((tag) => (
                 <ShimmerTag key={tag} label={tag} />

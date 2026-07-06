@@ -2,7 +2,7 @@
 
 import { ACCENT, EASE } from "@/lib/constants";
 import { personalInfo } from "@/lib/portfolio-data";
-import { motion, useReducedMotion, useSpring, type Variants } from "framer-motion";
+import { motion, useReducedMotion, useSpring, type Variants } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { TextReveal, ULink } from "../primitives";
 
@@ -141,14 +141,14 @@ export default function DevHero() {
         </motion.p>
 
         <motion.p variants={line} className="mt-6 text-[18px] leading-relaxed text-zinc-600">
-          I build backend and systems that hold up under real load — multi-tenant architecture, data integrity, and the
-          zero-downtime migrations that keep them honest.
+          I build backend and systems: multi-tenant architecture, data integrity, and zero-downtime migrations that
+          hold under real traffic.
         </motion.p>
 
         <motion.p variants={line} className="mt-3 text-[18px] leading-relaxed text-zinc-600">
-          Lately I&apos;ve been building the AI tooling that lets a small team move like a large one: agents that plan
-          features, localize an app, and ship a mobile release. Currently at{" "}
-          <span className="text-zinc-900">Ajar</span>, a property-management &amp; rent-payments SaaS.
+          Lately, AI tooling that lets a small team ship like a big one — agents that plan features, localize the app,
+          and ship mobile releases. Currently at <span className="text-zinc-900">Ajar</span>, a property-management
+          &amp; rent-payments SaaS.
         </motion.p>
 
         <motion.div variants={line} className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-[18px]">

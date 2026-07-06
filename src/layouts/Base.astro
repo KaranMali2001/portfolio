@@ -1,0 +1,113 @@
+---
+import "../styles/global.css";
+
+// Self-host only the latin variable woff2 (one file per family). Importing the
+// full fontsource CSS pulls @font-face blocks for ~8 subsets we never use; this
+// ships just latin + lets us preload it to kill the font-swap flash.
+import sansWoff2 from "@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url";
+import monoWoff2 from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url";
+
+const fontFace = `
+  @font-face {
+    font-family: 'Plus Jakarta Sans Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 200 800;
+    src: url(${sansWoff2}) format('woff2-variations');
+  }
+  @font-face {
+    font-family: 'JetBrains Mono Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 800;
+    src: url(${monoWoff2}) format('woff2-variations');
+  }
+`;
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL("/og.png", Astro.site).href;
+const ogAlt = "Karan Mali — Backend + Product Engineer";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- Preload the two latin variable fonts (above-the-fold text) -->
+    <link rel="preload" href={sansWoff2} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={monoWoff2} as="font" type="font/woff2" crossorigin />
+    <style is:inline set:html={fontFace}></style>
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Karan Mali" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogAlt} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:creator" content="@karanM5599" />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogAlt} />
+
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+
+    <!-- Lenis smooth scroll — the only always-on script. Skipped entirely for
+         reduced-motion users, who then get native scrolling. Exposed on
+         window.__lenis so the nav + command palette can route scrolls through it. -->
+    <script>
+      import Lenis from "lenis";
+
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (!prefersReduced) {
+        const lenis = new Lenis({
+          // lerp controls the glide (lower = glassier); wheelMultiplier scales
+          // how far each wheel tick travels. 1.0 = native distance, so scrolling
+          // feels calm rather than amplified. Bump toward 1.2 for a faster glide.
+          lerp: 0.08,
+          smoothWheel: true,
+          wheelMultiplier: 1.0,
+          anchors: { offset: -64 },
+        });
+
+        // @ts-expect-error - stash a handle for other scripts
+        window.__lenis = lenis;
+
+        function raf(time: number) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+      }
+    </script>
+  </body>
+</html>

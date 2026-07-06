@@ -1,0 +1,238 @@
+@import "tailwindcss";
+
+/* ── Design tokens ─────────────────────────────────────────────────────────
+   Variable fonts are imported (and self-hosted) from @fontsource-variable in
+   Base.astro. These map them onto Tailwind's font-sans / font-mono utilities. */
+@theme {
+  --font-sans: "Plus Jakarta Sans Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --color-accent: #3b5bdb;
+}
+
+@layer base {
+  html {
+    /* Height of the sticky nav so anchored sections aren't hidden behind it.
+       Native smooth scroll is left off — Lenis owns programmatic scrolling. */
+    scroll-padding-top: 52px;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: #f5efe6;
+    color: #18181b;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ── Scroll-driven animations ───────────────────────────────────────────────
+   These replace framer-motion entirely and run on the compositor thread (zero
+   main-thread JS). Every animation degrades gracefully:
+   - @supports: browsers without scroll-timeline (Firefox today) show final state
+   - prefers-reduced-motion: motion-sensitive users get the final state instantly
+   Content is therefore NEVER left invisible if animations don't run. */
+
+/* Top reading-progress bar — tracks the document scroll 0% → 100%. */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: var(--color-accent);
+  z-index: 50;
+}
+
+/* Reveal-on-scroll: fade + rise as the element enters the viewport. */
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+/* Clip-path text unmask (section labels, hero name). */
+.text-reveal {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+}
+
+/* Section divider that draws left → right on enter. */
+.divider {
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: sp-grow linear both;
+    animation-timeline: scroll(root);
+  }
+  .reveal {
+    animation: reveal-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 22%;
+  }
+  .text-reveal {
+    animation: text-unmask linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 18%;
+  }
+  .divider {
+    animation: divider-draw linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 20%;
+  }
+}
+
+/* No scroll-timeline support → show everything in its final state. */
+@supports not (animation-timeline: scroll()) {
+  .scroll-progress { display: none; }
+  .reveal { opacity: 1; transform: none; }
+  .text-reveal { clip-path: none; }
+  .divider { transform: scaleX(1); }
+}
+
+@keyframes sp-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes text-unmask {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0% 0 0); }
+}
+@keyframes divider-draw {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ── Above-the-fold hero: time-based entrance (not scroll-driven) ─────────── */
+.hero-clip {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  animation: text-unmask 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+.hero-bar {
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  animation: divider-draw 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
+}
+.hero-line {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: reveal-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(0.5s + var(--i, 0) * 0.07s);
+}
+
+/* Typewriter caret + magnetic hover (used by Hero.astro's island). */
+.tw-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  margin-left: 2px;
+  vertical-align: middle;
+  background: var(--color-accent);
+  animation: tw-blink 1s steps(1) infinite;
+}
+@keyframes tw-blink {
+  50% { opacity: 0; }
+}
+.magnetic {
+  display: inline-block;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Nav: scrolled-bar frost + active-link pill ───────────────────────────── */
+#nav-bar.is-scrolled {
+  border-color: rgba(0, 0, 0, 0.08);
+  background: rgba(245, 239, 230, 0.7);
+  box-shadow: 0 10px 30px -14px rgba(70, 55, 30, 0.34);
+}
+@supports (backdrop-filter: blur(1px)) {
+  #nav-bar.is-scrolled { background: rgba(245, 239, 230, 0.58); }
+}
+.nav-link.is-active {
+  font-weight: 500;
+  color: #18181b;
+}
+.nav-link.is-active::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(60, 50, 30, 0.1);
+  outline: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* ── Command palette ──────────────────────────────────────────────────────── */
+.cmdk-root {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  visibility: hidden;
+  pointer-events: none;
+}
+.cmdk-root.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+.cmdk-backdrop {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 680px 480px at 50% 38%,
+    rgba(0, 0, 0, 0.02) 0%,
+    rgba(0, 0, 0, 0.28) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+.cmdk-root.is-open .cmdk-backdrop {
+  opacity: 1;
+}
+.cmdk-dialog {
+  opacity: 0;
+  transform: translateY(-14px) scale(0.93);
+  filter: blur(14px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.2s ease;
+}
+.cmdk-root.is-open .cmdk-dialog {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+.cmdk-item.is-selected {
+  background: #fafafa;
+  color: #18181b;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cmdk-backdrop,
+  .cmdk-dialog {
+    transition: none;
+  }
+}
+
+/* ── Reduced motion: kill all entrance motion, show final state ───────────── */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress { display: none; }
+  .reveal { opacity: 1; transform: none; animation: none; }
+  .text-reveal,
+  .hero-clip { clip-path: none; animation: none; }
+  .divider,
+  .hero-bar { transform: scaleX(1); animation: none; }
+  .hero-line { opacity: 1; transform: none; animation: none; }
+}

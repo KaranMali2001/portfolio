@@ -1,0 +1,90 @@
+---
+import { navSections, personalInfo } from "../lib/portfolio-data";
+---
+
+<header class="sticky top-0 z-30 -mx-5 px-5">
+  <div
+    id="nav-bar"
+    class="-mx-3 mt-2.5 flex items-center justify-between gap-3 rounded-full border border-black/[0.05] bg-[#F5EFE6]/55 px-3 py-2 shadow-[0_5px_20px_-15px_rgba(70,55,30,0.24)] backdrop-blur-md backdrop-saturate-150 transition-[background-color,border-color,box-shadow] duration-300 ease-out supports-[backdrop-filter]:bg-[#F5EFE6]/38"
+  >
+    <a
+      href="#top"
+      class="shrink-0 whitespace-nowrap text-[15px] font-semibold tracking-tight text-zinc-900"
+    >
+      {personalInfo.name}
+    </a>
+    <nav
+      class="flex shrink items-center gap-x-0.5 overflow-x-auto font-sans text-[13px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+    >
+      {
+        navSections.map((s) => (
+          <a
+            href={`#${s.id}`}
+            data-nav={s.id}
+            class="nav-link relative whitespace-nowrap rounded-full px-2 py-1 text-zinc-500 transition-colors duration-150 hover:text-zinc-800"
+          >
+            <span class="relative z-10">{s.id === "learn" ? "Learn" : s.label}</span>
+          </a>
+        ))
+      }
+      <a
+        href="/now"
+        class="relative whitespace-nowrap rounded-full px-2 py-1 text-zinc-500 transition-colors duration-150 hover:text-zinc-800"
+      >
+        Now
+      </a>
+      <button
+        id="cmdk-btn"
+        aria-label="Open command palette"
+        class="ml-1 hidden shrink-0 items-center gap-1 rounded-full border border-black/10 bg-white/50 px-2 py-1 font-mono text-[11px] leading-none text-zinc-500 transition-colors duration-200 hover:border-accent/40 hover:text-accent sm:flex"
+      >
+        <span>⌘K</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<script>
+  import { SECTION_IDS } from "../lib/constants";
+
+  const bar = document.getElementById("nav-bar");
+  const links = new Map<string, Element>();
+  document
+    .querySelectorAll<HTMLElement>("[data-nav]")
+    .forEach((a) => links.set(a.dataset.nav!, a));
+
+  let ticking = false;
+  function measure() {
+    if (bar) bar.classList.toggle("is-scrolled", window.scrollY > 12);
+    const line = window.innerHeight * 0.35;
+    let current: string = SECTION_IDS[0];
+    for (const id of SECTION_IDS) {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= line) current = id;
+    }
+    if (
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 4
+    ) {
+      current = SECTION_IDS[SECTION_IDS.length - 1];
+    }
+    links.forEach((a, id) => a.classList.toggle("is-active", id === current));
+  }
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      measure();
+      ticking = false;
+    });
+  }
+  measure();
+  addEventListener("scroll", onScroll, { passive: true });
+  addEventListener("resize", onScroll);
+
+  // Anchor clicks are handled by Lenis (anchors option). The ⌘K button just
+  // dispatches the same event the keyboard shortcut uses.
+  document.getElementById("cmdk-btn")?.addEventListener("click", () => {
+    window.dispatchEvent(new CustomEvent("open-command-palette"));
+  });
+</script>

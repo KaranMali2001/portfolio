@@ -1,0 +1,112 @@
+---
+import { personalInfo } from "../lib/portfolio-data";
+
+const heroLinks = [
+  { label: "GitHub", href: personalInfo.github, external: true },
+  { label: "dev.to", href: personalInfo.devto, external: true },
+  { label: "X", href: personalInfo.x, external: true },
+  { label: "Résumé", href: personalInfo.resumeUrl, external: true },
+  { label: "Email", href: `mailto:${personalInfo.email}`, external: false },
+];
+---
+
+<section id="top" class="py-14">
+  <h1 class="text-[28px] font-bold leading-snug tracking-tight text-zinc-900">
+    <span class="hero-clip">{personalInfo.name}</span>
+  </h1>
+
+  <span aria-hidden="true" class="hero-bar mt-2 block h-[2px] w-14 bg-accent"></span>
+
+  <div>
+    <p class="hero-line mt-4 text-[17px] font-medium text-zinc-500" style="--i:0">
+      <span id="typewriter" data-text={personalInfo.title}>{personalInfo.title}</span>
+    </p>
+
+    <p class="hero-line mt-6 text-[18px] leading-relaxed text-zinc-600" style="--i:1">
+      I build backend and systems: multi-tenant architecture, data integrity, and
+      zero-downtime migrations that hold under real traffic.
+    </p>
+
+    <p class="hero-line mt-3 text-[18px] leading-relaxed text-zinc-600" style="--i:2">
+      Lately, AI tooling that lets a small team ship like a big one — agents that
+      plan features, localize the app, and ship mobile releases. Currently at{" "}
+      <span class="text-zinc-900">Ajar</span>, a property-management &amp;
+      rent-payments SaaS.
+    </p>
+
+    <div
+      class="hero-line mt-8 flex flex-wrap gap-x-5 gap-y-2 text-[18px]"
+      style="--i:3"
+    >
+      {
+        heroLinks.map((l) => (
+          <span class="magnetic">
+            <a
+              href={l.href}
+              {...(l.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              class="group relative inline-flex text-zinc-900 transition-colors duration-200 hover:text-accent"
+            >
+              <span>{l.label}</span>
+              <span class="pointer-events-none absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-200 ease-out group-hover:scale-x-100" />
+            </a>
+          </span>
+        ))
+      }
+    </div>
+
+    <p class="hero-line mt-6 text-[16px] text-zinc-500" style="--i:4">
+      {personalInfo.location} · {personalInfo.availability}
+    </p>
+
+    <p class="hero-line mt-3 text-[16px] text-zinc-500" style="--i:5">
+      Lately rabbit-holing on SO_REUSEPORT and TCP internals.{" "}
+      <a
+        href="/now"
+        class="underline underline-offset-2 transition-colors duration-200 hover:text-zinc-600"
+      >
+        See what I&apos;m working on now →
+      </a>
+    </p>
+  </div>
+</section>
+
+<script>
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ── Typewriter ──
+  const el = document.getElementById("typewriter");
+  if (el && !reduce) {
+    const text = el.dataset.text ?? el.textContent ?? "";
+    el.textContent = "";
+    const cursor = document.createElement("span");
+    cursor.className = "tw-cursor";
+    setTimeout(() => {
+      el.after(cursor);
+      let i = 0;
+      const typing = setInterval(() => {
+        el.textContent = text.slice(0, ++i);
+        if (i >= text.length) {
+          clearInterval(typing);
+          setTimeout(() => cursor.remove(), 1600);
+        }
+      }, 42);
+    }, 900);
+  }
+
+  // ── Magnetic links ──
+  if (!reduce) {
+    document.querySelectorAll<HTMLElement>(".magnetic").forEach((m) => {
+      m.addEventListener("mousemove", (e) => {
+        const r = m.getBoundingClientRect();
+        const x = (e.clientX - (r.left + r.width / 2)) * 0.32;
+        const y = (e.clientY - (r.top + r.height / 2)) * 0.32;
+        m.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      m.addEventListener("mouseleave", () => {
+        m.style.transform = "";
+      });
+    });
+  }
+</script>

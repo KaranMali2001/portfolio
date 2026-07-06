@@ -1,0 +1,23 @@
+---
+interface Props {
+  href: string;
+  external?: boolean;
+  class?: string;
+}
+const { href, external = true, class: className } = Astro.props;
+const attrs = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+---
+
+<a
+  href={href}
+  {...attrs}
+  class:list={[
+    "group relative inline-flex text-zinc-900 transition-colors duration-200 hover:text-accent",
+    className,
+  ]}
+>
+  <span><slot /></span>
+  <span
+    class="pointer-events-none absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-200 ease-out group-hover:scale-x-100"
+  ></span>
+</a>

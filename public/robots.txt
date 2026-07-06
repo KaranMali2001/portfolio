@@ -1,9 +1,10 @@
-# robots.txt for https://karan5599.tech
+# https://karan5599.in
 
 User-agent: *
 Allow: /
+Disallow: /dev
 
-# AI Search crawlers — explicitly welcome for search answer visibility
+# AI search crawlers — explicitly welcome
 User-agent: ChatGPT-User
 Allow: /
 
@@ -25,8 +26,8 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
-# Block aggressive scrapers that ignore robots.txt conventions
+# Block aggressive scrapers
 User-agent: Bytespider
 Disallow: /
 
-Sitemap: https://karan5599.tech/sitemap.xml
+Sitemap: https://karan5599.in/sitemap.xml

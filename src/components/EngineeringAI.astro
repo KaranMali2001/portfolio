@@ -22,10 +22,17 @@ const TERM_GREEN = "rgba(34, 197, 94, 0.6)";
               >
                 ›
               </span>
-              {item.url ? (
-                <ULink href={item.url}>{item.headline}</ULink>
-              ) : (
-                item.headline
+              <span class="min-w-0">
+                {item.url ? (
+                  <ULink href={item.url}>{item.headline}</ULink>
+                ) : (
+                  item.headline
+                )}
+              </span>
+              {!item.url && (
+                <span class="ml-auto shrink-0 rounded-full bg-accent/10 px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-accent">
+                  Coming soon
+                </span>
               )}
             </h3>
             <p class="mt-2 text-[17px] leading-relaxed text-zinc-600">{item.what}</p>

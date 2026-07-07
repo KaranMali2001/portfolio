@@ -189,7 +189,7 @@ export const blogPosts = [
   {
     title: "The ORM Trap That Cost Me a Backend Job",
     platform: "Medium",
-    publishedDate: "2025",
+    publishedDate: "Jul 12, 2025",
     readTime: "7 min",
     tags: ["Backend", "ORM", "Database"],
     url: "https://medium.com/@karanmali122001/the-orm-trap-that-cost-me-a-backend-job-042c710d5163",

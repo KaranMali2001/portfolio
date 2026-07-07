@@ -150,7 +150,7 @@ export const projects = [
     solution: "Custom queue for controlled concurrency, Groq-powered summarization, and real-time processing analytics.",
     impact: "40% faster processing · custom queue · Groq inference",
     tech: ["Next.js", "TypeScript", "Prisma", "Groq"],
-    liveUrl: "https://elevareapp.com/",
+    liveUrl: "https://elevare-karanmali2001s-projects.vercel.app/",
     githubUrl: "https://github.com/KaranMali2001/Elevare",
   },
 ];

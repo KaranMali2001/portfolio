@@ -233,10 +233,6 @@ export const learning = {
   },
   interests: [
     {
-      title: "Distributed systems",
-      detail: "Kafka, Redis, transactions, and the system limits that bite at scale.",
-    },
-    {
       title: "Low-level networking",
       detail: "SO_REUSEPORT, TCP internals, and eBPF — how packets actually get routed.",
     },

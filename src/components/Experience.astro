@@ -1,0 +1,48 @@
+---
+import { experiences } from "../lib/portfolio-data";
+import SectionLabel from "./SectionLabel.astro";
+import Divider from "./Divider.astro";
+import Reveal from "./Reveal.astro";
+import Tag from "./Tag.astro";
+import BoldText from "./BoldText.astro";
+---
+
+<section id="experience" class="py-14">
+  <Divider class="mb-10" />
+  <SectionLabel>Experience</SectionLabel>
+  <div>
+    {
+      experiences.map((exp, i) => (
+        <Reveal
+          class={i > 0 ? "mt-10 border-t border-black/[0.07] pt-10" : ""}
+        >
+          <div class="flex items-baseline justify-between gap-4">
+            <h3 class="min-w-0 text-[18px] font-semibold text-zinc-900">
+              {exp.title}
+              <span class="font-normal text-zinc-500"> · {exp.company}</span>
+            </h3>
+            <span class="shrink-0 whitespace-nowrap font-mono text-[13px] text-zinc-500">{exp.period}</span>
+          </div>
+          <p class="mt-1 text-[14px] text-zinc-500">
+            {exp.companyNote} · {exp.location}
+          </p>
+          <ul class="mt-4 space-y-2.5">
+            {exp.highlights.map((h) => (
+              <li class="flex gap-3 text-[15px] leading-relaxed text-zinc-600">
+                <span class="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                <span>
+                  <BoldText text={h} />
+                </span>
+              </li>
+            ))}
+          </ul>
+          <div class="mt-3 flex flex-wrap gap-1.5">
+            {exp.skills.map((s) => (
+              <Tag label={s} />
+            ))}
+          </div>
+        </Reveal>
+      ))
+    }
+  </div>
+</section>

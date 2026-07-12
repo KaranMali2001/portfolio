@@ -1,0 +1,31 @@
+---
+import { learning } from "../lib/portfolio-data";
+import SectionLabel from "./SectionLabel.astro";
+import Divider from "./Divider.astro";
+import Reveal from "./Reveal.astro";
+---
+
+<section id="learn" class="py-14">
+  <Divider class="mb-10" />
+  <SectionLabel>How I learn</SectionLabel>
+  <Reveal>
+    <h3 class="text-[18px] font-semibold text-zinc-900">{learning.method.name}</h3>
+    <p class="mt-2 text-[15px] leading-relaxed text-zinc-600">
+      {learning.method.description}
+    </p>
+  </Reveal>
+  <div class="mt-8 space-y-5">
+    {
+      learning.interests.map((it) => (
+        <Reveal>
+          <div class="flex flex-col gap-1 sm:flex-row sm:gap-4">
+            <h4 class="shrink-0 text-[18px] font-medium text-zinc-900 sm:w-44">
+              {it.title}
+            </h4>
+            <p class="text-[15px] leading-relaxed text-zinc-500">{it.detail}</p>
+          </div>
+        </Reveal>
+      ))
+    }
+  </div>
+</section>

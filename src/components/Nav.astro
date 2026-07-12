@@ -1,0 +1,146 @@
+---
+import { navSections, personalInfo } from "../lib/portfolio-data";
+---
+
+<header class="sticky top-0 z-30 -mx-5 px-5">
+  <div
+    id="nav-bar"
+    class="-mx-3 mt-2.5 flex items-center justify-between gap-3 rounded-full border border-black/[0.05] bg-[#F5EFE6]/80 px-3 py-2 shadow-[0_5px_20px_-15px_rgba(70,55,30,0.24)] backdrop-blur-sm transition-[background-color,border-color,box-shadow] duration-300 ease-out supports-[backdrop-filter]:bg-[#F5EFE6]/65"
+  >
+    <a
+      href="#top"
+      class="shrink-0 whitespace-nowrap text-[15px] font-semibold tracking-tight text-zinc-900"
+    >
+      {personalInfo.name}
+    </a>
+    <nav
+      aria-label="Section navigation"
+      class="flex shrink items-center gap-x-0.5 overflow-x-auto font-sans text-[13px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+    >
+      {
+        navSections.map((s) => (
+          <a
+            href={`#${s.id}`}
+            data-nav={s.id}
+            class="nav-link relative whitespace-nowrap rounded-full px-2 py-1 text-zinc-500 transition-colors duration-150 hover:text-zinc-800"
+          >
+            <span class="relative z-10">{s.id === "learn" ? "Learn" : s.label}</span>
+          </a>
+        ))
+      }
+      <a
+        href="/now"
+        class="relative whitespace-nowrap rounded-full px-2 py-1 text-zinc-500 transition-colors duration-150 hover:text-zinc-800"
+      >
+        Now
+      </a>
+      <button
+        id="cmdk-btn"
+        aria-label="Open command palette"
+        class="ml-1 hidden shrink-0 items-center gap-1 rounded-full border border-black/10 bg-white/50 px-2 py-1 font-mono text-[11px] leading-none text-zinc-500 transition-colors duration-200 hover:border-accent/40 hover:text-accent sm:flex"
+      >
+        <span>⌘K</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<script>
+  import { SECTION_IDS } from "../lib/constants";
+
+  const bar = document.getElementById("nav-bar");
+  const links = new Map<string, Element>();
+  document
+    .querySelectorAll<HTMLElement>("[data-nav]")
+    .forEach((a) => links.set(a.dataset.nav!, a));
+
+  const LAST = SECTION_IDS[SECTION_IDS.length - 1];
+
+  function setActive(current: string) {
+    links.forEach((a, id) => {
+      const active = id === current;
+      a.classList.toggle("is-active", active);
+      // Announce the current section to assistive tech, not just visually.
+      if (active) a.setAttribute("aria-current", "location");
+      else a.removeAttribute("aria-current");
+    });
+  }
+
+  // ── State ──
+  // spyId  : section the observer reports under the 35% line.
+  // atBottom: page scrolled to the end (forces the last section active).
+  // lockedId: during a click jump, pin the pill to the destination so it
+  //   doesn't walk through every section the smooth scroll passes over.
+  let spyId: string = SECTION_IDS[0];
+  let atBottom = false;
+  let lockedId: string | null = null;
+  let unlockTimer: ReturnType<typeof setTimeout> | undefined;
+
+  function apply() {
+    setActive(lockedId ?? (atBottom ? LAST : spyId));
+  }
+
+  // ── Active-section tracking — IntersectionObserver, no per-frame layout reads ──
+  // The -35%/-65% root inset collapses the viewport to a thin line at 35% height;
+  // whichever section straddles that line is current. Same rule the old scroll
+  // handler computed with getBoundingClientRect(), but the browser now does it
+  // off the main thread, so scrolling no longer forces a reflow every frame.
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) if (e.isIntersecting) spyId = e.target.id;
+      if (!lockedId) apply();
+    },
+    { rootMargin: "-35% 0px -65% 0px", threshold: 0 },
+  );
+  SECTION_IDS.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) io.observe(el);
+  });
+
+  function unlockAfter(delay: number) {
+    clearTimeout(unlockTimer);
+    unlockTimer = setTimeout(() => {
+      lockedId = null;
+      apply();
+    }, delay);
+  }
+
+  function lockTo(id: string) {
+    if (!(SECTION_IDS as readonly string[]).includes(id)) return;
+    lockedId = id;
+    setActive(id);
+    // Fallback in case the target is already in view and no scroll fires.
+    unlockAfter(700);
+  }
+
+  // ── Cheap scroll listener: only O(1) scroll-offset reads, never getBoundingClientRect ──
+  function onScroll() {
+    if (bar) bar.classList.toggle("is-scrolled", window.scrollY > 12);
+    // The observer can't flag the very bottom when the last section is shorter
+    // than the 35% band, so detect end-of-page here with plain scroll math.
+    atBottom =
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 4;
+    if (!lockedId) apply();
+    // Each scroll tick pushes the unlock out; ~140ms of stillness = jump done.
+    if (lockedId) unlockAfter(140);
+  }
+  addEventListener("scroll", onScroll, { passive: true });
+  addEventListener("resize", onScroll);
+  onScroll();
+
+  // Anchor clicks are handled by Lenis (anchors option); we hook the same
+  // clicks only to pin the active pill to the destination during the scroll.
+  links.forEach((a, id) => a.addEventListener("click", () => lockTo(id)));
+  document
+    .querySelector<HTMLElement>('a[href="#top"]')
+    ?.addEventListener("click", () => lockTo("top"));
+
+  // Command-palette navigation triggers the same pin via a custom event.
+  window.addEventListener("nav-jump", (e) => lockTo((e as CustomEvent).detail));
+
+  // The ⌘K button just dispatches the same event the keyboard shortcut uses.
+  document.getElementById("cmdk-btn")?.addEventListener("click", () => {
+    window.dispatchEvent(new CustomEvent("open-command-palette"));
+  });
+</script>

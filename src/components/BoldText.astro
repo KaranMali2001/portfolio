@@ -1,0 +1,19 @@
+---
+// Renders text with **markers** as <strong>. (The Next version animated each
+// bold run character-by-character; here it's a static emphasis — no JS.)
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+const parts = text.split(/\*\*(.+?)\*\*/g);
+---
+
+{
+  parts.map((part, i) =>
+    i % 2 === 1 ? (
+      <strong class="font-semibold text-zinc-900">{part}</strong>
+    ) : (
+      <span>{part}</span>
+    ),
+  )
+}

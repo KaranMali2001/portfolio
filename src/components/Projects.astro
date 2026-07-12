@@ -1,0 +1,88 @@
+---
+import { projects } from "../lib/portfolio-data";
+import SectionLabel from "./SectionLabel.astro";
+import Divider from "./Divider.astro";
+import Reveal from "./Reveal.astro";
+import ULink from "./ULink.astro";
+import Tag from "./Tag.astro";
+---
+
+<section id="projects" class="py-14">
+  <Divider class="mb-10" />
+  <SectionLabel>Projects</SectionLabel>
+  <div class="space-y-6">
+    {
+      projects.map((p, i) => (
+        <Reveal>
+          <div class="fold-item">
+            <div class="flex items-baseline justify-between gap-4">
+              <h3 class="min-w-0 flex-1 text-[18px] font-semibold text-zinc-900">
+                <button
+                  type="button"
+                  class="fold-toggle group flex w-full items-baseline gap-2 text-left"
+                  aria-expanded="false"
+                  aria-controls={`project-fold-${i}`}
+                >
+                  <span class="fold-chevron shrink-0 font-mono text-[15px] leading-none text-zinc-400">
+                    ›
+                  </span>
+                  <span class="min-w-0">
+                    <span class="transition-colors duration-200 group-hover:text-accent">
+                      {p.title}
+                    </span>
+                    {p.subtitle && (
+                      <span class="font-normal text-zinc-500"> · {p.subtitle}</span>
+                    )}
+                  </span>
+                </button>
+              </h3>
+              {p.featured && (
+                <span class="shrink-0 rounded-full bg-accent/10 px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-accent">
+                  Featured
+                </span>
+              )}
+            </div>
+
+            <p class="fold-preview mt-2 pl-[22px] text-[15px] leading-relaxed text-zinc-600">
+              {p.description}
+            </p>
+
+            <div id={`project-fold-${i}`} class="fold-panel">
+              <div class="fold-panel-inner">
+                <ul class="mt-2 space-y-2 pl-[22px]">
+                  {[p.solution, p.impact].map((point) => (
+                    <li class="flex gap-3 text-[15px] leading-relaxed text-zinc-600">
+                      <span class="mt-[10px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div class="mt-3 flex flex-wrap items-center gap-1.5 pl-[22px]">
+                  {p.tech.map((t) => (
+                    <Tag label={t} />
+                  ))}
+                </div>
+                {(p.liveUrl || p.githubUrl) && (
+                  <div class="mt-3 flex flex-wrap gap-5 pl-[22px] font-mono text-[13px]">
+                    {p.liveUrl && <ULink href={p.liveUrl}>Visit →</ULink>}
+                    {p.githubUrl && <ULink href={p.githubUrl}>Source →</ULink>}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  // Project accordion — click a title to fold its details open/closed.
+  document.querySelectorAll<HTMLButtonElement>(".fold-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", open ? "false" : "true");
+    });
+  });
+</script>

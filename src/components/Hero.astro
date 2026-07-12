@@ -1,0 +1,169 @@
+---
+import { personalInfo } from "../lib/portfolio-data";
+
+const heroLinks = [
+  { label: "GitHub", href: personalInfo.github, external: true },
+  { label: "dev.to", href: personalInfo.devto, external: true },
+  { label: "X", href: personalInfo.x, external: true },
+  { label: "Résumé", href: personalInfo.resumeUrl, external: true },
+  { label: "Email", href: `mailto:${personalInfo.email}`, external: false },
+];
+
+// Proof strip — hard numbers, all drawn from the work detailed further down the page.
+// value/decimals/prefix/suffix drive the count-up effect; the rendered text is the final
+// value so it reads correctly with JS disabled or reduced motion.
+const stats = [
+  { value: 44, decimals: 0, prefix: "", suffix: "", label: "call sites re-architected for tenant isolation" },
+  { value: 55, decimals: 0, prefix: "", suffix: "×", label: "faster server build — 6.6s → 119ms with esbuild" },
+  { value: 8, decimals: 0, prefix: "", suffix: " wks", label: "zero-to-store mobile app, built with AI" },
+];
+const fmtStat = (s: { value: number; decimals: number; prefix: string; suffix: string }) =>
+  `${s.prefix}${s.value.toFixed(s.decimals)}${s.suffix}`;
+
+// Avoid the doubled "Remote" (location already carries it; availability is shared with Contact).
+const status = `${personalInfo.location} · ${personalInfo.availability.replace(/\s*·\s*Remote$/, "")}`;
+---
+
+<section id="top" class="py-14">
+  <h1 class="text-[28px] font-bold leading-snug tracking-tight text-zinc-900">
+    <span class="hero-clip">{personalInfo.name}</span>
+  </h1>
+
+  <span aria-hidden="true" class="hero-bar mt-2 block h-[2px] w-14 bg-accent"></span>
+
+  <div>
+    <p class="hero-line mt-4 text-[17px] font-medium" style="--i:0">
+      <span class="title-shimmer">{personalInfo.title}</span>
+    </p>
+
+    <p class="hero-line mt-6 text-[16px] leading-relaxed text-zinc-600" style="--i:1">
+      I build backend systems that hold under real traffic — multi-tenant
+      architecture, data integrity, and zero-downtime migrations.
+    </p>
+
+    <p
+      class="hero-line mt-8 text-[12px] font-medium uppercase tracking-[0.14em] text-zinc-400"
+      style="--i:2"
+    >
+      Recently at <span class="text-zinc-500">Ajar</span> · property &amp;
+      rent-payments SaaS
+    </p>
+
+    <dl class="hero-line mt-3 flex flex-wrap gap-x-8 gap-y-4" style="--i:3">
+      {
+        stats.map((s) => (
+          <div class="max-w-[10.5rem]">
+            <dt
+              class="stat-num font-mono text-[20px] font-semibold leading-none tracking-tight text-zinc-900"
+              data-to={s.value}
+              data-decimals={s.decimals}
+              data-prefix={s.prefix}
+              data-suffix={s.suffix}
+            >
+              {fmtStat(s)}
+            </dt>
+            <dd class="mt-1.5 text-[13px] leading-snug text-zinc-500">
+              {s.label}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <div
+      class="hero-line mt-9 flex flex-wrap gap-x-5 gap-y-2 text-[18px]"
+      style="--i:4"
+    >
+      {
+        heroLinks.map((l) => (
+          <span class="magnetic">
+            <a
+              href={l.href}
+              {...(l.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              class="group relative inline-flex text-zinc-900 transition-colors duration-200 hover:text-accent"
+            >
+              <span>{l.label}</span>
+              <span class="pointer-events-none absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-200 ease-out group-hover:scale-x-100" />
+            </a>
+          </span>
+        ))
+      }
+    </div>
+
+    <p class="hero-line mt-6 text-[16px] text-zinc-500" style="--i:5">
+      {status}
+    </p>
+
+    <p class="hero-line mt-3 text-[16px] text-zinc-500" style="--i:6">
+      Lately rabbit-holing on SO_REUSEPORT and TCP internals.{" "}
+      <a
+        href="/now"
+        class="underline underline-offset-2 transition-colors duration-200 hover:text-zinc-600"
+      >
+        See what I&apos;m working on now →
+      </a>
+    </p>
+  </div>
+</section>
+
+<script>
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ── Stat count-up — animate 0 → target when the proof strip enters view ──
+  const nums = document.querySelectorAll<HTMLElement>(".stat-num");
+  nums.forEach((el, i) => (el.dataset.idx = String(i)));
+  const runCount = (el: HTMLElement) => {
+    const to = parseFloat(el.dataset.to ?? "0");
+    const decimals = parseInt(el.dataset.decimals ?? "0", 10);
+    const prefix = el.dataset.prefix ?? "";
+    const suffix = el.dataset.suffix ?? "";
+    const fmt = (v: number) => `${prefix}${v.toFixed(decimals)}${suffix}`;
+    if (reduce) {
+      el.textContent = fmt(to);
+      return;
+    }
+    const duration = 1000;
+    const delay = 260 + Number(el.dataset.idx ?? 0) * 120;
+    const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+    let start: number | null = null;
+    el.textContent = fmt(0);
+    const step = (now: number) => {
+      if (start === null) start = now;
+      const p = Math.min((now - start) / duration, 1);
+      el.textContent = fmt(to * ease(p));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    setTimeout(() => requestAnimationFrame(step), delay);
+  };
+  if (nums.length) {
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            runCount(e.target as HTMLElement);
+            obs.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.6 },
+    );
+    nums.forEach((el) => io.observe(el));
+  }
+
+  // ── Magnetic links ──
+  if (!reduce) {
+    document.querySelectorAll<HTMLElement>(".magnetic").forEach((m) => {
+      m.addEventListener("mousemove", (e) => {
+        const r = m.getBoundingClientRect();
+        const x = (e.clientX - (r.left + r.width / 2)) * 0.32;
+        const y = (e.clientY - (r.top + r.height / 2)) * 0.32;
+        m.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      m.addEventListener("mouseleave", () => {
+        m.style.transform = "";
+      });
+    });
+  }
+</script>

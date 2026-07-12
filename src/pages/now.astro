@@ -1,0 +1,137 @@
+---
+import Base from "../layouts/Base.astro";
+
+const title = "Now — Karan Mali";
+const description =
+  "What Karan Mali is building, reading, and thinking about right now.";
+
+const now = {
+  building: [
+    {
+      title: "gRPC pipeline runner (Go + TypeScript)",
+      detail:
+        "A CI/CD pipeline runner where every job is a real shell execution — Go gRPC server, TypeScript client. Working through all four RPC types, plus interceptors, deadlines, and cancellation that actually kills the process.",
+    },
+    {
+      title: "This portfolio",
+      detail:
+        "Rebuilding from scratch: text-first, no gimmicks, written to hold up in an interview, not just look good in a screenshot.",
+    },
+  ],
+  diggingInto: [
+    {
+      title: "Go map concurrency",
+      detail:
+        "Why concurrent writes to a Go map panic instead of corrupting silently, and the fixes in order: the crash, a naive mutex, then the tuned version. Plus reference-vs-value semantics.",
+    },
+    {
+      title: "SO_REUSEPORT & TCP internals",
+      detail:
+        "How several processes bind the same port at once. Linux spreads connections with a 4-tuple hash; macOS hands them all to whoever bound last. Built from scratch with setsockopt.",
+    },
+    {
+      title: "Protobuf & gRPC on the wire",
+      detail:
+        "From raw protoc to buf codegen and protovalidate — where the generated code comes from, and what the wire format actually looks like.",
+    },
+  ],
+  writing: [
+    {
+      title: "Two Processes on the Same Port",
+      status: "In progress",
+      detail:
+        "SO_REUSEPORT, TCP 4-tuple hashing, and how the kernel actually load-balances across processes. The post I wish had existed when I first hit this.",
+    },
+  ],
+  lastUpdated: "July 2026",
+};
+---
+
+<Base title={title} description={description}>
+  <main id="main-content" tabindex="-1" class="min-h-screen bg-[#F5EFE6] text-zinc-900">
+    <div class="mx-auto max-w-[720px] px-5 py-14">
+      <a
+        href="/"
+        class="group inline-flex items-center gap-1.5 font-mono text-[13px] text-zinc-400 transition-colors duration-200 hover:text-zinc-900"
+      >
+        <span class="transition-transform duration-200 group-hover:-translate-x-0.5">←</span>
+        <span>karan5599.in</span>
+      </a>
+
+      <div class="mt-10">
+        <h1 class="text-[28px] font-bold tracking-tight text-zinc-900">Now</h1>
+        <p class="mt-2 font-mono text-[13px] text-zinc-400">
+          Last updated {now.lastUpdated}
+        </p>
+        <p class="mt-5 text-[15px] leading-relaxed text-zinc-600">
+          A snapshot of what I&apos;m actually working on, learning, and writing —
+          not a resume, not an aspirational list. If something here is months old
+          I&apos;ve either shipped it or quietly abandoned it.
+        </p>
+      </div>
+
+      <section class="mt-14">
+        <h2 class="mb-7 font-mono text-[13px] uppercase tracking-[0.18em] text-zinc-400">
+          Building
+        </h2>
+        <div class="space-y-7">
+          {
+            now.building.map((item) => (
+              <div>
+                <h3 class="text-[17px] font-semibold text-zinc-900">{item.title}</h3>
+                <p class="mt-1.5 text-[15px] leading-relaxed text-zinc-600">{item.detail}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="mt-14">
+        <h2 class="mb-7 font-mono text-[13px] uppercase tracking-[0.18em] text-zinc-400">
+          Digging into
+        </h2>
+        <div class="space-y-7">
+          {
+            now.diggingInto.map((item) => (
+              <div>
+                <h3 class="text-[17px] font-semibold text-zinc-900">{item.title}</h3>
+                <p class="mt-1.5 text-[15px] leading-relaxed text-zinc-600">{item.detail}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="mt-14">
+        <h2 class="mb-7 font-mono text-[13px] uppercase tracking-[0.18em] text-zinc-400">
+          Writing
+        </h2>
+        <div class="space-y-7">
+          {
+            now.writing.map((item) => (
+              <div>
+                <div class="flex items-baseline gap-3">
+                  <h3 class="text-[17px] font-semibold text-zinc-900">{item.title}</h3>
+                  <span class="font-mono text-[12px] text-zinc-400">{item.status}</span>
+                </div>
+                <p class="mt-1.5 text-[15px] leading-relaxed text-zinc-600">{item.detail}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <footer class="mt-14 border-t border-zinc-100 pt-8 font-mono text-[13px] text-zinc-400">
+        Inspired by{" "}
+        <a
+          href="https://nownownow.com/about"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="underline underline-offset-2 hover:text-zinc-600"
+        >
+          nownownow.com
+        </a>. Derek Sivers started it.
+      </footer>
+    </div>
+  </main>
+</Base>

@@ -1,0 +1,192 @@
+---
+import "lenis/dist/lenis.css";
+import "../styles/global.css";
+
+// Self-host only the latin variable woff2 (one file per family). Importing the
+// full fontsource CSS pulls @font-face blocks for ~8 subsets we never use; this
+// ships just latin + lets us preload it to kill the font-swap flash.
+import sansWoff2 from "@fontsource-variable/plus-jakarta-sans/files/plus-jakarta-sans-latin-wght-normal.woff2?url";
+import monoWoff2 from "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url";
+
+const fontFace = `
+  @font-face {
+    font-family: 'Plus Jakarta Sans Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 200 800;
+    src: url(${sansWoff2}) format('woff2-variations');
+  }
+  @font-face {
+    font-family: 'JetBrains Mono Variable';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 800;
+    src: url(${monoWoff2}) format('woff2-variations');
+  }
+`;
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL("/og.png", Astro.site).href;
+const ogAlt = "Karan Mali — Backend + Product Engineer";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Set the `.js` flag synchronously so reveal elements start hidden only when
+         JS can bring them back — with JS off, everything renders visible. Inline &
+         render-blocking on purpose: prevents a flash of hidden content. -->
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- Preload the two latin variable fonts (above-the-fold text) -->
+    <link rel="preload" href={sansWoff2} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={monoWoff2} as="font" type="font/woff2" crossorigin />
+    <style is:inline set:html={fontFace}></style>
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Karan Mali" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogAlt} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:creator" content="@karanM5599" />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogAlt} />
+
+    <slot name="head" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <slot />
+
+    <!-- Lenis smooth scroll — the only always-on script. Skipped entirely for
+         reduced-motion users, who then get native scrolling. Exposed on
+         window.__lenis so the nav + command palette can route scrolls through it. -->
+    <script>
+      import Lenis from "lenis";
+
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      if (!prefersReduced) {
+        const lenis = new Lenis({
+          // lerp is the glide follow-speed: lower = glassier but laggier against
+          // your input. 0.1 (Lenis' default) tracks the wheel closely so it feels
+          // responsive rather than floaty. wheelMultiplier scales per-tick travel.
+          lerp: 0.1,
+          smoothWheel: true,
+          wheelMultiplier: 1.0,
+          anchors: { offset: -64 },
+        });
+
+        // @ts-expect-error - stash a handle for other scripts
+        window.__lenis = lenis;
+
+        function raf(time: number) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+      }
+
+      // ── Reveal-on-enter — cross-browser (IntersectionObserver, not the
+      //    Chromium-only scroll-timeline). Each element animates once as it
+      //    enters view, matching the hero's one-shot entrance in every browser.
+      const allRevealEls = Array.from(
+        document.querySelectorAll(".reveal, .text-reveal, .divider, .section-tick"),
+      );
+      // First paint shows the hero AND the Engineering with AI section in full;
+      // everything below that reveals on scroll. Reveal the Engineering-with-AI
+      // elements right away (they animate in with the hero), and gate the rest.
+      const firstPaintZone = document.querySelector("#engineering-with-ai");
+      const revealEls = [];
+      allRevealEls.forEach((el) => {
+        if (firstPaintZone && firstPaintZone.contains(el)) {
+          el.classList.add("is-in");
+        } else {
+          revealEls.push(el);
+        }
+      });
+
+      if (revealEls.length && "IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-in");
+                obs.unobserve(entry.target);
+              }
+            });
+          },
+          // Negative bottom margin pulls the trigger line ~15% up from the
+          // viewport's bottom edge, so a section reveals once it's genuinely
+          // *inside* the viewport — you watch it animate in as you scroll,
+          // rather than it firing off-screen below the fold (which, on tall
+          // monitors, meant the animation was already over before you got there).
+          { rootMargin: "0px 0px -15% 0px", threshold: 0 },
+        );
+
+        // Hold the below-the-fold reveals until the user actually scrolls (or
+        // engages), so nothing after the Engineering with AI section animates on
+        // load. If the page loads already scrolled (restored position or a hash
+        // link), start immediately so those sections aren't stranded hidden.
+        let started = false;
+        const startObserving = () => {
+          if (started) return;
+          started = true;
+          revealEls.forEach((el) => io.observe(el));
+        };
+        const triggers = ["scroll", "wheel", "touchmove", "keydown"];
+        const onFirstScroll = () => {
+          startObserving();
+          triggers.forEach((t) => window.removeEventListener(t, onFirstScroll));
+        };
+        if (window.scrollY > 0) {
+          startObserving();
+        } else {
+          triggers.forEach((t) =>
+            window.addEventListener(t, onFirstScroll, { passive: true }),
+          );
+          // A hash link or restored scroll position can land mid-page with
+          // scrollY still 0 at parse time — re-check next frame so those
+          // sections aren't stranded hidden.
+          requestAnimationFrame(() => {
+            if (window.scrollY > 0) onFirstScroll();
+          });
+        }
+      } else {
+        // No IntersectionObserver (very old browsers) → just show everything.
+        revealEls.forEach((el) => el.classList.add("is-in"));
+      }
+    </script>
+  </body>
+</html>

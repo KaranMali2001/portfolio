@@ -73,7 +73,8 @@ export const experiences = [
     period: "Dec 2024 – Oct 2025",
     location: "Remote",
     highlights: [
-      "Built an **RBAC sharing system**: fine-grained view/edit permissions, multi-tenancy, invites, and role management.",
+      "Engineered an **RBAC system** with fine-grained view/edit permissions per resource — admins control exactly who can read or write each resource across the platform.",
+      "Architected **multi-tenant infrastructure**: organizations join via unique invite links, with centralized role management and instant access revocation.",
       "Established MIS reporting dashboards with customizable views, automating delivery through Airflow.",
       "Reduced bug-related downtime by **~50%** by troubleshooting and hardening AI-generated backend code.",
     ],

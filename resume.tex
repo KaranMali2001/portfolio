@@ -1,0 +1,170 @@
+\documentclass[letterpaper,11pt]{article}
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\footskip}{4.08003pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-8pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\pdfgentounicode=1
+
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\newcommand{\resumeAIItem}[2]{
+  \item\small{#1 \hfill #2}\vspace{3pt}
+}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\Huge \scshape Karan Mali} \\ \vspace{2pt}
+    \small \textit{Backend + Product Engineer} \\ \vspace{2pt}
+    \small +91 7507005599 $|$
+    \href{mailto:karanmali122001@gmail.com}{\underline{\raisebox{1.5pt}{karanmali122001@gmail.com}}} $|$
+    \href{https://karan5599.in}{\underline{\raisebox{1.5pt}{karan5599.in}}} $|$
+    \href{https://github.com/KaranMali2001}{\underline{\raisebox{1.5pt}{github.com/KaranMali2001}}} $|$
+    \href{https://dev.to/karan5599}{\underline{\raisebox{1.5pt}{dev.to/karan5599}}}
+\end{center}
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Full-Stack Engineer}{Jan 2025 -- Present}
+      {Ajar Online \textnormal{\small(Property-management \& rent-payments SaaS)}}{Remote}
+      \resumeItemListStart
+        \resumeItem{Fixed a \textbf{multi-tenant data-corruption bug} where web and mobile sessions shared one global account context. Moved account resolution to request scope with \texttt{AsyncLocalStorage}, which touched \textbf{44 service call sites} in a 3-file change.}
+        \resumeItem{Ran a six-phase, zero-downtime migration to retire a global account-id field across four codebases, holding errors under \textbf{0.5\% for 7 days} before dropping the column.}
+        \resumeItem{Found RBAC was enforced only on the client, catalogued the resulting \textbf{IDOR} issues, and added server-side authorization middleware across \textbf{11 route groups} with \textbf{70+ integration tests}.}
+        \resumeItem{Built a notification service for multi-channel delivery (in-app, email, SMS) with per-user preferences, and integrated MyFatoorah payments with saved-card tokenization and transactional rollback.}
+        \resumeItem{Cut the server build from \textbf{6.6s to 119ms} with esbuild, shrank the Docker image by \textbf{65\%}, sped up Angular CI by \textbf{75\%}, and modeled a \textbf{\$1,632/yr} CI-plan saving.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Software Engineer}{Jan 2025 -- Aug 2025}
+      {Autonomis \textnormal{\small(Data / reporting platform)}}{Remote}
+      \resumeItemListStart
+        \resumeItem{Engineered an \textbf{RBAC system} with fine-grained view/edit permissions per resource, letting admins control exactly who can read or write each resource across the platform.}
+        \resumeItem{Architected \textbf{multi-tenant infrastructure} — organizations join via unique invite links, with centralized role management and instant access revocation.}
+        \resumeItem{Set up \textbf{Airflow} alerts to Slack and email, plus scheduled MIS dashboards with customizable views.}
+        \resumeItem{Cut bug-related downtime by roughly \textbf{50\%} by debugging and hardening AI-generated backend code.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------AI ENGINEERING-----------
+\section{AI Engineering}
+  \resumeSubHeadingListStart
+    \item
+    \resumeItemListStart
+      \resumeItem{\textbf{Jira → GitHub Actions → Claude} pipeline auto-drafts implementation plans on ticket assignment. \textbf{12+ plans} in month one, adopted team-wide. \textcolor{NavyBlue}{\href{https://dev.to/karan5599/i-didnt-need-a-smarter-model-i-needed-to-onboard-it-27dc}{read →}}}
+      \resumeItem{LLM agent translates the app to Arabic (RTL) in CI before each deploy; a human approves the diff. Covers \textbf{75\%} of the team's Claude Code bill. \textcolor{NavyBlue}{\href{https://dev.to/karan5599/transifex-now-pays-for-75-of-our-claude-code-subscription-a33}{read →}}}
+      \resumeItem{Shipped the landlord app (iOS + Android, 15+ screens, Arabic RTL) in \textbf{8 weeks} using AI for scaffolding, native plugins, and the Android release pipeline. \textcolor{gray}{\textit{post coming soon}}}
+    \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects}
+  \resumeSubHeadingListStart
+
+    \resumeProjectHeading
+      {\textbf{Wealth Reserve}: Finance Tracker v2 $|$ \emph{Go, Echo, PostgreSQL, AWS Lambda, Asynq}}{\href{https://github.com/KaranMali2001/finance-tracker-v2}{\textbf{github}} $|$ \href{https://finance-tracker-v2-ten.vercel.app/}{\textbf{live}}}
+      \resumeItemListStart
+        \resumeItem{Go/Echo backend with SQLC-generated type-safe queries and a domain-driven layout, running on AWS Lambda with an Asynq (Redis) job queue. Around 50 documented endpoints across 20 migrations.}
+        \resumeItem{Gemini parses Indian bank SMS into transactions; a reconciler fuzzy-matches rows from uploaded Excel statements with confidence scoring and links them to SIP investment goals.}
+        \resumeItem{The analytics dashboard streams 6 metrics over SSE, fetched concurrently with goroutines and a \texttt{sync.WaitGroup}. QR-code device auth handles keyless login from the mobile app.}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\textbf{Auto-Blog} $|$ \emph{Next.js, Convex, Clerk, GitHub App, Gemini}}{\href{https://github.com/KaranMali2001/auto-blog}{\textbf{github}} $|$ \href{https://auto-blog-opal.vercel.app/}{\textbf{live}}}
+      \resumeItemListStart
+        \resumeItem{A GitHub App that turns each push's commit diffs into draft blog posts, tweets, and LinkedIn updates. Built on Next.js and Convex with Clerk.}
+        \resumeItem{Validates webhooks, filters out noise (lockfiles, binaries, oversized diffs), sends clean diffs to an LLM, and schedules the output across platforms.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Go, TypeScript, JavaScript, C++, SQL} \\
+     \textbf{Backend \& Data}{: Node.js, Express, NestJS, Echo, REST, gRPC, PostgreSQL, MongoDB, Redis, SQLC, Prisma, BullMQ, Asynq, Airflow} \\
+     \textbf{Frontend, Mobile \& Infra}{: Next.js, React, Angular, React Native, Expo, Docker, GitHub Actions, AWS, GCP, Firebase, Fastlane, Sentry} \\
+     \textbf{AI \& Concepts}{: Claude, Gemini, Groq, LangChain; RBAC, Multi-tenancy, Zero-downtime migrations, System design, Payments, i18n \& RTL} \\
+    }}
+ \end{itemize}
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {DY Patil College of Engineering}{Kolhapur, India}
+      {Bachelor of Engineering}{2020 -- 2024}
+  \resumeSubHeadingListEnd
+
+\end{document}

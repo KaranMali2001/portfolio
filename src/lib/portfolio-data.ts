@@ -36,6 +36,7 @@ export const engineeringWithAI = [
     what: "A translator agent runs in CI before each deploy, translating the app into Arabic (full RTL). A human reviewer just approves the diff.",
     proof: "Localization ships continuously instead of blocking releases.",
     tech: ["LLM agent", "CI/CD", "i18n", "RTL"],
+    url: "https://dev.to/karan5599/transifex-now-pays-for-75-of-our-claude-code-subscription-a33",
   },
   {
     id: "mobile-8-weeks",
@@ -158,6 +159,15 @@ export const projects = [
 // Writing — real, published posts first, then upcoming.
 export const blogPosts = [
   {
+    title: "Transifex now pays for 75% of our Claude Code subscription",
+    platform: "dev.to",
+    publishedDate: "July 2026",
+    readTime: "8 min",
+    tags: ["AI Tooling", "Localization", "Automation"],
+    url: "https://dev.to/karan5599/transifex-now-pays-for-75-of-our-claude-code-subscription-a33",
+    excerpt: "We replaced a $150/mo translation SaaS with a Claude Code agent that drafts Arabic translations — structural checks and human review keep it honest, and localization dropped from days to hours.",
+  },
+  {
     title: "I didn't need a smarter model. I needed to onboard it",
     platform: "dev.to",
     publishedDate: "June 2026",
@@ -240,8 +250,8 @@ export const learning = {
 export const navSections = [
   { id: "engineering-with-ai", label: "Engineering with AI" },
   { id: "experience", label: "Experience" },
-  { id: "projects", label: "Projects" },
   { id: "writing", label: "Writing" },
+  { id: "projects", label: "Projects" },
   { id: "learn", label: "How I learn" },
   { id: "contact", label: "Contact" },
 ];

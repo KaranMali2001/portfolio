@@ -48,7 +48,7 @@ const now = {
 ---
 
 <Base title={title} description={description}>
-  <main class="min-h-screen bg-[#F5EFE6] text-zinc-900">
+  <main id="main-content" tabindex="-1" class="min-h-screen bg-[#F5EFE6] text-zinc-900">
     <div class="mx-auto max-w-[720px] px-5 py-14">
       <a
         href="/"
@@ -63,7 +63,7 @@ const now = {
         <p class="mt-2 font-mono text-[13px] text-zinc-400">
           Last updated {now.lastUpdated}
         </p>
-        <p class="mt-5 text-[17px] leading-relaxed text-zinc-600">
+        <p class="mt-5 text-[15px] leading-relaxed text-zinc-600">
           A snapshot of what I&apos;m actually working on, learning, and writing —
           not a resume, not an aspirational list. If something here is months old
           I&apos;ve either shipped it or quietly abandoned it.
@@ -79,7 +79,7 @@ const now = {
             now.building.map((item) => (
               <div>
                 <h3 class="text-[17px] font-semibold text-zinc-900">{item.title}</h3>
-                <p class="mt-1.5 text-[16px] leading-relaxed text-zinc-600">{item.detail}</p>
+                <p class="mt-1.5 text-[15px] leading-relaxed text-zinc-600">{item.detail}</p>
               </div>
             ))
           }
@@ -95,7 +95,7 @@ const now = {
             now.diggingInto.map((item) => (
               <div>
                 <h3 class="text-[17px] font-semibold text-zinc-900">{item.title}</h3>
-                <p class="mt-1.5 text-[16px] leading-relaxed text-zinc-600">{item.detail}</p>
+                <p class="mt-1.5 text-[15px] leading-relaxed text-zinc-600">{item.detail}</p>
               </div>
             ))
           }
@@ -114,7 +114,7 @@ const now = {
                   <h3 class="text-[17px] font-semibold text-zinc-900">{item.title}</h3>
                   <span class="font-mono text-[12px] text-zinc-400">{item.status}</span>
                 </div>
-                <p class="mt-1.5 text-[16px] leading-relaxed text-zinc-600">{item.detail}</p>
+                <p class="mt-1.5 text-[15px] leading-relaxed text-zinc-600">{item.detail}</p>
               </div>
             ))
           }

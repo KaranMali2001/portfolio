@@ -5,7 +5,7 @@ import { navSections, personalInfo } from "../lib/portfolio-data";
 <header class="sticky top-0 z-30 -mx-5 px-5">
   <div
     id="nav-bar"
-    class="-mx-3 mt-2.5 flex items-center justify-between gap-3 rounded-full border border-black/[0.05] bg-[#F5EFE6]/55 px-3 py-2 shadow-[0_5px_20px_-15px_rgba(70,55,30,0.24)] backdrop-blur-md backdrop-saturate-150 transition-[background-color,border-color,box-shadow] duration-300 ease-out supports-[backdrop-filter]:bg-[#F5EFE6]/38"
+    class="-mx-3 mt-2.5 flex items-center justify-between gap-3 rounded-full border border-black/[0.05] bg-[#F5EFE6]/80 px-3 py-2 shadow-[0_5px_20px_-15px_rgba(70,55,30,0.24)] backdrop-blur-sm transition-[background-color,border-color,box-shadow] duration-300 ease-out supports-[backdrop-filter]:bg-[#F5EFE6]/65"
   >
     <a
       href="#top"
@@ -14,6 +14,7 @@ import { navSections, personalInfo } from "../lib/portfolio-data";
       {personalInfo.name}
     </a>
     <nav
+      aria-label="Section navigation"
       class="flex shrink items-center gap-x-0.5 overflow-x-auto font-sans text-[13px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
     >
       {
@@ -53,37 +54,92 @@ import { navSections, personalInfo } from "../lib/portfolio-data";
     .querySelectorAll<HTMLElement>("[data-nav]")
     .forEach((a) => links.set(a.dataset.nav!, a));
 
-  let ticking = false;
-  function measure() {
-    if (bar) bar.classList.toggle("is-scrolled", window.scrollY > 12);
-    const line = window.innerHeight * 0.35;
-    let current: string = SECTION_IDS[0];
-    for (const id of SECTION_IDS) {
-      const el = document.getElementById(id);
-      if (el && el.getBoundingClientRect().top <= line) current = id;
-    }
-    if (
-      window.innerHeight + window.scrollY >=
-      document.documentElement.scrollHeight - 4
-    ) {
-      current = SECTION_IDS[SECTION_IDS.length - 1];
-    }
-    links.forEach((a, id) => a.classList.toggle("is-active", id === current));
-  }
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      measure();
-      ticking = false;
+  const LAST = SECTION_IDS[SECTION_IDS.length - 1];
+
+  function setActive(current: string) {
+    links.forEach((a, id) => {
+      const active = id === current;
+      a.classList.toggle("is-active", active);
+      // Announce the current section to assistive tech, not just visually.
+      if (active) a.setAttribute("aria-current", "location");
+      else a.removeAttribute("aria-current");
     });
   }
-  measure();
+
+  // ── State ──
+  // spyId  : section the observer reports under the 35% line.
+  // atBottom: page scrolled to the end (forces the last section active).
+  // lockedId: during a click jump, pin the pill to the destination so it
+  //   doesn't walk through every section the smooth scroll passes over.
+  let spyId: string = SECTION_IDS[0];
+  let atBottom = false;
+  let lockedId: string | null = null;
+  let unlockTimer: ReturnType<typeof setTimeout> | undefined;
+
+  function apply() {
+    setActive(lockedId ?? (atBottom ? LAST : spyId));
+  }
+
+  // ── Active-section tracking — IntersectionObserver, no per-frame layout reads ──
+  // The -35%/-65% root inset collapses the viewport to a thin line at 35% height;
+  // whichever section straddles that line is current. Same rule the old scroll
+  // handler computed with getBoundingClientRect(), but the browser now does it
+  // off the main thread, so scrolling no longer forces a reflow every frame.
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) if (e.isIntersecting) spyId = e.target.id;
+      if (!lockedId) apply();
+    },
+    { rootMargin: "-35% 0px -65% 0px", threshold: 0 },
+  );
+  SECTION_IDS.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) io.observe(el);
+  });
+
+  function unlockAfter(delay: number) {
+    clearTimeout(unlockTimer);
+    unlockTimer = setTimeout(() => {
+      lockedId = null;
+      apply();
+    }, delay);
+  }
+
+  function lockTo(id: string) {
+    if (!(SECTION_IDS as readonly string[]).includes(id)) return;
+    lockedId = id;
+    setActive(id);
+    // Fallback in case the target is already in view and no scroll fires.
+    unlockAfter(700);
+  }
+
+  // ── Cheap scroll listener: only O(1) scroll-offset reads, never getBoundingClientRect ──
+  function onScroll() {
+    if (bar) bar.classList.toggle("is-scrolled", window.scrollY > 12);
+    // The observer can't flag the very bottom when the last section is shorter
+    // than the 35% band, so detect end-of-page here with plain scroll math.
+    atBottom =
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 4;
+    if (!lockedId) apply();
+    // Each scroll tick pushes the unlock out; ~140ms of stillness = jump done.
+    if (lockedId) unlockAfter(140);
+  }
   addEventListener("scroll", onScroll, { passive: true });
   addEventListener("resize", onScroll);
+  onScroll();
 
-  // Anchor clicks are handled by Lenis (anchors option). The ⌘K button just
-  // dispatches the same event the keyboard shortcut uses.
+  // Anchor clicks are handled by Lenis (anchors option); we hook the same
+  // clicks only to pin the active pill to the destination during the scroll.
+  links.forEach((a, id) => a.addEventListener("click", () => lockTo(id)));
+  document
+    .querySelector<HTMLElement>('a[href="#top"]')
+    ?.addEventListener("click", () => lockTo("top"));
+
+  // Command-palette navigation triggers the same pin via a custom event.
+  window.addEventListener("nav-jump", (e) => lockTo((e as CustomEvent).detail));
+
+  // The ⌘K button just dispatches the same event the keyboard shortcut uses.
   document.getElementById("cmdk-btn")?.addEventListener("click", () => {
     window.dispatchEvent(new CustomEvent("open-command-palette"));
   });

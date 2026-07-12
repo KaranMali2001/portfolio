@@ -1,7 +1,15 @@
 ---
-// Mono uppercase section label with a clip-path text reveal on scroll-in.
+// Mono uppercase section heading. An accent tick + primary-tier color/weight
+// lift it clearly above the item titles beneath it (hierarchy via weight &
+// color, not scale), echoing the hero-bar accent motif for cohesion.
 ---
 
-<h2 class="mb-7 font-mono text-[13px] uppercase tracking-[0.18em] text-zinc-500">
+<h2
+  class="mb-7 flex items-center gap-3 font-mono text-[13px] font-medium uppercase tracking-[0.2em] text-zinc-900"
+>
+  <span
+    aria-hidden="true"
+    class="section-tick h-[3px] w-6 shrink-0 rounded-full bg-accent"
+  ></span>
   <span class="text-reveal"><slot /></span>
 </h2>

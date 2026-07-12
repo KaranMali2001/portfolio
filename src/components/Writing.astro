@@ -10,33 +10,40 @@ import Tag from "./Tag.astro";
 <section id="writing" class="py-14">
   <Divider class="mb-10" />
   <SectionLabel>Writing</SectionLabel>
-  <div class="space-y-8">
+  <div class="space-y-6">
     {
       blogPosts.map((post) => (
         <Reveal>
-          <div class="flex items-baseline justify-between gap-4">
-            <h3 class="min-w-0 text-[17px] font-semibold leading-snug text-zinc-900">
-              {post.url ? <ULink href={post.url}>{post.title}</ULink> : post.title}
-            </h3>
-            {post.upcoming ? (
-              <span class="shrink-0 whitespace-nowrap font-mono text-[13px] text-accent">
-                Coming soon
+          <div class="border-l-2 border-accent/40 pl-4">
+            <div class="flex items-baseline justify-between gap-4">
+              <h3 class="flex min-w-0 items-baseline gap-2 text-[17px] font-semibold leading-snug text-zinc-900">
+                <span class="shrink-0 font-mono text-[15px] font-normal leading-none text-accent/70">
+                  ›
+                </span>
+                <span class="min-w-0">
+                  {post.url ? <ULink href={post.url}>{post.title}</ULink> : post.title}
+                </span>
+              </h3>
+              {post.upcoming ? (
+                <span class="shrink-0 whitespace-nowrap font-mono text-[13px] text-accent">
+                  Coming soon
+                </span>
+              ) : (
+                <span class="shrink-0 whitespace-nowrap font-mono text-[13px] text-zinc-500">
+                  {post.publishedDate}
+                </span>
+              )}
+            </div>
+            <p class="mt-2 text-[15px] leading-relaxed text-zinc-500">{post.excerpt}</p>
+            <div class="mt-2 flex flex-wrap items-center gap-1.5">
+              <span class="font-mono text-[13px] text-zinc-500">
+                {post.platform}
+                {post.readTime && post.readTime !== "—" ? ` · ${post.readTime}` : ""}
               </span>
-            ) : (
-              <span class="shrink-0 whitespace-nowrap font-mono text-[13px] text-zinc-500">
-                {post.publishedDate}
-              </span>
-            )}
-          </div>
-          <p class="mt-2 text-[18px] leading-relaxed text-zinc-500">{post.excerpt}</p>
-          <div class="mt-2 flex flex-wrap items-center gap-1.5">
-            <span class="font-mono text-[13px] text-zinc-500">
-              {post.platform}
-              {post.readTime && post.readTime !== "—" ? ` · ${post.readTime}` : ""}
-            </span>
-            {post.tags.map((tag) => (
-              <Tag label={tag} />
-            ))}
+              {post.tags.map((tag) => (
+                <Tag label={tag} />
+              ))}
+            </div>
           </div>
         </Reveal>
       ))

@@ -10,5 +10,11 @@ export default defineConfig({
   prefetch: { prefetchAll: true, defaultStrategy: "hover" },
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      // Allow reaching the dev server through an ngrok tunnel (e.g. to preview
+      // on a phone). Leading dot = wildcard, so it survives ngrok restarts
+      // (the free subdomain changes each time).
+      allowedHosts: [".ngrok-free.app", ".ngrok.app"],
+    },
   },
 });

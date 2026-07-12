@@ -6,8 +6,8 @@ const commands = [
   { label: "Go to top", group: "Navigate", type: "scroll", target: "top" },
   { label: "Engineering with AI", group: "Navigate", type: "scroll", target: "engineering-with-ai" },
   { label: "Experience", group: "Navigate", type: "scroll", target: "experience" },
-  { label: "Projects", group: "Navigate", type: "scroll", target: "projects" },
   { label: "Writing", group: "Navigate", type: "scroll", target: "writing" },
+  { label: "Projects", group: "Navigate", type: "scroll", target: "projects" },
   { label: "How I learn", group: "Navigate", type: "scroll", target: "learn" },
   { label: "Contact", group: "Navigate", type: "scroll", target: "contact" },
   { label: "What I'm doing now →", group: "Navigate", type: "nav", target: "/now" },
@@ -19,6 +19,9 @@ const commands = [
   { label: "Email me", group: "Actions", type: "mailto", target: personalInfo.email },
   { label: "Copy email address", group: "Actions", type: "copy", target: personalInfo.email },
 ];
+
+const slug = (s: string) =>
+  s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 const groups = ["Navigate", "Open", "Actions"].map((name) => ({
   name,
@@ -52,6 +55,11 @@ const groups = ["Navigate", "Open", "Actions"].map((name) => ({
         <input
           id="cmdk-input"
           type="text"
+          role="combobox"
+          aria-label="Search commands"
+          aria-expanded="true"
+          aria-controls="cmdk-list"
+          aria-autocomplete="list"
           placeholder="Search commands…"
           autocomplete="off"
           spellcheck="false"
@@ -65,9 +73,15 @@ const groups = ["Navigate", "Open", "Actions"].map((name) => ({
         </button>
       </div>
 
-      <div id="cmdk-list" class="max-h-[min(50vh,360px)] overflow-y-auto py-2">
+      <div
+        id="cmdk-list"
+        role="listbox"
+        aria-label="Commands"
+        class="max-h-[min(50vh,360px)] overflow-y-auto py-2"
+      >
         <p
           id="cmdk-empty"
+          role="status"
           class="hidden py-8 text-center font-sans text-[14px] text-zinc-500"
         >
           No results.
@@ -80,6 +94,9 @@ const groups = ["Navigate", "Open", "Actions"].map((name) => ({
               </div>
               {g.items.map((c) => (
                 <button
+                  id={`cmdk-opt-${slug(c.label)}`}
+                  role="option"
+                  aria-selected="false"
                   class="cmdk-item mx-2 flex w-[calc(100%-1rem)] cursor-pointer items-center justify-between rounded-lg px-3 py-2.5 text-left font-sans text-[14px] text-zinc-700 transition-colors"
                   data-value={c.label.toLowerCase()}
                   data-type={c.type}
@@ -94,6 +111,7 @@ const groups = ["Navigate", "Open", "Actions"].map((name) => ({
       </div>
 
       <div
+        id="cmdk-hint"
         class="border-t border-zinc-100 px-4 py-2.5 font-mono text-[11px] text-zinc-500"
       >
         <span id="cmdk-mod">⌘</span>K to open · ↑↓ to navigate · ↵ to run · esc to close
@@ -102,13 +120,22 @@ const groups = ["Navigate", "Open", "Actions"].map((name) => ({
   </div>
 </div>
 
+<!-- Polite live region, kept OUTSIDE #cmdk-root so it isn't muted by the
+     root's aria-hidden="true" when the palette closes. -->
+<div id="cmdk-status" role="status" aria-live="polite" class="sr-only"></div>
+
 <script>
   const root = document.getElementById("cmdk-root")!;
+  const dialog = root.querySelector<HTMLElement>(".cmdk-dialog")!;
   const input = document.getElementById("cmdk-input") as HTMLInputElement;
   const empty = document.getElementById("cmdk-empty")!;
+  const status = document.getElementById("cmdk-status")!;
+  const hint = document.getElementById("cmdk-hint")!;
   const items = Array.from(
     document.querySelectorAll<HTMLButtonElement>(".cmdk-item"),
   );
+  // Remembers where focus was before the palette opened, so we can restore it.
+  let lastFocused: HTMLElement | null = null;
   const groupEls = Array.from(
     document.querySelectorAll<HTMLElement>(".cmdk-group"),
   );
@@ -127,14 +154,21 @@ const groups = ["Navigate", "Open", "Actions"].map((name) => ({
 
   function setSelected(i: number) {
     const vis = visibleItems();
-    vis.forEach((el) => el.classList.remove("is-selected"));
+    items.forEach((el) => {
+      el.classList.remove("is-selected");
+      el.setAttribute("aria-selected", "false");
+    });
     if (!vis.length) {
       selected = -1;
+      input.removeAttribute("aria-activedescendant");
       return;
     }
     selected = (i + vis.length) % vis.length;
     const el = vis[selected];
     el.classList.add("is-selected");
+    el.setAttribute("aria-selected", "true");
+    // Point the combobox at the active option so screen readers announce it.
+    input.setAttribute("aria-activedescendant", el.id);
     el.scrollIntoView({ block: "nearest" });
   }
 
@@ -155,6 +189,8 @@ const groups = ["Navigate", "Open", "Actions"].map((name) => ({
   }
 
   function open() {
+    // Capture the trigger so focus returns there on close.
+    lastFocused = document.activeElement as HTMLElement | null;
     root.classList.add("is-open");
     root.setAttribute("aria-hidden", "false");
     input.value = "";
@@ -166,11 +202,31 @@ const groups = ["Navigate", "Open", "Actions"].map((name) => ({
     root.classList.remove("is-open");
     root.setAttribute("aria-hidden", "true");
     input.value = "";
+    input.removeAttribute("aria-activedescendant");
+    // Return focus to wherever it was before opening (keyboard users don't
+    // get dumped at the top of the document).
+    lastFocused?.focus?.();
+    lastFocused = null;
+  }
+
+  // Announce a transient message to AT and flash it in the footer hint.
+  let hintTimer: ReturnType<typeof setTimeout> | undefined;
+  const hintDefault = hint.innerHTML;
+  function announce(message: string) {
+    status.textContent = message;
+    hint.textContent = message;
+    clearTimeout(hintTimer);
+    hintTimer = setTimeout(() => {
+      hint.innerHTML = hintDefault;
+      status.textContent = "";
+    }, 1800);
   }
 
   function scrollToId(id: string) {
     const el = document.getElementById(id);
     if (!el) return;
+    // Pin the nav's active pill to the destination during the jump.
+    window.dispatchEvent(new CustomEvent("nav-jump", { detail: id }));
     // @ts-expect-error - Lenis handle stashed by Base.astro
     const lenis = window.__lenis;
     if (lenis) lenis.scrollTo(el, { offset: -64 });
@@ -179,12 +235,22 @@ const groups = ["Navigate", "Open", "Actions"].map((name) => ({
 
   function run(el: HTMLButtonElement) {
     const { type, target } = el.dataset as { type: string; target: string };
+    if (type === "copy") {
+      // Keep the palette open so the "Copied" confirmation is visible.
+      navigator.clipboard
+        ?.writeText(target)
+        .then(() => announce(`Copied ${target} to clipboard`))
+        .catch(() => announce("Couldn't copy to clipboard"));
+      return;
+    }
     close();
     if (type === "scroll") setTimeout(() => scrollToId(target), 80);
     else if (type === "nav") location.href = target;
-    else if (type === "external") window.open(target, "_blank");
+    // noopener/noreferrer prevents the opened tab from reaching back via
+    // window.opener (reverse tabnabbing).
+    else if (type === "external")
+      window.open(target, "_blank", "noopener,noreferrer");
     else if (type === "mailto") location.href = `mailto:${target}`;
-    else if (type === "copy") navigator.clipboard?.writeText(target);
   }
 
   // ── Wiring ──
@@ -212,6 +278,25 @@ const groups = ["Navigate", "Open", "Actions"].map((name) => ({
     if (!root.classList.contains("is-open")) return;
     if (e.key === "Escape") {
       close();
+    } else if (e.key === "Tab") {
+      // Trap focus inside the dialog while it's open.
+      const focusable = dialog.querySelectorAll<HTMLElement>(
+        'input, button, [href], [tabindex]:not([tabindex="-1"])',
+      );
+      const visible = Array.from(focusable).filter(
+        (el) => !el.classList.contains("hidden") && el.offsetParent !== null,
+      );
+      if (!visible.length) return;
+      const first = visible[0];
+      const last = visible[visible.length - 1];
+      const active = document.activeElement as HTMLElement;
+      if (e.shiftKey && active === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
     } else if (e.key === "ArrowDown") {
       e.preventDefault();
       setSelected(selected + 1);

@@ -10,6 +10,47 @@
 }
 
 @layer base {
+  /* Visually hidden until focused — lets keyboard users jump past the nav
+     straight to the page content (WCAG 2.4.1). */
+  .skip-link {
+    position: fixed;
+    top: 8px;
+    left: 8px;
+    z-index: 60;
+    transform: translateY(-160%);
+    border-radius: 8px;
+    background: #18181b;
+    padding: 8px 14px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: #f5efe6;
+    transition: transform 0.18s ease;
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* Screen-reader-only: present in the a11y tree, invisible on screen. */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* main[tabindex="-1"] is only focusable programmatically (via skip link);
+     never show a focus ring on it. */
+  main:focus {
+    outline: none;
+  }
+
   html {
     /* Height of the sticky nav so anchored sections aren't hidden behind it.
        Native smooth scroll is left off — Lenis owns programmatic scrolling. */
@@ -43,52 +84,78 @@
   z-index: 50;
 }
 
-/* Reveal-on-scroll: fade + rise as the element enters the viewport. */
+/* Reveal-on-enter: a JS IntersectionObserver adds `.is-in` as each element
+   scrolls into view. Driven by JS (not scroll-timeline `view()`) so Safari and
+   Firefox reveal identically to Chromium — otherwise those browsers fall back to
+   fully static while the time-based hero still animates, which reads as broken.
+   The hidden initial state is gated behind `.js` (set synchronously in <head>),
+   so with JS disabled everything renders in its final, visible state. */
 .reveal {
+  transition:
+    opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js .reveal {
   opacity: 0;
-  transform: translateY(8px);
+  transform: translateY(10px);
+}
+.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
 }
 
-/* Clip-path text unmask (section labels, hero name). */
+/* Section labels: fade + rise (same mechanism as .reveal — a clip-path unmask
+   proved unreliable to transition here, and matching .reveal keeps headings and
+   content revealing identically). */
 .text-reveal {
   display: inline-block;
-  clip-path: inset(0 100% 0 0);
+  transition:
+    opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js .text-reveal {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.js .text-reveal.is-in {
+  opacity: 1;
+  transform: none;
 }
 
 /* Section divider that draws left → right on enter. */
 .divider {
-  transform: scaleX(0);
   transform-origin: 0 50%;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js .divider {
+  transform: scaleX(0);
+}
+.js .divider.is-in {
+  transform: scaleX(1);
 }
 
+/* Accent tick before each section heading; draws in from the left on enter. */
+.section-tick {
+  transform-origin: 0 50%;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js .section-tick {
+  transform: scaleX(0);
+}
+.js .section-tick.is-in {
+  transform: scaleX(1);
+}
+
+/* Scroll-progress bar: still fine to drive with scroll-timeline where present;
+   simply hidden on browsers without it (non-essential chrome). */
 @supports (animation-timeline: scroll()) {
   .scroll-progress {
     animation: sp-grow linear both;
     animation-timeline: scroll(root);
   }
-  .reveal {
-    animation: reveal-in linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 22%;
-  }
-  .text-reveal {
-    animation: text-unmask linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 18%;
-  }
-  .divider {
-    animation: divider-draw linear both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 20%;
-  }
 }
-
-/* No scroll-timeline support → show everything in its final state. */
 @supports not (animation-timeline: scroll()) {
   .scroll-progress { display: none; }
-  .reveal { opacity: 1; transform: none; }
-  .text-reveal { clip-path: none; }
-  .divider { transform: scaleX(1); }
 }
 
 @keyframes sp-grow {
@@ -112,33 +179,49 @@
 .hero-clip {
   display: inline-block;
   clip-path: inset(0 100% 0 0);
-  animation: text-unmask 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  animation: text-unmask 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.02s both;
 }
 .hero-bar {
   transform: scaleX(0);
   transform-origin: 0 50%;
-  animation: divider-draw 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
+  animation: divider-draw 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both;
 }
 .hero-line {
   opacity: 0;
   transform: translateY(8px);
-  animation: reveal-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: calc(0.5s + var(--i, 0) * 0.07s);
+  animation: reveal-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(0.1s + var(--i, 0) * 0.045s);
 }
 
-/* Typewriter caret + magnetic hover (used by Hero.astro's island). */
-.tw-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 0.9em;
-  margin-left: 2px;
-  vertical-align: middle;
-  background: var(--color-accent);
-  animation: tw-blink 1s steps(1) infinite;
+/* Hero subtitle shimmer — a soft wave of emphasis sweeps the title (replaces
+   the typewriter). Base is muted zinc; a darker band travels across via a
+   clipped gradient. Wide background-size leaves a rest gap between passes. */
+.title-shimmer {
+  background: linear-gradient(
+    90deg,
+    #71717a 0%,
+    #71717a 44%,
+    #18181b 50%,
+    #71717a 56%,
+    #71717a 100%
+  );
+  background-size: 250% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: title-shimmer 5s linear infinite;
 }
-@keyframes tw-blink {
-  50% { opacity: 0; }
+@keyframes title-shimmer {
+  0% {
+    background-position: 125% 0;
+  }
+  100% {
+    background-position: -125% 0;
+  }
 }
+
+/* Magnetic hover (used by Hero.astro's island). */
 .magnetic {
   display: inline-block;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -226,13 +309,60 @@
   }
 }
 
+/* ── Foldable list items (Projects) — panel expands via aria-expanded + :has() ─ */
+.fold-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fold-item:has(.fold-toggle[aria-expanded="true"]) .fold-panel {
+  grid-template-rows: 1fr;
+}
+.fold-panel-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+.fold-chevron {
+  display: inline-block;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fold-toggle[aria-expanded="true"] .fold-chevron {
+  transform: rotate(90deg);
+}
+/* One-line description preview when collapsed; full text when expanded. */
+.fold-preview {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  overflow: hidden;
+}
+.fold-item:has(.fold-toggle[aria-expanded="true"]) .fold-preview {
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
+}
+
 /* ── Reduced motion: kill all entrance motion, show final state ───────────── */
 @media (prefers-reduced-motion: reduce) {
   .scroll-progress { display: none; }
-  .reveal { opacity: 1; transform: none; animation: none; }
+  .fold-panel,
+  .fold-chevron { transition: none; }
+  .reveal,
+  .js .reveal,
   .text-reveal,
+  .js .text-reveal { opacity: 1; transform: none; animation: none; transition: none; }
   .hero-clip { clip-path: none; animation: none; }
   .divider,
-  .hero-bar { transform: scaleX(1); animation: none; }
+  .js .divider,
+  .hero-bar,
+  .section-tick,
+  .js .section-tick { transform: scaleX(1); animation: none; transition: none; }
   .hero-line { opacity: 1; transform: none; animation: none; }
+  .title-shimmer {
+    animation: none;
+    background: none;
+    color: #71717a;
+    -webkit-text-fill-color: #71717a;
+  }
 }
